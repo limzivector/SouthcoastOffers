@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>South Coast Offers | Sell Your House Fast for Cash</title>
+<meta name="description" content="South Coast Offers buys houses for cash. Get a fair, no-obligation cash offer in 24 hours. No repairs, no fees, no commissions. Close on your timeline." />
+<style>
+  :root{
+    --navy:#0f2a4a; --navy-dark:#0a1f38; --blue:#1d6fe0; --blue-dark:#1559bf;
+    --green:#1f9d55; --green-dark:#177a42; --bg:#f5f8fc; --text:#1b2a3a;
+    --muted:#5a6b7d; --line:#e2e9f1; --white:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.6}
+  a{color:inherit;text-decoration:none}
+  .container{max-width:1140px;margin:0 auto;padding:0 20px}
+  .btn{display:inline-block;border:none;border-radius:8px;font-weight:700;cursor:pointer;padding:14px 28px;font-size:1rem;transition:transform .15s ease,box-shadow .15s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-green{background:var(--green);color:#fff;box-shadow:0 6px 16px rgba(31,157,85,.3)}
+  .btn-green:hover{background:var(--green-dark)}
+  .btn-blue{background:var(--blue);color:#fff;box-shadow:0 6px 16px rgba(29,111,224,.3)}
+  .btn-blue:hover{background:var(--blue-dark)}
+  .btn-block{display:block;width:100%;text-align:center}
+
+  /* Header */
+  header{background:var(--white);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;color:var(--navy)}
+  .logo .mark{width:36px;height:36px;background:linear-gradient(135deg,var(--blue),var(--navy));border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{color:var(--muted);font-weight:600;font-size:.95rem}
+  .nav-links a:hover{color:var(--navy)}
+  .nav-phone{font-weight:800;color:var(--navy);font-size:1.05rem}
+  @media(max-width:860px){.nav-links{display:none}}
+
+  /* Hero */
+  .hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 100%);color:#fff;padding:70px 0 80px}
+  .hero-grid{display:grid;grid-template-columns:1fr 420px;gap:48px;align-items:center}
+  .hero h1{font-size:2.8rem;line-height:1.15;font-weight:800;margin-bottom:18px}
+  .hero h1 span{color:#5fb0ff}
+  .hero p.sub{font-size:1.2rem;color:#c8d6e6;margin-bottom:26px}
+  .hero ul.checks{list-style:none;margin-bottom:30px}
+  .hero ul.checks li{padding:6px 0 6px 32px;position:relative;color:#e5edf6;font-weight:500}
+  .hero ul.checks li::before{content:"\2714";position:absolute;left:0;color:#4ad07d;font-weight:700}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr}.hero h1{font-size:2.1rem}}
+
+  /* Lead form card */
+  .lead-card{background:#fff;color:var(--text);border-radius:14px;padding:30px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+  .lead-card h3{font-size:1.4rem;color:var(--navy);margin-bottom:4px}
+  .lead-card p.small{color:var(--muted);font-size:.9rem;margin-bottom:18px}
+  .lead-card label{display:block;font-size:.82rem;font-weight:700;color:var(--navy);margin:12px 0 4px}
+  .lead-card input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px;font-size:1rem;font-family:inherit}
+  .lead-card input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(29,111,224,.15)}
+  .lead-card .form-note{font-size:.78rem;color:var(--muted);margin-top:14px;text-align:center}
+  .success{display:none;text-align:center;padding:20px 0}
+  .success .big{font-size:3rem;line-height:1}
+  .success h3{color:var(--green);margin:10px 0}
+
+  /* Sections */
+  section.block{padding:72px 0}
+  .section-head{text-align:center;max-width:680px;margin:0 auto 48px}
+  .section-head .eyebrow{color:var(--blue);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.85rem;margin-bottom:10px}
+  .section-head h2{font-size:2.1rem;color:var(--navy);font-weight:800;margin-bottom:12px}
+  .section-head p{color:var(--muted);font-size:1.08rem}
+
+  /* Steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px 26px;text-align:center}
+  .step .num{width:52px;height:52px;margin:0 auto 16px;border-radius:50%;background:var(--blue);color:#fff;font-weight:800;font-size:1.4rem;display:flex;align-items:center;justify-content:center}
+  .step h4{color:var(--navy);font-size:1.2rem;margin-bottom:8px}
+  .step p{color:var(--muted);font-size:.97rem}
+  @media(max-width:860px){.steps{grid-template-columns:1fr}}
+
+  /* Benefits */
+  .benefits-wrap{background:var(--white)}
+  .benefits{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+  .benefit{display:flex;gap:16px;align-items:flex-start;padding:20px;border-radius:12px;background:var(--bg)}
+  .benefit .ico{flex:0 0 46px;width:46px;height:46px;border-radius:10px;background:rgba(31,157,85,.12);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+  .benefit h4{color:var(--navy);margin-bottom:4px}
+  .benefit p{color:var(--muted);font-size:.95rem}
+  @media(max-width:860px){.benefits{grid-template-columns:1fr}}
+
+  /* Compare */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:760px;margin:0 auto;border-radius:14px;overflow:hidden;box-shadow:0 10px 30px rgba(15,42,74,.1)}
+  .compare .col{padding:30px}
+  .compare .col.us{background:var(--green);color:#fff}
+  .compare .col.them{background:#fff;border:1px solid var(--line)}
+  .compare h4{font-size:1.2rem;margin-bottom:16px}
+  .compare ul{list-style:none}
+  .compare li{padding:8px 0;font-size:.96rem;border-bottom:1px solid rgba(255,255,255,.18)}
+  .compare .them li{border-bottom:1px solid var(--line);color:var(--muted)}
+  @media(max-width:680px){.compare{grid-template-columns:1fr}}
+
+  /* Testimonials */
+  .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .quote{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px}
+  .quote .stars{color:#f5a623;font-size:1.1rem;margin-bottom:10px}
+  .quote p{font-style:italic;color:var(--text);margin-bottom:16px}
+  .quote .who{display:flex;align-items:center;gap:12px}
+  .quote .av{width:42px;height:42px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .quote .who strong{display:block;color:var(--navy)}
+  .quote .who span{font-size:.85rem;color:var(--muted)}
+  @media(max-width:860px){.testimonials{grid-template-columns:1fr}}
+
+  /* FAQ */
+  .faq{max-width:760px;margin:0 auto}
+  .faq details{background:#fff;border:1px solid var(--line);border-radius:10px;margin-bottom:12px;padding:0 20px}
+  .faq summary{cursor:pointer;font-weight:700;color:var(--navy);padding:18px 0;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";font-size:1.4rem;color:var(--blue)}
+  .faq details[open] summary::after{content:"\2212"}
+  .faq p{color:var(--muted);padding:0 0 18px}
+
+  /* CTA band */
+  .cta-band{background:linear-gradient(135deg,var(--blue),var(--navy));color:#fff;text-align:center;padding:64px 0}
+  .cta-band h2{font-size:2rem;font-weight:800;margin-bottom:12px}
+  .cta-band p{color:#d4e2f3;margin-bottom:26px;font-size:1.1rem}
+
+  /* Footer */
+  footer{background:var(--navy-dark);color:#aebfd2;padding:48px 0 28px;font-size:.92rem}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px;margin-bottom:32px}
+  footer h5{color:#fff;margin-bottom:12px;font-size:1rem}
+  footer a{display:block;color:#aebfd2;padding:4px 0}
+  footer a:hover{color:#fff}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:20px;text-align:center;font-size:.85rem;color:#7f93ab}
+  @media(max-width:860px){.foot-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="logo"><span class="mark">SC</span> South Coast Offers</div>
+    <nav class="nav-links">
+      <a href="#how">How It Works</a>
+      <a href="#why">Why Us</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#faq">FAQ</a>
+      <a class="nav-phone" href="tel:5551234567">(555) 123-4567</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <h1>Sell Your House <span>Fast for Cash</span> &mdash; No Repairs, No Fees</h1>
+      <p class="sub">Get a fair, no-obligation cash offer in 24 hours and close on the date you choose. We buy houses in any condition.</p>
+      <ul class="checks">
+        <li>No repairs or cleaning &mdash; we buy as-is</li>
+        <li>Zero agent commissions or hidden fees</li>
+        <li>Close in as little as 7 days, or on your timeline</li>
+        <li>Fair cash offers with no obligation</li>
+      </ul>
+      <a href="#offer" class="btn btn-green">Get My Cash Offer</a>
+    </div>
+
+    <div class="lead-card" id="offer">
+      <form id="leadForm">
+        <h3>Get Your Free Cash Offer</h3>
+        <p class="small">Fill out the form &mdash; no obligation, no pressure.</p>
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+        <label for="address">Property Address</label>
+        <input type="text" id="address" name="address" placeholder="123 Coastal Ave, City, ST" required />
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required />
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="jane@email.com" required />
+        <button type="submit" class="btn btn-green btn-block" style="margin-top:20px">Get My Cash Offer &rarr;</button>
+        <p class="form-note">By submitting, you agree to be contacted about your property. We respect your privacy.</p>
+      </form>
+      <div class="success" id="successMsg">
+        <div class="big">&#9989;</div>
+        <h3>Thank You!</h3>
+        <p>We&rsquo;ve received your request. A member of our team will reach out within 24 hours with your no-obligation cash offer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="how">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Simple Process</div>
+      <h2>How It Works</h2>
+      <p>Selling your home shouldn&rsquo;t be complicated. We&rsquo;ve made it as easy as three steps.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h4>Tell Us About It</h4><p>Share a few details about your property using the form or a quick phone call.</p></div>
+      <div class="step"><div class="num">2</div><h4>Get Your Offer</h4><p>We review your home and present a fair, no-obligation cash offer within 24 hours.</p></div>
+      <div class="step"><div class="num">3</div><h4>Close &amp; Get Paid</h4><p>Pick your closing date. We handle the paperwork and you get cash in hand.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block benefits-wrap" id="why">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">The Difference</div>
+      <h2>Why Sell to South Coast Offers</h2>
+      <p>A faster, simpler, stress-free way to sell &mdash; without the headaches of the traditional market.</p>
+    </div>
+    <div class="benefits">
+      <div class="benefit"><div class="ico">&#36;</div><div><h4>No Hidden Fees</h4><p>No commissions, no closing costs, no surprise charges. The offer you get is the cash you keep.</p></div></div>
+      <div class="benefit"><div class="ico">&#128296;</div><div><h4>Sell As-Is</h4><p>Skip the repairs, staging, and cleaning. We buy houses in any condition, however they look.</p></div></div>
+      <div class="benefit"><div class="ico">&#9889;</div><div><h4>Fast Closings</h4><p>Need to move quickly? We can close in as little as 7 days or whenever works for you.</p></div></div>
+      <div class="benefit"><div class="ico">&#129309;</div><div><h4>Local &amp; Trusted</h4><p>We&rsquo;re a local team that treats every homeowner with honesty and respect.</p></div></div>
+    </div>
+    <div style="margin-top:48px">
+      <div class="compare">
+        <div class="col us">
+          <h4>Selling to Us</h4>
+          <ul>
+            <li>Cash offer in 24 hours</li>
+            <li>Close in as little as 7 days</li>
+            <li>$0 in fees or commissions</li>
+            <li>No repairs needed</li>
+            <li>No showings or open houses</li>
+          </ul>
+        </div>
+        <div class="col them">
+          <h4 style="color:var(--navy)">Traditional Sale</h4>
+          <ul class="them">
+            <li>Weeks to find a buyer</li>
+            <li>60&ndash;90+ days to close</li>
+            <li>6% agent commissions + fees</li>
+            <li>Costly repairs expected</li>
+            <li>Endless showings</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="reviews">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Testimonials</div>
+      <h2>What Homeowners Say</h2>
+      <p>Real stories from sellers we&rsquo;ve helped. (Placeholder reviews &mdash; replace with your own.)</p>
+    </div>
+    <div class="testimonials">
+      <div class="quote"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>&ldquo;They made selling my late mother&rsquo;s home painless. Fair offer and we closed in under two weeks.&rdquo;</p><div class="who"><div class="av">MR</div><div><strong>Maria R.</strong><span>Sold in 11 days</span></div></div></div>
+      <div class="quote"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>&ldquo;No repairs, no agents, no stress. Exactly what they promised. Highly recommend.&rdquo;</p><div class="who"><div class="av">JT</div><div><strong>James T.</strong><span>Sold as-is</span></div></div></div>
+      <div class="quote"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>&ldquo;I needed to relocate fast. They gave me a cash offer the next day and let me pick the closing date.&rdquo;</p><div class="who"><div class="av">DL</div><div><strong>Denise L.</strong><span>Closed in 9 days</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="faq" style="background:var(--white)">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Questions</div>
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div class="faq">
+      <details open><summary>How fast can I get a cash offer?</summary><p>In most cases we&rsquo;ll present a fair, no-obligation cash offer within 24 hours of receiving your property details.</p></details>
+      <details><summary>Do I need to make any repairs?</summary><p>No. We buy houses completely as-is. You don&rsquo;t need to clean, repair, or renovate anything.</p></details>
+      <details><summary>Are there any fees or commissions?</summary><p>None. There are no agent commissions, no closing costs, and no hidden fees. The cash offer is what you receive.</p></details>
+      <details><summary>How is my offer calculated?</summary><p>We base it on your home&rsquo;s location, condition, and recent comparable sales in your area &mdash; then make a fair cash offer.</p></details>
+      <details><summary>How soon can we close?</summary><p>As quickly as 7 days, or on whatever timeline works best for you. You choose the closing date.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container">
+    <h2>Ready for Your No-Obligation Cash Offer?</h2>
+    <p>Call us today or request your free offer online. There&rsquo;s no pressure and no commitment.</p>
+    <a href="#offer" class="btn btn-green" style="margin-right:10px">Get My Cash Offer</a>
+    <a href="tel:5551234567" class="btn" style="background:#fff;color:var(--navy)">Call (555) 123-4567</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">SC</span> South Coast Offers</div>
+        <p style="max-width:340px">We buy houses for cash in any condition. Fair offers, fast closings, and a simple, stress-free process for homeowners.</p>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="#how">How It Works</a>
+        <a href="#why">Why Us</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <a href="tel:5551234567">(555) 123-4567</a>
+        <a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      &copy; 2026 South Coast Offers. All rights reserved. This is a marketing website; offers are subject to property evaluation.
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('leadForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('leadForm').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+    document.getElementById('successMsg').scrollIntoView({behavior:'smooth', block:'center'});
+  });
+</script>
+
+</body>
+</html>
