@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Homes for Sale in Orange County &amp; LA | South Coast Offers</title>
+<meta name="description" content="Browse homes for sale across Orange County and Los Angeles. Filter by price, beds, and type, save your favorites, and book a self-guided tour on your schedule." />
+<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+
+<header class="site">
+  <div class="container nav">
+    <a class="logo" href="/"><span class="mark">SC</span> South Coast Offers</a>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <nav class="nav-links">
+      <a href="/buy">Buy</a>
+      <a href="/sell">Sell</a>
+      <a href="/home-value">Home Value</a>
+      <a href="/calculators">Calculators</a>
+      <a href="/guides">Guides</a>
+      <a class="nav-cta" href="/sell">Get My Offer</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="container">
+    <h1>Homes for sale</h1>
+    <p>Browse listings across Orange County and Los Angeles. Tour on your schedule, buy when you&rsquo;re ready.</p>
+  </div>
+</div>
+
+<section class="section tight">
+  <div class="container">
+    <div class="filters">
+      <div class="field search"><label for="fSearch">Search</label><input type="text" id="fSearch" placeholder="City or street" /></div>
+      <div class="field"><label for="fPrice">Max price</label>
+        <select id="fPrice">
+          <option value="">Any</option>
+          <option value="800000">$800K</option>
+          <option value="1000000">$1.0M</option>
+          <option value="1250000">$1.25M</option>
+          <option value="1500000">$1.5M</option>
+          <option value="2000000">$2.0M</option>
+          <option value="3000000">$3.0M</option>
+        </select>
+      </div>
+      <div class="field"><label for="fBeds">Beds</label>
+        <select id="fBeds"><option value="">Any</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select>
+      </div>
+      <div class="field"><label for="fBaths">Baths</label>
+        <select id="fBaths"><option value="">Any</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option></select>
+      </div>
+      <div class="field"><label for="fType">Type</label>
+        <select id="fType"><option value="">Any</option><option>Single-Family</option><option>Condo</option><option>Townhome</option></select>
+      </div>
+      <div class="field"><label for="fSort">Sort</label>
+        <select id="fSort">
+          <option value="new">Newest</option>
+          <option value="ple">Price: Low to High</option>
+          <option value="phe">Price: High to Low</option>
+          <option value="sqft">Square footage</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="results-bar">
+      <div class="count" id="count">&nbsp;</div>
+      <button class="btn btn-ghost btn-sm" id="savedToggle">&#9825; Saved homes</button>
+    </div>
+
+    <div class="listing-grid" id="grid"></div>
+    <div class="empty hidden" id="empty">
+      <div class="big">&#127968;</div>
+      <h3>No homes match your filters</h3>
+      <p>Try widening your search or clearing a filter.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container">
+    <h2>Thinking of selling instead?</h2>
+    <p>Get a competitive cash offer on your current home and line up your next move.</p>
+    <a href="/sell" class="btn btn-ink">Get My Offer</a>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">SC</span> South Coast Offers</div>
+        <p style="max-width:330px;color:#9fb2c8">A simpler way to sell &mdash; or buy &mdash; your home in Orange County and Los Angeles. Fair cash offers, flexible closings, no hassle.</p>
+      </div>
+      <div><h5>Sell</h5><a href="/sell">Get a cash offer</a><a href="/home-value">Home value estimator</a><a href="/calculators">Net proceeds calculator</a><a href="/sell#how">How selling works</a></div>
+      <div><h5>Buy</h5><a href="/buy">Browse homes</a><a href="/calculators">Mortgage calculator</a><a href="/guides">Buying guides</a></div>
+      <div><h5>Contact</h5><a href="tel:5551234567">(555) 123-4567</a><a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a><a href="/guides">Resources</a></div>
+    </div>
+    <div class="foot-bottom">
+      &copy; <span data-year>2026</span> South Coast Offers. All rights reserved.<br/>
+      South Coast Offers is an independent home-buying service and is not affiliated with, endorsed by, or sponsored by Opendoor or any other company. Listings shown are sample data for demonstration only.
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+<script src="/assets/data.js"></script>
+<script>
+(function () {
+  var SCO = window.SCO;
+  var ALL = window.SCO_LISTINGS || [];
+  var savedOnly = false;
+
+  function monthly(price){
+    var P = price * 0.8, r = 6.5/100/12, n = 360;
+    return P * r / (1 - Math.pow(1+r, -n));
+  }
+  function $(id){ return document.getElementById(id); }
+
+  function card(l){
+    var fav = SCO.isFav(l.id);
+    return '' +
+    '<div class="listing" data-id="'+l.id+'">' +
+      '<div class="photo" style="background-image:'+l.photo+'">' +
+        '<span class="badge badge-green badge-od">For sale</span>' +
+        '<button class="fav" data-fav="'+l.id+'" aria-label="Save">'+(fav?'&#10084;':'&#9825;')+'</button>' +
+        '<span class="price">'+SCO.money(l.price)+'</span>' +
+      '</div>' +
+      '<div class="body">' +
+        '<div class="facts"><span>'+l.beds+' bd</span><span>'+l.baths+' ba</span><span>'+l.sqft.toLocaleString()+' sqft</span></div>' +
+        '<div class="addr">'+l.street+'</div>' +
+        '<div class="city">'+l.city+', CA '+l.zip+' &middot; '+l.type+'</div>' +
+        '<div class="mo">Est. <b>'+SCO.money(monthly(l.price))+'/mo</b></div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function render(){
+    var q = $('fSearch').value.trim().toLowerCase();
+    var maxP = parseInt($('fPrice').value || '0', 10);
+    var minBeds = parseInt($('fBeds').value || '0', 10);
+    var minBaths = parseInt($('fBaths').value || '0', 10);
+    var type = $('fType').value;
+    var sort = $('fSort').value;
+
+    var list = ALL.filter(function(l){
+      if (savedOnly && !SCO.isFav(l.id)) return false;
+      if (q && (l.city + ' ' + l.street + ' ' + l.zip).toLowerCase().indexOf(q) < 0) return false;
+      if (maxP && l.price > maxP) return false;
+      if (minBeds && l.beds < minBeds) return false;
+      if (minBaths && l.baths < minBaths) return false;
+      if (type && l.type !== type) return false;
+      return true;
+    });
+
+    list.sort(function(a,b){
+      if (sort === 'ple') return a.price - b.price;
+      if (sort === 'phe') return b.price - a.price;
+      if (sort === 'sqft') return b.sqft - a.sqft;
+      return a.daysOnMarket - b.daysOnMarket; // newest
+    });
+
+    $('grid').innerHTML = list.map(card).join('');
+    $('count').textContent = list.length + (list.length === 1 ? ' home' : ' homes') + (savedOnly ? ' saved' : ' for sale');
+    $('empty').classList.toggle('hidden', list.length > 0);
+  }
+
+  // events
+  ['fSearch','fPrice','fBeds','fBaths','fType','fSort'].forEach(function(id){
+    var el = $(id);
+    el.addEventListener('input', render);
+    el.addEventListener('change', render);
+  });
+
+  $('grid').addEventListener('click', function(e){
+    var favBtn = e.target.closest('[data-fav]');
+    if (favBtn){
+      e.stopPropagation();
+      var id = favBtn.getAttribute('data-fav');
+      var now = SCO.toggleFav(id);
+      favBtn.innerHTML = now ? '&#10084;' : '&#9825;';
+      SCO.toast(now ? 'Saved to your favorites' : 'Removed from favorites');
+      if (savedOnly) render();
+      return;
+    }
+    var cardEl = e.target.closest('.listing');
+    if (cardEl) window.location.href = '/property?id=' + encodeURIComponent(cardEl.getAttribute('data-id'));
+  });
+
+  $('savedToggle').addEventListener('click', function(){
+    savedOnly = !savedOnly;
+    this.classList.toggle('btn-ink', savedOnly);
+    this.classList.toggle('btn-ghost', !savedOnly);
+    this.innerHTML = (savedOnly ? '&#10084; Saved homes' : '&#9825; Saved homes');
+    render();
+  });
+
+  // preset filters from query (?city=, ?type=)
+  (function(){
+    var p = new URLSearchParams(location.search);
+    if (p.get('city')) $('fSearch').value = p.get('city');
+    if (p.get('type')) $('fType').value = p.get('type');
+  })();
+
+  render();
+})();
+</script>
+
+</body>
+</html>

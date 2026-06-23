@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Home Details | South Coast Offers</title>
+<meta name="description" content="View home details, disclosures, and an instant monthly payment estimate. Schedule a self-guided tour on your schedule." />
+<link rel="preconnect" href="https://wkpqpoqvcycgiyhrecvp.supabase.co" />
+<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+
+<header class="site">
+  <div class="container nav">
+    <a class="logo" href="/"><span class="mark">SC</span> South Coast Offers</a>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <nav class="nav-links">
+      <a href="/buy">Buy</a>
+      <a href="/sell">Sell</a>
+      <a href="/home-value">Home Value</a>
+      <a href="/calculators">Calculators</a>
+      <a href="/guides">Guides</a>
+      <a class="nav-cta" href="/sell">Get My Offer</a>
+    </nav>
+  </div>
+</header>
+
+<div class="container" id="app" style="padding:26px 20px 60px"></div>
+
+<!-- Tour booking modal -->
+<div class="modal-overlay" id="tourModal">
+  <div class="modal">
+    <button class="close" id="tourClose" aria-label="Close">&times;</button>
+    <div id="tourForm">
+      <h3>Schedule a self-guided tour</h3>
+      <p class="small" style="color:var(--muted);margin-bottom:14px">Tour on your own schedule, 7 days a week. Pick a day and time and we&rsquo;ll send check-in details.</p>
+      <label style="display:block;font-size:.82rem;font-weight:700;color:var(--ink);margin-bottom:5px">Choose a day</label>
+      <div class="slot-grid" id="dayGrid"></div>
+      <label style="display:block;font-size:.82rem;font-weight:700;color:var(--ink);margin:12px 0 5px">Choose a time</label>
+      <div class="slot-grid" id="timeGrid"></div>
+      <div class="field" style="margin-top:12px"><label for="tName">Full Name</label><input type="text" id="tName" placeholder="Jane Smith" /></div>
+      <div class="grid2">
+        <div class="field"><label for="tPhone">Phone</label><input type="tel" id="tPhone" placeholder="(555) 123-4567" /></div>
+        <div class="field"><label for="tEmail">Email</label><input type="email" id="tEmail" placeholder="jane@email.com" /></div>
+      </div>
+      <div class="err" id="tErr">Please pick a day, a time, and enter your name, phone, and email.</div>
+      <button class="btn btn-accent btn-block" id="tConfirm">Confirm Tour</button>
+    </div>
+    <div id="tourDone" class="outside hidden">
+      <div class="big">&#9989;</div>
+      <h3>Tour requested!</h3>
+      <p class="small" id="tourDoneMsg" style="color:var(--muted)"></p>
+      <button class="btn btn-ink btn-block" id="tourDoneClose" style="margin-top:12px">Done</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">SC</span> South Coast Offers</div>
+        <p style="max-width:330px;color:#9fb2c8">A simpler way to sell &mdash; or buy &mdash; your home in Orange County and Los Angeles. Fair cash offers, flexible closings, no hassle.</p>
+      </div>
+      <div><h5>Sell</h5><a href="/sell">Get a cash offer</a><a href="/home-value">Home value estimator</a><a href="/calculators">Net proceeds calculator</a><a href="/sell#how">How selling works</a></div>
+      <div><h5>Buy</h5><a href="/buy">Browse homes</a><a href="/calculators">Mortgage calculator</a><a href="/guides">Buying guides</a></div>
+      <div><h5>Contact</h5><a href="tel:5551234567">(555) 123-4567</a><a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a><a href="/guides">Resources</a></div>
+    </div>
+    <div class="foot-bottom">
+      &copy; <span data-year>2026</span> South Coast Offers. All rights reserved.<br/>
+      South Coast Offers is an independent home-buying service and is not affiliated with, endorsed by, or sponsored by Opendoor or any other company. Listing details shown are sample data for demonstration only.
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+<script src="/assets/data.js"></script>
+<script>
+(function () {
+  var SCO = window.SCO;
+  var ALL = window.SCO_LISTINGS || [];
+  var id = new URLSearchParams(location.search).get('id');
+  var L = ALL.filter(function(x){ return x.id === id; })[0];
+  var app = document.getElementById('app');
+
+  if (!L) {
+    app.innerHTML = '<div class="empty"><div class="big">&#128269;</div><h3>We couldn&rsquo;t find that home</h3>' +
+      '<p>The listing may have sold or the link is incorrect.</p>' +
+      '<a class="btn btn-accent" style="margin-top:14px" href="/buy">Browse all homes</a></div>';
+    return;
+  }
+
+  document.title = L.street + ', ' + L.city + ' | South Coast Offers';
+  var psf = Math.round(L.price / L.sqft);
+  var galLabels = ['Living', 'Kitchen', 'Primary', 'Yard'];
+
+  function specRow(k, v){ return '<div class="spec"><span>'+k+'</span><b>'+v+'</b></div>'; }
+  function feat(f){ return '<li>&#10003; '+f+'</li>'; }
+  function disc(d){ return '<li>'+d+' <a href="#" data-doc="1">Provided on request</a></li>'; }
+
+  app.innerHTML = '' +
+    '<div class="breadcrumb"><a href="/buy">&larr; All homes</a> &nbsp;/&nbsp; '+L.city+', CA</div>' +
+    '<div class="gallery">' +
+      '<div class="g main" style="background-image:'+L.photo+'"></div>' +
+      galLabels.map(function(lb){
+        return '<div class="g" style="background-image:'+L.photo+';position:relative">' +
+          '<span style="position:absolute;left:8px;bottom:8px;background:rgba(11,31,58,.7);color:#fff;font-size:.74rem;font-weight:700;padding:3px 8px;border-radius:6px">'+lb+'</span></div>';
+      }).join('') +
+    '</div>' +
+
+    '<div class="detail-grid">' +
+      '<div>' +
+        '<div class="detail-price">'+SCO.money(L.price)+'</div>' +
+        '<div class="detail-facts">' +
+          '<span>'+L.beds+'<small>Beds</small></span>' +
+          '<span>'+L.baths+'<small>Baths</small></span>' +
+          '<span>'+L.sqft.toLocaleString()+'<small>Sq Ft</small></span>' +
+          '<span>'+SCO.money(psf).replace('$','$')+'<small>Per Sq Ft</small></span>' +
+        '</div>' +
+        '<div class="pill-row" style="margin-bottom:18px"><span class="badge badge-green">For sale</span><span class="badge badge-blue">'+L.type+'</span><span class="badge badge-accent">'+L.daysOnMarket+' days on market</span></div>' +
+        '<p style="color:var(--text);margin-bottom:18px">'+L.desc+'</p>' +
+
+        '<h3 style="color:var(--ink);margin:6px 0 10px">Home highlights</h3>' +
+        '<ul style="list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;color:var(--text);margin-bottom:18px">'+L.features.map(feat).join('')+'</ul>' +
+
+        '<h3 style="color:var(--ink);margin:6px 0 10px">Property details</h3>' +
+        '<div class="spec-grid">' +
+          specRow('Property type', L.type) +
+          specRow('Year built', L.year) +
+          specRow('Square footage', L.sqft.toLocaleString()) +
+          specRow('Lot size', L.lotSqft ? L.lotSqft.toLocaleString()+' sqft' : 'Attached / shared') +
+          specRow('Price / sq ft', SCO.money(psf)) +
+          specRow('HOA dues', L.hoa ? SCO.money(L.hoa)+'/mo' : 'None') +
+        '</div>' +
+
+        '<h3 style="color:var(--ink);margin:18px 0 8px">Disclosures &amp; reports</h3>' +
+        '<ul class="disclosure-list">'+L.disclosures.map(disc).join('')+'</ul>' +
+      '</div>' +
+
+      '<div>' +
+        '<div class="sidebar-card">' +
+          '<div style="font-weight:800;color:var(--ink);font-size:1.1rem;margin-bottom:2px">Estimated monthly payment</div>' +
+          '<div id="moTotal" style="font-size:2rem;font-weight:800;color:var(--green);margin-bottom:12px">$&mdash;</div>' +
+          '<div class="field"><label for="mPrice">Home price</label><input type="text" id="mPrice" inputmode="numeric" value="'+L.price.toLocaleString()+'" /></div>' +
+          '<div class="field"><label>Down payment: <span class="range-val" id="dpLabel">20%</span></label>' +
+            '<input type="range" id="mDown" min="0" max="50" step="1" value="20" /></div>' +
+          '<div class="grid2">' +
+            '<div class="field"><label for="mRate">Rate %</label><input type="text" id="mRate" inputmode="decimal" value="6.5" /></div>' +
+            '<div class="field"><label for="mTerm">Term</label><select id="mTerm"><option value="30">30 yr</option><option value="20">20 yr</option><option value="15">15 yr</option></select></div>' +
+          '</div>' +
+          '<table class="breakdown" id="moBreak" style="font-size:.9rem"></table>' +
+          '<button class="btn btn-accent btn-block" id="tourBtn" style="margin-top:14px">Schedule a Self-Guided Tour</button>' +
+          '<button class="btn btn-ghost btn-block" id="askBtn" style="margin-top:8px">Request More Info</button>' +
+          '<button class="btn btn-ghost btn-block" id="favBtn" style="margin-top:8px"></button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  /* ---- Mortgage estimator ---- */
+  function monthly(P, ratePct, years){
+    var r = ratePct/100/12, n = years*12;
+    if (r === 0) return P/n;
+    return P * r / (1 - Math.pow(1+r, -n));
+  }
+  function calcMo(){
+    var price = parseInt(SCO.digits(document.getElementById('mPrice').value) || '0', 10);
+    var dpPct = parseInt(document.getElementById('mDown').value, 10);
+    var rate = parseFloat(document.getElementById('mRate').value) || 0;
+    var term = parseInt(document.getElementById('mTerm').value, 10);
+    document.getElementById('dpLabel').textContent = dpPct + '%';
+    var loan = price * (1 - dpPct/100);
+    var pi = monthly(loan, rate, term);
+    var tax = price * 0.011 / 12;       // ~1.1%/yr property tax
+    var ins = price * 0.0035 / 12;      // est. homeowners insurance
+    var hoa = L.hoa || 0;
+    var total = pi + tax + ins + hoa;
+    document.getElementById('moTotal').textContent = SCO.money(total) + '/mo';
+    document.getElementById('moBreak').innerHTML =
+      '<tr><td>Principal &amp; interest</td><td>'+SCO.money(pi)+'</td></tr>' +
+      '<tr><td>Property tax (est.)</td><td>'+SCO.money(tax)+'</td></tr>' +
+      '<tr><td>Insurance (est.)</td><td>'+SCO.money(ins)+'</td></tr>' +
+      (hoa ? '<tr><td>HOA dues</td><td>'+SCO.money(hoa)+'</td></tr>' : '') +
+      '<tr><td>Down payment</td><td>'+SCO.money(price*dpPct/100)+'</td></tr>';
+  }
+  ['mPrice','mDown','mRate','mTerm'].forEach(function(idr){
+    var el = document.getElementById(idr);
+    el.addEventListener('input', calcMo);
+    el.addEventListener('change', calcMo);
+  });
+  calcMo();
+
+  /* ---- Favorite button ---- */
+  var favBtn = document.getElementById('favBtn');
+  function syncFav(){ favBtn.innerHTML = SCO.isFav(L.id) ? '&#10084; Saved' : '&#9825; Save this home'; }
+  syncFav();
+  favBtn.addEventListener('click', function(){
+    var now = SCO.toggleFav(L.id); syncFav();
+    SCO.toast(now ? 'Saved to your favorites' : 'Removed from favorites');
+  });
+
+  /* ---- Disclosure links ---- */
+  app.addEventListener('click', function(e){
+    var d = e.target.closest('[data-doc]');
+    if (d){ e.preventDefault(); SCO.toast('Full reports are shared once you schedule a tour.'); }
+  });
+
+  /* ---- Tour modal ---- */
+  var modal = document.getElementById('tourModal');
+  var tour = { day:'', time:'' };
+  function openModal(){ modal.classList.add('open'); }
+  function closeModal(){ modal.classList.remove('open'); }
+  document.getElementById('tourBtn').addEventListener('click', openModal);
+  document.getElementById('askBtn').addEventListener('click', openModal);
+  document.getElementById('tourClose').addEventListener('click', closeModal);
+  document.getElementById('tourDoneClose').addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
+
+  // build day options (next 5 days)
+  var dayGrid = document.getElementById('dayGrid');
+  var now = new Date();
+  var dayHtml = '';
+  for (var i = 1; i <= 5; i++){
+    var d = new Date(now.getTime() + i*86400000);
+    var label = d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
+    dayHtml += '<div class="slot" data-day="'+label+'">'+label.replace(', ', '<br/>')+'</div>';
+  }
+  dayGrid.innerHTML = dayHtml;
+  var timeGrid = document.getElementById('timeGrid');
+  ['9:00 AM','11:00 AM','1:00 PM','3:00 PM','5:00 PM','7:00 PM'].forEach(function(t){
+    timeGrid.innerHTML += '<div class="slot" data-time="'+t+'">'+t+'</div>';
+  });
+  modal.addEventListener('click', function(e){
+    var s = e.target.closest('.slot');
+    if (!s) return;
+    if (s.hasAttribute('data-day')){
+      dayGrid.querySelectorAll('.slot').forEach(function(x){ x.classList.remove('selected'); });
+      s.classList.add('selected'); tour.day = s.getAttribute('data-day');
+    } else if (s.hasAttribute('data-time')){
+      timeGrid.querySelectorAll('.slot').forEach(function(x){ x.classList.remove('selected'); });
+      s.classList.add('selected'); tour.time = s.getAttribute('data-time');
+    }
+  });
+
+  document.getElementById('tConfirm').addEventListener('click', function(){
+    var name = document.getElementById('tName').value.trim();
+    var phone = document.getElementById('tPhone').value.trim();
+    var email = document.getElementById('tEmail').value.trim();
+    var err = document.getElementById('tErr');
+    if (!tour.day || !tour.time || !name || !phone || !SCO.validEmail(email)){ err.classList.add('show'); return; }
+    err.classList.remove('show');
+    SCO.submitLead({
+      type:'tour_request', name:name, phone:phone, email:email,
+      listing_id: L.id, street: L.street, city: L.city, zip: L.zip,
+      tour_date: null, tour_time: tour.time,
+      message: 'Tour for '+L.street+' on '+tour.day+' at '+tour.time,
+      payload: { listing: L.id, day: tour.day, time: tour.time, price: L.price }
+    }).then(function(ok){
+      document.getElementById('tourDoneMsg').textContent = 'Thanks ' + (name.split(' ')[0]||'') +
+        '! Your tour of ' + L.street + ' is requested for ' + tour.day + ' at ' + tour.time +
+        '. We&rsquo;ll text you check-in details and the door code before your visit.';
+      document.getElementById('tourForm').classList.add('hidden');
+      document.getElementById('tourDone').classList.remove('hidden');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

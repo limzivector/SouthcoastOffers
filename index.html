@@ -3,143 +3,24 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>South Coast Offers | Sell Your Home for Cash in Orange County &amp; LA</title>
-<meta name="description" content="South Coast Offers makes selling your home simple. Get a competitive cash offer, skip the showings, and close on your timeline. Serving Orange County and Los Angeles." />
-<style>
-  :root{
-    --ink:#0b1f3a;--ink2:#13294b;--accent:#e85d2a;--accent2:#d24d1e;
-    --blue:#2563eb;--green:#1f9d55;--bg:#ffffff;--soft:#f6f8fb;--soft2:#eef3f9;
-    --text:#1b2a3a;--muted:#5e6f80;--line:#e3e9f0;--radius:14px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.6}
-  a{color:inherit;text-decoration:none}
-  .container{max-width:1140px;margin:0 auto;padding:0 20px}
-  .btn{display:inline-block;border:none;border-radius:10px;font-weight:700;cursor:pointer;padding:15px 30px;font-size:1rem;transition:transform .15s,box-shadow .15s,background .15s;font-family:inherit}
-  .btn:hover{transform:translateY(-2px)}
-  .btn-accent{background:var(--accent);color:#fff;box-shadow:0 8px 20px rgba(232,93,42,.3)}
-  .btn-accent:hover{background:var(--accent2)}
-  .btn-ink{background:var(--ink);color:#fff}
-  .btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
-  .btn-block{display:block;width:100%;text-align:center}
-  .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-
-  header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
-  .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
-  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;color:var(--ink)}
-  .logo .mark{width:38px;height:38px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.05rem;font-weight:800}
-  .nav-links{display:flex;gap:26px;align-items:center}
-  .nav-links a{color:var(--muted);font-weight:600;font-size:.95rem}
-  .nav-links a:hover{color:var(--ink)}
-  .nav-cta{background:var(--ink);color:#fff!important;padding:10px 18px;border-radius:8px}
-  @media(max-width:900px){.nav-links a:not(.nav-cta){display:none}}
-
-  .hero{background:linear-gradient(160deg,#0b1f3a 0%,#13294b 60%,#1b3a6b 100%);color:#fff;padding:64px 0 76px;position:relative;overflow:hidden}
-  .hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:50px;align-items:center}
-  .hero h1{font-size:3rem;line-height:1.1;font-weight:800;margin-bottom:18px;letter-spacing:-.5px}
-  .hero h1 span{color:#ff8a5c}
-  .hero p.sub{font-size:1.18rem;color:#c8d6e6;margin-bottom:26px;max-width:520px}
-  .pill-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
-  .pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:6px 14px;border-radius:999px;font-size:.85rem;font-weight:600;color:#dbe6f3}
-  @media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero h1{font-size:2.2rem}}
-
-  .offer-card{background:#fff;color:var(--text);border-radius:18px;padding:30px;box-shadow:0 24px 60px rgba(0,0,0,.3)}
-  .offer-card .step-indicator{display:flex;gap:6px;margin-bottom:18px}
-  .offer-card .dot{height:5px;flex:1;border-radius:3px;background:var(--line)}
-  .offer-card .dot.active{background:var(--accent)}
-  .offer-card h3{font-size:1.35rem;color:var(--ink);margin-bottom:4px}
-  .offer-card p.small{color:var(--muted);font-size:.92rem;margin-bottom:16px}
-  .field{margin-bottom:14px}
-  .field label{display:block;font-size:.82rem;font-weight:700;color:var(--ink);margin-bottom:5px}
-  .field input,.field select{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:9px;font-size:1rem;font-family:inherit;background:#fff}
-  .field input:focus,.field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(232,93,42,.14)}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .choice-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
-  .choice{border:1.5px solid var(--line);border-radius:10px;padding:13px;text-align:center;cursor:pointer;font-weight:600;font-size:.95rem;transition:.15s;background:#fff}
-  .choice:hover{border-color:var(--accent)}
-  .choice.selected{border-color:var(--accent);background:rgba(232,93,42,.08);color:var(--accent2)}
-  .step{display:none}
-  .step.active{display:block;animation:fade .25s ease}
-  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-  .nav-btns{display:flex;gap:10px;margin-top:18px}
-  .err{color:#d24d1e;font-size:.85rem;margin-top:8px;display:none}
-  .err.show{display:block}
-  .note{font-size:.76rem;color:var(--muted);margin-top:14px;text-align:center}
-  .offer-result{text-align:center;padding:6px 0}
-  .offer-result .range{font-size:2.3rem;font-weight:800;color:var(--green);margin:8px 0}
-  .offer-result .label{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
-  .offer-result .disc{font-size:.78rem;color:var(--muted);background:var(--soft);border-radius:10px;padding:12px;margin:16px 0;text-align:left}
-  .outside{text-align:center;padding:10px 0}
-  .outside .big{font-size:2.6rem}
-  .outside h3{color:var(--ink);margin:8px 0}
-
-  section.block{padding:78px 0}
-  .section-head{text-align:center;max-width:700px;margin:0 auto 50px}
-  .section-head .eyebrow{color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:.09em;font-size:.85rem;margin-bottom:10px}
-  .section-head h2{font-size:2.2rem;color:var(--ink);font-weight:800;margin-bottom:12px;letter-spacing:-.4px}
-  .section-head p{color:var(--muted);font-size:1.08rem}
-
-  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-  .s3{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:34px 26px;text-align:center;box-shadow:0 4px 14px rgba(11,31,58,.04)}
-  .s3 .ic{width:60px;height:60px;margin:0 auto 18px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:1.6rem;display:flex;align-items:center;justify-content:center}
-  .s3 h4{color:var(--ink);font-size:1.2rem;margin-bottom:8px}
-  .s3 p{color:var(--muted);font-size:.97rem}
-  @media(max-width:900px){.steps3{grid-template-columns:1fr}}
-
-  .prod{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-  .pcard{border:1px solid var(--line);border-radius:var(--radius);padding:30px;background:#fff}
-  .pcard .tag{font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin-bottom:10px}
-  .pcard h4{color:var(--ink);font-size:1.25rem;margin-bottom:8px}
-  .pcard p{color:var(--muted);font-size:.96rem}
-  @media(max-width:900px){.prod{grid-template-columns:1fr}}
-
-  .area{background:var(--ink);color:#fff;border-radius:18px;padding:46px;display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
-  .area h3{font-size:1.8rem;margin-bottom:12px}
-  .area p{color:#c8d6e6;margin-bottom:16px}
-  .area .cities{display:flex;flex-wrap:wrap;gap:8px}
-  .area .city{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);padding:7px 13px;border-radius:8px;font-size:.88rem;font-weight:600}
-  @media(max-width:900px){.area{grid-template-columns:1fr;padding:30px}}
-
-  .benefits{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
-  .benefit{display:flex;gap:16px;align-items:flex-start;padding:22px;border-radius:12px;background:var(--soft)}
-  .benefit .ico{flex:0 0 48px;width:48px;height:48px;border-radius:11px;background:rgba(31,157,85,.12);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:1.3rem}
-  .benefit h4{color:var(--ink);margin-bottom:4px}
-  .benefit p{color:var(--muted);font-size:.95rem}
-  @media(max-width:900px){.benefits{grid-template-columns:1fr}}
-
-  .faq{max-width:780px;margin:0 auto}
-  .faq details{background:#fff;border:1px solid var(--line);border-radius:11px;margin-bottom:12px;padding:0 22px}
-  .faq summary{cursor:pointer;font-weight:700;color:var(--ink);padding:19px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
-  .faq summary::-webkit-details-marker{display:none}
-  .faq summary::after{content:"+";font-size:1.5rem;color:var(--accent);font-weight:400}
-  .faq details[open] summary::after{content:"\2212"}
-  .faq p{color:var(--muted);padding:0 0 19px}
-
-  .cta-band{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;text-align:center;padding:66px 0}
-  .cta-band h2{font-size:2.1rem;font-weight:800;margin-bottom:12px}
-  .cta-band p{color:#ffe6db;margin-bottom:26px;font-size:1.12rem}
-
-  footer{background:#0a1a30;color:#9fb2c8;padding:52px 0 28px;font-size:.92rem}
-  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:34px}
-  footer h5{color:#fff;margin-bottom:12px;font-size:1rem}
-  footer a{display:block;color:#9fb2c8;padding:4px 0}
-  footer a:hover{color:#fff}
-  .foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;text-align:center;font-size:.82rem;color:#6f86a0;line-height:1.7}
-  @media(max-width:900px){.foot-grid{grid-template-columns:1fr 1fr}}
-</style>
+<title>South Coast Offers | Sell or Buy Your Home in Orange County &amp; LA</title>
+<meta name="description" content="South Coast Offers makes moving simple. Get a competitive cash offer, skip the showings, browse homes for sale, and close on your timeline. Serving Orange County and Los Angeles." />
+<link rel="preconnect" href="https://wkpqpoqvcycgiyhrecvp.supabase.co" />
+<link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
 
-<header>
+<header class="site">
   <div class="container nav">
-    <div class="logo"><span class="mark">SC</span> South Coast Offers</div>
+    <a class="logo" href="/"><span class="mark">SC</span> South Coast Offers</a>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     <nav class="nav-links">
-      <a href="#how">How It Works</a>
-      <a href="#products">What We Offer</a>
-      <a href="#area">Service Area</a>
-      <a href="#faq">FAQ</a>
-      <a class="nav-cta" href="#offer">Get My Offer</a>
+      <a href="/buy">Buy</a>
+      <a href="/sell">Sell</a>
+      <a href="/home-value">Home Value</a>
+      <a href="/calculators">Calculators</a>
+      <a href="/guides">Guides</a>
+      <a class="nav-cta" href="/sell">Get My Offer</a>
     </nav>
   </div>
 </header>
@@ -147,181 +28,75 @@
 <section class="hero">
   <div class="container hero-grid">
     <div>
-      <div class="pill-row">
-        <span class="pill">Orange County</span>
-        <span class="pill">Los Angeles</span>
-        <span class="pill">Cash Offers</span>
+      <div class="pill-row" style="margin-bottom:8px">
+        <span class="pill dark">Orange County</span>
+        <span class="pill dark">Los Angeles</span>
+        <span class="pill dark">Cash Offers</span>
       </div>
-      <h1>Sell your home the <span>simple</span> way.</h1>
-      <p class="sub">Get a competitive cash offer, skip the showings and repairs, and close on the day that works for you. Now serving Orange County and Los Angeles.</p>
+      <h1>Move the <span>simple</span> way.</h1>
+      <p class="sub">Get a competitive cash offer on your home, skip the showings and repairs, and close on the day that works for you. Looking to buy instead? Browse homes and tour on your schedule.</p>
       <div class="pill-row">
-        <span class="pill">&#10003; No repairs</span>
-        <span class="pill">&#10003; No agent fees</span>
-        <span class="pill">&#10003; Pick your close date</span>
+        <span class="pill dark">&#10003; No repairs</span>
+        <span class="pill dark">&#10003; No agent fees</span>
+        <span class="pill dark">&#10003; Pick your close date</span>
       </div>
     </div>
 
-    <div class="offer-card" id="offer">
-      <div class="step-indicator" id="stepDots">
-        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    <div class="offer-card">
+      <h3>Get your free cash offer</h3>
+      <p class="small">Enter your address to see your preliminary cash range. It only takes about 2 minutes.</p>
+      <div class="field"><label for="hstreet">Street Address</label><input type="text" id="hstreet" placeholder="123 Main St" /></div>
+      <div class="grid2">
+        <div class="field"><label for="hcity">City</label><input type="text" id="hcity" placeholder="Irvine" /></div>
+        <div class="field"><label for="hzip">ZIP Code</label><input type="text" id="hzip" inputmode="numeric" maxlength="5" placeholder="92602" /></div>
       </div>
-
-      <!-- Step 1: Address -->
-      <div class="step active" data-step="1">
-        <h3>Get your free offer</h3>
-        <p class="small">Enter your home address to start. It only takes 2 minutes.</p>
-        <div class="field">
-          <label for="street">Street Address</label>
-          <input type="text" id="street" placeholder="123 Main St" />
-        </div>
-        <div class="grid2">
-          <div class="field">
-            <label for="city">City</label>
-            <input type="text" id="city" placeholder="Irvine" />
-          </div>
-          <div class="field">
-            <label for="zip">ZIP Code</label>
-            <input type="text" id="zip" inputmode="numeric" maxlength="5" placeholder="92602" />
-          </div>
-        </div>
-        <div class="err" id="err1">Please enter your street address and a 5-digit ZIP code.</div>
-        <button class="btn btn-accent btn-block" onclick="checkArea()">Check My Area &rarr;</button>
-        <p class="note">We currently buy homes in Orange County &amp; Los Angeles County only.</p>
-      </div>
-
-      <!-- Outside area -->
-      <div class="step" data-step="out">
-        <div class="outside">
-          <div class="big">&#128205;</div>
-          <h3>We&rsquo;re not in your area yet</h3>
-          <p class="small">Right now South Coast Offers only buys homes in <strong>Orange County</strong> and <strong>Los Angeles County, CA</strong>. We&rsquo;re expanding &mdash; leave your details below and we&rsquo;ll reach out when we launch near you.</p>
-          <div class="field" style="margin-top:14px"><label for="waitEmail">Email Address</label><input type="email" id="waitEmail" placeholder="you@email.com" /></div>
-          <button class="btn btn-ink btn-block" onclick="joinWaitlist()">Notify Me</button>
-          <button class="btn btn-ghost btn-block" style="margin-top:8px" onclick="goStep(1)">&larr; Try another address</button>
-        </div>
-      </div>
-
-      <!-- Step 2: Home basics -->
-      <div class="step" data-step="2">
-        <h3>Tell us about your home</h3>
-        <p class="small">A few quick details so we can estimate a range.</p>
-        <div class="field">
-          <label>Property Type</label>
-          <div class="choice-row">
-            <div class="choice" data-group="ptype" data-val="single" onclick="pick(this)">Single-Family</div>
-            <div class="choice" data-group="ptype" data-val="condo" onclick="pick(this)">Condo / Townhome</div>
-          </div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label for="beds">Bedrooms</label>
-            <select id="beds"><option value="">Select</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select>
-          </div>
-          <div class="field"><label for="baths">Bathrooms</label>
-            <select id="baths"><option value="">Select</option><option>1</option><option>2</option><option>3</option><option>4+</option></select>
-          </div>
-        </div>
-        <div class="field"><label for="sqft">Approx. Square Footage</label><input type="text" id="sqft" inputmode="numeric" placeholder="1,800" /></div>
-        <div class="err" id="err2">Please choose a property type and enter your square footage.</div>
-        <div class="nav-btns">
-          <button class="btn btn-ghost" onclick="goStep(1)">&larr; Back</button>
-          <button class="btn btn-accent btn-block" onclick="validateStep2()">Continue &rarr;</button>
-        </div>
-      </div>
-
-      <!-- Step 3: Condition -->
-      <div class="step" data-step="3">
-        <h3>What&rsquo;s the condition?</h3>
-        <p class="small">Be honest &mdash; we buy homes in any condition.</p>
-        <div class="field">
-          <label>Overall Condition</label>
-          <div class="choice-row">
-            <div class="choice" data-group="cond" data-val="1.05" onclick="pick(this)">Excellent</div>
-            <div class="choice" data-group="cond" data-val="1.0" onclick="pick(this)">Good</div>
-          </div>
-          <div class="choice-row">
-            <div class="choice" data-group="cond" data-val="0.92" onclick="pick(this)">Fair</div>
-            <div class="choice" data-group="cond" data-val="0.82" onclick="pick(this)">Needs Work</div>
-          </div>
-        </div>
-        <div class="field"><label for="timeline">When do you want to sell?</label>
-          <select id="timeline"><option value="">Select</option><option>ASAP</option><option>1&ndash;3 months</option><option>3&ndash;6 months</option><option>Just exploring</option></select>
-        </div>
-        <div class="err" id="err3">Please select your home&rsquo;s condition.</div>
-        <div class="nav-btns">
-          <button class="btn btn-ghost" onclick="goStep(2)">&larr; Back</button>
-          <button class="btn btn-accent btn-block" onclick="validateStep3()">Continue &rarr;</button>
-        </div>
-      </div>
-
-      <!-- Step 4: Contact -->
-      <div class="step" data-step="4">
-        <h3>Where should we send it?</h3>
-        <p class="small">We&rsquo;ll prepare your estimate and a member of our team will follow up.</p>
-        <div class="field"><label for="name">Full Name</label><input type="text" id="name" placeholder="Jane Smith" /></div>
-        <div class="field"><label for="phone">Phone Number</label><input type="tel" id="phone" placeholder="(555) 123-4567" /></div>
-        <div class="field"><label for="email">Email Address</label><input type="email" id="email" placeholder="jane@email.com" /></div>
-        <div class="err" id="err4">Please enter your name, phone, and email.</div>
-        <div class="nav-btns">
-          <button class="btn btn-ghost" onclick="goStep(3)">&larr; Back</button>
-          <button class="btn btn-accent btn-block" onclick="finishFlow()">See My Estimate &rarr;</button>
-        </div>
-        <p class="note">By submitting, you agree to be contacted about your property. We respect your privacy.</p>
-      </div>
-
-      <!-- Step 5: Result -->
-      <div class="step" data-step="5">
-        <div class="offer-result">
-          <div class="label">Your Estimated Cash Range</div>
-          <div class="range" id="rangeOut">$&mdash;</div>
-          <p class="small" id="rangeAddr"></p>
-          <div class="disc">
-            <strong>This is a preliminary estimate, not a binding offer.</strong> It&rsquo;s generated from the details you entered and general assumptions &mdash; not a formal property valuation. Your actual cash offer is determined after we review your home. A team member will reach out within one business day.
-          </div>
-          <a href="tel:5551234567" class="btn btn-accent btn-block">Talk to Us: (555) 123-4567</a>
-          <button class="btn btn-ghost btn-block" style="margin-top:8px" onclick="goStep(1)">Start Over</button>
-        </div>
-      </div>
+      <div class="err" id="herr">Please enter your street address and a 5-digit ZIP code.</div>
+      <button class="btn btn-accent btn-block" id="heroGo">Get My Offer &rarr;</button>
+      <p class="note">Just want an estimate? <a href="/home-value" style="color:var(--accent2);font-weight:700">Try the Home Value tool &rarr;</a></p>
     </div>
   </div>
 </section>
 
-<section class="block" id="how">
+<!-- How it works -->
+<section class="section" id="how">
   <div class="container">
     <div class="section-head">
       <div class="eyebrow">How It Works</div>
       <h2>Selling, simplified into three steps</h2>
       <p>No listings, no open houses, no waiting on buyers. Here&rsquo;s how easy it is.</p>
     </div>
-    <div class="steps3">
+    <div class="grid-3">
       <div class="s3"><div class="ic">&#127968;</div><h4>1. Request your offer</h4><p>Enter your address and a few details about your home. Get a preliminary cash range in minutes.</p></div>
       <div class="s3"><div class="ic">&#128203;</div><h4>2. We review &amp; confirm</h4><p>Our team evaluates your home and confirms a competitive, no-obligation cash offer.</p></div>
-      <div class="s3"><div class="ic">&#128176;</div><h4>3. Close on your date</h4><p>Accept when you&rsquo;re ready and choose your closing day. We handle the rest.</p></div>
+      <div class="s3"><div class="ic">&#128176;</div><h4>3. Close on your date</h4><p>Accept when you&rsquo;re ready and choose your closing day, from two weeks to two months out.</p></div>
     </div>
   </div>
 </section>
 
-<section class="block" id="products" style="background:var(--soft)">
+<!-- Products -->
+<section class="section bg-soft" id="products">
   <div class="container">
     <div class="section-head">
       <div class="eyebrow">What We Offer</div>
       <h2>More than one way to move</h2>
       <p>Flexible options designed around your timeline and your goals.</p>
     </div>
-    <div class="prod">
-      <div class="pcard"><div class="tag">Sell</div><h4>Sell directly to us</h4><p>Get a competitive cash offer and skip the prep, showings, and uncertainty of the open market.</p></div>
-      <div class="pcard"><div class="tag">Flexible Close</div><h4>Close on your timeline</h4><p>Need to move fast or need extra time? Pick a closing date from a few days to a few weeks out.</p></div>
-      <div class="pcard"><div class="tag">Sell + Buy</div><h4>Line up your next move</h4><p>Coordinate the sale of your current home with your next purchase so you&rsquo;re never caught in between.</p></div>
+    <div class="grid-3">
+      <div class="pcard"><div class="tag">Sell</div><h4>Sell directly to us</h4><p>Get a competitive cash offer and skip the prep, showings, and uncertainty of the open market.</p><div class="pcard-foot"><a class="btn btn-ghost btn-sm" href="/sell">Get my offer</a></div></div>
+      <div class="pcard"><div class="tag">Buy</div><h4>Find your next home</h4><p>Browse homes for sale across OC and LA, save favorites, and book a self-guided tour on your schedule.</p><div class="pcard-foot"><a class="btn btn-ghost btn-sm" href="/buy">Browse homes</a></div></div>
+      <div class="pcard"><div class="tag">Sell + Buy</div><h4>Line up your next move</h4><p>Coordinate the sale of your current home with your next purchase so you&rsquo;re never caught in between.</p><div class="pcard-foot"><a class="btn btn-ghost btn-sm" href="/sell">Start with an offer</a></div></div>
     </div>
   </div>
 </section>
 
-<section class="block" id="area">
+<!-- Service area -->
+<section class="section">
   <div class="container">
     <div class="area">
       <div>
         <h3>Now serving Orange County &amp; Los Angeles</h3>
-        <p>We focus exclusively on Southern California&rsquo;s coast so we know these neighborhoods inside and out. Enter your address above to confirm we buy in your area.</p>
-        <a href="#offer" class="btn btn-accent">Check My Address</a>
+        <p>We focus exclusively on Southern California&rsquo;s coast, so we know these neighborhoods inside and out. Enter your address to confirm we buy in your area.</p>
+        <a href="/sell" class="btn btn-accent">Check My Address</a>
       </div>
       <div>
         <div class="cities">
@@ -335,7 +110,8 @@
   </div>
 </section>
 
-<section class="block" style="background:var(--soft)">
+<!-- Benefits -->
+<section class="section bg-soft">
   <div class="container">
     <div class="section-head">
       <div class="eyebrow">Why South Coast Offers</div>
@@ -350,7 +126,42 @@
   </div>
 </section>
 
-<section class="block" id="faq">
+<!-- Reviews -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Reviews</div>
+      <h2>Homeowners love an easier move</h2>
+      <p>Real stories from sellers and buyers across Orange County and Los Angeles.</p>
+    </div>
+    <div class="reviews">
+      <div class="review">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>&ldquo;We needed to relocate fast for a job. South Coast Offers had a cash range to us the same afternoon and we closed in 18 days. No showings, no stress.&rdquo;</p>
+        <div class="who"><div class="av">MR</div><div><b>Maria R.</b><span>Sold in Santa Ana</span></div></div>
+      </div>
+      <div class="review">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>&ldquo;Our house needed a new roof and we didn&rsquo;t want to deal with repairs. They bought it as-is and the offer was fair. The fee breakdown was clear up front.&rdquo;</p>
+        <div class="who"><div class="av">DT</div><div><b>David &amp; Thuy</b><span>Sold in Long Beach</span></div></div>
+      </div>
+      <div class="review">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>&ldquo;I booked a self-guided tour for a Sunday morning and bought the place two weeks later. Being able to see homes on my own schedule was a game changer.&rdquo;</p>
+        <div class="who"><div class="av">JK</div><div><b>Jordan K.</b><span>Bought in Pasadena</span></div></div>
+      </div>
+    </div>
+    <div class="trust-row">
+      <div class="stat"><b>4.8/5</b><span>Average seller rating</span></div>
+      <div class="stat"><b>21 days</b><span>Typical time to close</span></div>
+      <div class="stat"><b>$0</b><span>Listing agent commissions</span></div>
+      <div class="stat"><b>12+</b><span>Cities served</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section bg-soft" id="faq">
   <div class="container">
     <div class="section-head">
       <div class="eyebrow">Questions</div>
@@ -360,135 +171,63 @@
       <details open><summary>How is my cash offer calculated?</summary><p>We consider your home&rsquo;s location, size, condition, and recent comparable sales nearby, then make a competitive cash offer. The figure shown in the form is only a preliminary estimate &mdash; your real offer comes after we review your home.</p></details>
       <details><summary>Which areas do you buy in?</summary><p>We currently purchase homes in Orange County and Los Angeles County, California. Enter your address in the form to instantly check whether we serve your area.</p></details>
       <details><summary>Do I need to make repairs?</summary><p>No. We buy homes completely as-is, so there&rsquo;s no need to clean, repair, or renovate before selling.</p></details>
-      <details><summary>Are there any fees or commissions?</summary><p>There are no agent commissions and no listing fees. We&rsquo;ll walk you through any standard closing costs transparently before you commit.</p></details>
-      <details><summary>How fast can I close?</summary><p>Once you accept, you can often close in as little as a week &mdash; or choose a later date that works better for you.</p></details>
+      <details><summary>Are there any fees or commissions?</summary><p>There are no agent commissions and no listing fees. We charge a transparent service charge that&rsquo;s shown in your offer breakdown, and we&rsquo;ll walk you through any standard closing costs before you commit.</p></details>
+      <details><summary>How fast can I close?</summary><p>Once you accept, you can often close in as little as two weeks &mdash; or choose a later date, up to about two months out, that works better for you.</p></details>
       <details><summary>Is the online estimate a guaranteed offer?</summary><p>No. The online range is an informational estimate based on the details you provide. A formal, no-obligation offer is provided after our team evaluates the property.</p></details>
     </div>
   </div>
 </section>
 
+<!-- CTA -->
 <section class="cta-band">
   <div class="container">
     <h2>Ready to see your offer?</h2>
     <p>Get a preliminary cash range in minutes &mdash; no obligation, no pressure.</p>
-    <a href="#offer" class="btn btn-ink" style="margin-right:10px">Get My Offer</a>
+    <a href="/sell" class="btn btn-ink" style="margin-right:10px">Get My Offer</a>
     <a href="tel:5551234567" class="btn btn-ghost">Call (555) 123-4567</a>
   </div>
 </section>
 
-<footer>
+<footer class="site">
   <div class="container">
     <div class="foot-grid">
       <div>
         <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">SC</span> South Coast Offers</div>
-        <p style="max-width:320px;color:#9fb2c8">A simpler way to sell your home for cash in Orange County and Los Angeles. Fair offers, flexible closings, no hassle.</p>
+        <p style="max-width:330px;color:#9fb2c8">A simpler way to sell &mdash; or buy &mdash; your home in Orange County and Los Angeles. Fair cash offers, flexible closings, no hassle.</p>
       </div>
-      <div><h5>Company</h5><a href="#how">How It Works</a><a href="#products">What We Offer</a><a href="#area">Service Area</a><a href="#faq">FAQ</a></div>
-      <div><h5>Service Area</h5><a href="#area">Orange County</a><a href="#area">Los Angeles County</a></div>
-      <div><h5>Contact</h5><a href="tel:5551234567">(555) 123-4567</a><a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a></div>
+      <div><h5>Sell</h5><a href="/sell">Get a cash offer</a><a href="/home-value">Home value estimator</a><a href="/calculators">Net proceeds calculator</a><a href="/sell#how">How selling works</a></div>
+      <div><h5>Buy</h5><a href="/buy">Browse homes</a><a href="/calculators">Mortgage calculator</a><a href="/guides">Buying guides</a></div>
+      <div><h5>Contact</h5><a href="tel:5551234567">(555) 123-4567</a><a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a><a href="/guides">Resources</a></div>
     </div>
     <div class="foot-bottom">
-      &copy; 2026 South Coast Offers. All rights reserved.<br/>
-      South Coast Offers is not affiliated with Opendoor. Online estimates are informational only and do not constitute an offer to purchase. All purchases are subject to property evaluation and a signed agreement.
+      &copy; <span data-year>2026</span> South Coast Offers. All rights reserved.<br/>
+      South Coast Offers is an independent home-buying service and is not affiliated with, endorsed by, or sponsored by Opendoor or any other company. Online estimates are informational only and do not constitute an offer to purchase. All purchases are subject to property evaluation and a signed agreement. Listings shown are sample data for demonstration.
     </div>
   </div>
 </footer>
 
+<script src="/assets/app.js"></script>
 <script>
-  // ----- Service area: Orange County (926xx, 928xx) + Los Angeles County (900xx-913xx, 935xx subset) -----
-  // ZIP prefixes covering OC + LA County
-  var OC_PREFIX = ['906','907','908','926','927','928'];           // OC core 926-928; some shared 906-908
-  var LA_PREFIX = ['900','901','902','903','904','905','906','907','908','910','911','912','913','914','915','916','917','918','935'];
-  var ALLOWED = {};
-  LA_PREFIX.concat(OC_PREFIX).forEach(function(p){ALLOWED[p]=true;});
-
-  var state = {zip:'', cond:1.0, ptype:'', sqft:0};
-
-  function showStep(sel){
-    document.querySelectorAll('.offer-card .step').forEach(function(s){s.classList.remove('active');});
-    var el = document.querySelector('.step[data-step="'+sel+'"]');
-    if(el) el.classList.add('active');
-    // dots: only count numbered steps 1-5
-    var dots = document.querySelectorAll('#stepDots .dot');
-    var n = parseInt(sel,10);
-    dots.forEach(function(d,i){ d.classList.toggle('active', !isNaN(n) && i < n); });
-  }
-  function goStep(n){ showStep(String(n)); }
-
-  function inServiceArea(zip){
-    if(!/^\d{5}$/.test(zip)) return false;
-    return !!ALLOWED[zip.substring(0,3)];
-  }
-
-  function checkArea(){
-    var street = document.getElementById('street').value.trim();
-    var zip = document.getElementById('zip').value.trim();
-    var e = document.getElementById('err1');
-    if(!street || !/^\d{5}$/.test(zip)){ e.classList.add('show'); return; }
-    e.classList.remove('show');
-    state.zip = zip;
-    if(inServiceArea(zip)){ showStep('2'); }
-    else { showStep('out'); }
-  }
-
-  function pick(el){
-    var group = el.getAttribute('data-group');
-    document.querySelectorAll('.choice[data-group="'+group+'"]').forEach(function(c){c.classList.remove('selected');});
-    el.classList.add('selected');
-    if(group==='cond') state.cond = parseFloat(el.getAttribute('data-val'));
-    if(group==='ptype') state.ptype = el.getAttribute('data-val');
-  }
-
-  function validateStep2(){
-    var sqftRaw = document.getElementById('sqft').value.replace(/[^0-9]/g,'');
-    var e = document.getElementById('err2');
-    if(!state.ptype || !sqftRaw || parseInt(sqftRaw,10) < 200){ e.classList.add('show'); return; }
-    e.classList.remove('show');
-    state.sqft = parseInt(sqftRaw,10);
-    showStep('3');
-  }
-
-  function validateStep3(){
-    var e = document.getElementById('err3');
-    if(!document.querySelector('.choice[data-group="cond"].selected')){ e.classList.add('show'); return; }
-    e.classList.remove('show');
-    showStep('4');
-  }
-
-  function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
-
-  function finishFlow(){
-    var name = document.getElementById('name').value.trim();
-    var phone = document.getElementById('phone').value.trim();
-    var email = document.getElementById('email').value.trim();
-    var e = document.getElementById('err4');
-    if(!name || !phone || !email || email.indexOf('@')<0){ e.classList.add('show'); return; }
-    e.classList.remove('show');
-
-    // ----- Preliminary estimate (NOT a real valuation) -----
-    // Base $/sqft varies by ZIP prefix as a rough SoCal proxy, x condition, x property type.
-    var pre = state.zip.substring(0,3);
-    var base = 550; // default $/sqft
-    var pricey = {'902':780,'903':760,'904':820,'905':720,'906':700,'907':560,'908':650,'926':760,'927':560,'928':700,'900':620,'901':600,'910':560,'911':590,'912':560,'913':560};
-    if(pricey[pre]) base = pricey[pre];
-    var typeAdj = state.ptype === 'condo' ? 0.92 : 1.0;
-    var mid = state.sqft * base * state.cond * typeAdj;
-    var low = mid * 0.92, high = mid * 1.08;
-    // round to nearest 5k
-    low = Math.round(low/5000)*5000; high = Math.round(high/5000)*5000;
-
-    document.getElementById('rangeOut').innerHTML = fmt(low) + ' &ndash; ' + fmt(high);
-    document.getElementById('rangeAddr').textContent = 'Estimate for ' + document.getElementById('street').value.trim() + ', ZIP ' + state.zip;
-    showStep('5');
-    // NOTE: lead data is intentionally not transmitted anywhere yet.
-  }
-
-  function joinWaitlist(){
-    var em = document.getElementById('waitEmail').value.trim();
-    if(!em || em.indexOf('@')<0){ document.getElementById('waitEmail').focus(); return; }
-    var card = document.querySelector('.step[data-step="out"] .outside');
-    card.innerHTML = '<div class="big">&#9989;</div><h3>You&rsquo;re on the list!</h3><p class="small">Thanks &mdash; we&rsquo;ll email you the moment we start buying homes in your area.</p>';
-  }
+  (function () {
+    function go() {
+      var street = document.getElementById('hstreet').value.trim();
+      var city = document.getElementById('hcity').value.trim();
+      var zip = document.getElementById('hzip').value.trim();
+      var err = document.getElementById('herr');
+      if (!street || !/^\d{5}$/.test(zip)) { err.classList.add('show'); return; }
+      err.classList.remove('show');
+      var q = '?street=' + encodeURIComponent(street) +
+              '&city=' + encodeURIComponent(city) +
+              '&zip=' + encodeURIComponent(zip);
+      window.location.href = '/sell' + q;
+    }
+    document.getElementById('heroGo').addEventListener('click', go);
+    ['hstreet', 'hcity', 'hzip'].forEach(function (id) {
+      document.getElementById(id).addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') go();
+      });
+    });
+  })();
 </script>
 
 </body>
