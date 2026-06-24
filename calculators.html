@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Home Sale &amp; Mortgage Calculators | South Coast Offers</title>
+<meta name="description" content="Estimate your net proceeds from a home sale and calculate a monthly mortgage payment. Free, instant tools for Orange County and LA homeowners and buyers." />
+<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+
+<header class="site">
+  <div class="container nav">
+    <a class="logo" href="/"><span class="mark">SC</span> South Coast Offers</a>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <nav class="nav-links">
+      <a href="/buy">Buy</a>
+      <a href="/sell">Sell</a>
+      <a href="/home-value">Home Value</a>
+      <a href="/calculators">Calculators</a>
+      <a href="/guides">Guides</a>
+      <a href="/about">About</a>
+      <a class="nav-cta" href="/sell">Get My Offer</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="container">
+    <h1>Calculators</h1>
+    <p>Estimate what you&rsquo;ll walk away with when you sell, and what a home might cost each month when you buy.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="grid-2">
+
+      <!-- Net proceeds -->
+      <div class="calc">
+        <h3>Net proceeds calculator</h3>
+        <p class="small" style="color:var(--muted);margin-bottom:16px">See roughly how much you&rsquo;ll keep after a sale.</p>
+        <div class="field"><label for="npPrice">Expected sale price</label><input type="text" id="npPrice" inputmode="numeric" value="1,000,000" /></div>
+        <div class="field"><label for="npPayoff">Remaining mortgage payoff</label><input type="text" id="npPayoff" inputmode="numeric" value="400,000" /></div>
+        <div class="grid2">
+          <div class="field"><label for="npComm">Agent commission %</label><input type="text" id="npComm" inputmode="decimal" value="5" /></div>
+          <div class="field"><label for="npClose">Closing costs %</label><input type="text" id="npClose" inputmode="decimal" value="1" /></div>
+        </div>
+        <div class="field"><label for="npRepairs">Repairs &amp; concessions ($)</label><input type="text" id="npRepairs" inputmode="numeric" value="15,000" /></div>
+        <div class="out breakdown-out">
+          <table class="breakdown" id="npBreak"></table>
+        </div>
+        <div class="out" style="margin-top:12px">
+          <div class="lab">Estimated net proceeds (traditional sale)</div>
+          <div class="big" id="npNet">$&mdash;</div>
+        </div>
+        <div class="card" style="margin-top:12px;background:var(--soft);border:none;padding:16px">
+          <b style="color:var(--ink)">Selling to South Coast Offers</b>
+          <p class="small" style="color:var(--muted);margin:4px 0 8px">No agent commission, no repairs, no concessions &mdash; just a transparent service charge.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span class="lab">Estimated net</span>
+            <b id="npSco" style="color:var(--green);font-size:1.3rem">$&mdash;</b>
+          </div>
+          <a href="/sell" class="btn btn-accent btn-block btn-sm" style="margin-top:12px">Get My Cash Offer &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Mortgage -->
+      <div class="calc">
+        <h3>Mortgage payment calculator</h3>
+        <p class="small" style="color:var(--muted);margin-bottom:16px">Estimate a monthly payment including taxes and insurance.</p>
+        <div class="field"><label for="mPrice">Home price</label><input type="text" id="mPrice" inputmode="numeric" value="1,000,000" /></div>
+        <div class="field"><label>Down payment: <span class="range-val" id="dpLabel">20%</span> <span id="dpAmt" style="color:var(--muted);font-weight:600"></span></label>
+          <input type="range" id="mDown" min="0" max="50" step="1" value="20" /></div>
+        <div class="grid2">
+          <div class="field"><label for="mRate">Interest rate %</label><input type="text" id="mRate" inputmode="decimal" value="6.5" /></div>
+          <div class="field"><label for="mTerm">Loan term</label><select id="mTerm"><option value="30">30 years</option><option value="20">20 years</option><option value="15">15 years</option></select></div>
+        </div>
+        <div class="out">
+          <div class="lab">Estimated monthly payment</div>
+          <div class="big" id="moTotal">$&mdash;</div>
+        </div>
+        <div class="out breakdown-out" style="margin-top:12px">
+          <table class="breakdown" id="moBreak"></table>
+        </div>
+        <a href="/home-value" class="btn btn-ghost btn-block" style="margin-top:14px">See your home&rsquo;s value &rarr;</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">SC</span> South Coast Offers</div>
+        <p style="max-width:330px;color:#9fb2c8">A simpler way to sell &mdash; or buy &mdash; your home in Orange County and Los Angeles. Fair cash offers, flexible closings, no hassle.</p>
+      </div>
+      <div><h5>Sell</h5><a href="/sell">Get a cash offer</a><a href="/home-value">Home value estimator</a><a href="/calculators">Net proceeds calculator</a><a href="/sell#how">How selling works</a></div>
+      <div><h5>Buy</h5><a href="/buy">Browse homes</a><a href="/how-buy">How buying works</a><a href="/financing">Get pre-qualified</a><a href="/saved">Saved homes</a></div>
+      <div><h5>Company</h5><a href="/about">About us</a><a href="/reviews">Reviews</a><a href="/guides">Guides</a><a href="/contact">Contact</a></div>
+      <div><h5>Contact</h5><a href="tel:5551234567">(555) 123-4567</a><a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a><a href="/sell">Get my offer</a></div>
+    </div>
+    <div class="foot-bottom">
+      &copy; <span data-year>2026</span> South Coast Offers. All rights reserved.<br/>
+      Calculator results are estimates for informational purposes only and are not financial advice or a guarantee of any amount. South Coast Offers is not affiliated with Opendoor.
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+<script>
+(function () {
+  var SCO = window.SCO;
+  function $(id){ return document.getElementById(id); }
+  function num(id){ return parseInt(SCO.digits($(id).value) || '0', 10); }
+  function flt(id){ return parseFloat($(id).value) || 0; }
+
+  /* Net proceeds */
+  function calcNet(){
+    var price = num('npPrice'), payoff = num('npPayoff');
+    var comm = price * flt('npComm')/100;
+    var close = price * flt('npClose')/100;
+    var repairs = num('npRepairs');
+    var net = price - payoff - comm - close - repairs;
+    $('npBreak').innerHTML =
+      '<tr><td>Sale price</td><td>'+SCO.money(price)+'</td></tr>' +
+      '<tr><td>Mortgage payoff</td><td class="minus">− '+SCO.money(payoff)+'</td></tr>' +
+      '<tr><td>Agent commission</td><td class="minus">− '+SCO.money(comm)+'</td></tr>' +
+      '<tr><td>Closing costs</td><td class="minus">− '+SCO.money(close)+'</td></tr>' +
+      '<tr><td>Repairs &amp; concessions</td><td class="minus">− '+SCO.money(repairs)+'</td></tr>';
+    $('npNet').textContent = SCO.money(Math.max(net, 0));
+    // South Coast Offers: 5% service charge, 1% closing, no commission/repairs/concessions
+    var scoNet = price - payoff - price*0.05 - price*0.01;
+    $('npSco').textContent = SCO.money(Math.max(scoNet, 0));
+  }
+  ['npPrice','npPayoff','npComm','npClose','npRepairs'].forEach(function(id){
+    $(id).addEventListener('input', calcNet);
+  });
+  calcNet();
+
+  /* Mortgage */
+  function monthly(P, ratePct, years){
+    var r = ratePct/100/12, n = years*12;
+    if (r === 0) return P/n;
+    return P * r / (1 - Math.pow(1+r, -n));
+  }
+  function calcMo(){
+    var price = num('mPrice'), dpPct = parseInt($('mDown').value, 10);
+    var rate = flt('mRate'), term = parseInt($('mTerm').value, 10);
+    $('dpLabel').textContent = dpPct + '%';
+    $('dpAmt').textContent = '(' + SCO.money(price*dpPct/100) + ')';
+    var loan = price * (1 - dpPct/100);
+    var pi = monthly(loan, rate, term);
+    var tax = price * 0.011 / 12, ins = price * 0.0035 / 12;
+    var total = pi + tax + ins;
+    var totalInterest = pi * term * 12 - loan;
+    $('moTotal').textContent = SCO.money(total) + '/mo';
+    $('moBreak').innerHTML =
+      '<tr><td>Principal &amp; interest</td><td>'+SCO.money(pi)+'</td></tr>' +
+      '<tr><td>Property tax (est. 1.1%)</td><td>'+SCO.money(tax)+'</td></tr>' +
+      '<tr><td>Homeowners insurance (est.)</td><td>'+SCO.money(ins)+'</td></tr>' +
+      '<tr><td>Loan amount</td><td>'+SCO.money(loan)+'</td></tr>' +
+      '<tr><td>Total interest over '+term+' yrs</td><td>'+SCO.money(totalInterest)+'</td></tr>';
+  }
+  ['mPrice','mDown','mRate','mTerm'].forEach(function(id){
+    $(id).addEventListener('input', calcMo);
+    $(id).addEventListener('change', calcMo);
+  });
+  calcMo();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Home Value Estimator | What's My House Worth? | South Coast Offers</title>
+<meta name="description" content="Get a free, instant home value estimate for your Orange County or LA home. Enter your address and a few details to see an estimated value range — no obligation." />
+<link rel="preconnect" href="https://wkpqpoqvcycgiyhrecvp.supabase.co" />
+<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+
+<header class="site">
+  <div class="container nav">
+    <a class="logo" href="/"><span class="mark">SC</span> South Coast Offers</a>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <nav class="nav-links">
+      <a href="/buy">Buy</a>
+      <a href="/sell">Sell</a>
+      <a href="/home-value">Home Value</a>
+      <a href="/calculators">Calculators</a>
+      <a href="/guides">Guides</a>
+      <a href="/about">About</a>
+      <a class="nav-cta" href="/sell">Get My Offer</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="container">
+    <h1>What&rsquo;s my home worth?</h1>
+    <p>Get a free, instant estimate based on your home&rsquo;s details and local price trends. No account, no obligation.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="offer-card standalone">
+      <div class="step-indicator" id="dots">
+        <span class="dot active"></span><span class="dot"></span>
+      </div>
+
+      <!-- Step 1: address -->
+      <div class="step active" data-step="1">
+        <h3>Enter your address</h3>
+        <p class="small">We use it to pull in local pricing for your area.</p>
+        <div class="field"><label for="street">Street Address</label><input type="text" id="street" placeholder="123 Main St" /></div>
+        <div class="grid2">
+          <div class="field"><label for="city">City</label><input type="text" id="city" placeholder="Irvine" /></div>
+          <div class="field"><label for="zip">ZIP Code</label><input type="text" id="zip" inputmode="numeric" maxlength="5" placeholder="92602" /></div>
+        </div>
+        <div class="err" id="err1">Please enter your street address and a 5-digit ZIP code.</div>
+        <button class="btn btn-accent btn-block" id="btn1">Continue &rarr;</button>
+      </div>
+
+      <!-- Step 2: details -->
+      <div class="step" data-step="2">
+        <h3>A few quick details</h3>
+        <p class="small">The more accurate these are, the better your estimate.</p>
+        <div class="field">
+          <label>Property Type</label>
+          <div class="choice-row" style="grid-template-columns:1fr 1fr 1fr">
+            <div class="choice" data-group="ptype" data-val="single">Single-Family</div>
+            <div class="choice" data-group="ptype" data-val="condo">Condo</div>
+            <div class="choice" data-group="ptype" data-val="townhome">Townhome</div>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="beds">Bedrooms</label>
+            <select id="beds"><option value="">Select</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select>
+          </div>
+          <div class="field"><label for="baths">Bathrooms</label>
+            <select id="baths"><option value="">Select</option><option>1</option><option>2</option><option>3</option><option>4+</option></select>
+          </div>
+        </div>
+        <div class="field"><label for="sqft">Approx. Square Footage</label><input type="text" id="sqft" inputmode="numeric" placeholder="1,800" /></div>
+        <div class="field">
+          <label>Overall Condition</label>
+          <div class="choice-row">
+            <div class="choice" data-group="cond" data-val="1.05">Excellent</div>
+            <div class="choice" data-group="cond" data-val="1.0">Good</div>
+          </div>
+          <div class="choice-row">
+            <div class="choice" data-group="cond" data-val="0.92">Fair</div>
+            <div class="choice" data-group="cond" data-val="0.82">Needs Work</div>
+          </div>
+        </div>
+        <div class="err" id="err2">Please choose a property type, square footage, and condition.</div>
+        <div class="nav-btns">
+          <button class="btn btn-ghost" id="back2">&larr; Back</button>
+          <button class="btn btn-accent btn-block" id="btn2">See My Estimate &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="step" data-step="3">
+        <div class="offer-result">
+          <div class="label">Estimated Value Range</div>
+          <div class="range" id="rangeOut">$&mdash;</div>
+          <p class="small" id="rangeAddr"></p>
+          <div class="disc">
+            This estimate is generated from the details you entered and general local price trends &mdash; it&rsquo;s informational only and isn&rsquo;t a formal appraisal or an offer to purchase. For a real, no-obligation cash offer, request one below.
+          </div>
+          <a class="btn btn-accent btn-block" id="toOffer">Get a Cash Offer for This Home &rarr;</a>
+          <div class="field" style="margin-top:16px"><label for="vemail">Email me this estimate (optional)</label><input type="email" id="vemail" placeholder="you@email.com" /></div>
+          <button class="btn btn-ghost btn-block" id="emailBtn">Email My Estimate</button>
+          <button class="btn btn-ghost btn-block" style="margin-top:8px" id="restart">Estimate another home</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:56px">
+      <div class="eyebrow">How it works</div>
+      <h2>How we estimate your home&rsquo;s value</h2>
+      <p>Your estimate blends your home&rsquo;s size, type, and condition with local price-per-square-foot trends across Orange County and Los Angeles. A real offer accounts for far more &mdash; recent comparable sales, your home&rsquo;s specific features, and a quick assessment.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">SC</span> South Coast Offers</div>
+        <p style="max-width:330px;color:#9fb2c8">A simpler way to sell &mdash; or buy &mdash; your home in Orange County and Los Angeles. Fair cash offers, flexible closings, no hassle.</p>
+      </div>
+      <div><h5>Sell</h5><a href="/sell">Get a cash offer</a><a href="/home-value">Home value estimator</a><a href="/calculators">Net proceeds calculator</a><a href="/sell#how">How selling works</a></div>
+      <div><h5>Buy</h5><a href="/buy">Browse homes</a><a href="/how-buy">How buying works</a><a href="/financing">Get pre-qualified</a><a href="/saved">Saved homes</a></div>
+      <div><h5>Company</h5><a href="/about">About us</a><a href="/reviews">Reviews</a><a href="/guides">Guides</a><a href="/contact">Contact</a></div>
+      <div><h5>Contact</h5><a href="tel:5551234567">(555) 123-4567</a><a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a><a href="/sell">Get my offer</a></div>
+    </div>
+    <div class="foot-bottom">
+      &copy; <span data-year>2026</span> South Coast Offers. All rights reserved.<br/>
+      South Coast Offers is an independent home-buying service and is not affiliated with, endorsed by, or sponsored by Opendoor or any other company. Estimates are informational only and do not constitute an offer to purchase.
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+<script>
+(function () {
+  var SCO = window.SCO;
+  var state = { street:'', city:'', zip:'', ptype:'', beds:'', baths:'', sqft:0, cond:1.0, low:0, high:0 };
+  function $(id){ return document.getElementById(id); }
+  function showStep(n){
+    document.querySelectorAll('.offer-card .step').forEach(function(s){ s.classList.remove('active'); });
+    var el = document.querySelector('.step[data-step="'+n+'"]');
+    if (el) el.classList.add('active');
+    document.querySelectorAll('#dots .dot').forEach(function(d,i){ d.classList.toggle('active', i < n); });
+  }
+
+  document.addEventListener('click', function(e){
+    var c = e.target.closest('.choice');
+    if (!c || !c.hasAttribute('data-group')) return;
+    var g = c.getAttribute('data-group');
+    document.querySelectorAll('.choice[data-group="'+g+'"]').forEach(function(x){ x.classList.remove('selected'); });
+    c.classList.add('selected');
+    if (g === 'cond') state.cond = parseFloat(c.getAttribute('data-val'));
+    if (g === 'ptype') state.ptype = c.getAttribute('data-val');
+  });
+
+  $('btn1').addEventListener('click', function(){
+    var street = $('street').value.trim(), city = $('city').value.trim(), zip = $('zip').value.trim();
+    var e = $('err1');
+    if (!street || !/^\d{5}$/.test(zip)) { e.classList.add('show'); return; }
+    e.classList.remove('show');
+    state.street = street; state.city = city; state.zip = zip;
+    showStep(2);
+  });
+  $('back2').addEventListener('click', function(){ showStep(1); });
+
+  $('btn2').addEventListener('click', function(){
+    var sqft = SCO.digits($('sqft').value);
+    var e = $('err2');
+    if (!state.ptype || !sqft || parseInt(sqft,10) < 200 || !document.querySelector('.choice[data-group="cond"].selected')) { e.classList.add('show'); return; }
+    e.classList.remove('show');
+    state.sqft = parseInt(sqft,10); state.beds = $('beds').value; state.baths = $('baths').value;
+
+    var base = SCO.pricePerSqft(state.zip);
+    var typeAdj = state.ptype === 'condo' ? 0.92 : (state.ptype === 'townhome' ? 0.96 : 1.0);
+    var mid = state.sqft * base * state.cond * typeAdj;
+    state.low = Math.round(mid*0.93/5000)*5000;
+    state.high = Math.round(mid*1.07/5000)*5000;
+
+    $('rangeOut').innerHTML = SCO.money(state.low) + ' &ndash; ' + SCO.money(state.high);
+    $('rangeAddr').textContent = (state.street ? state.street + (state.city ? ', ' + state.city : '') + ' ' : '') + state.zip;
+    $('toOffer').href = '/sell?street=' + encodeURIComponent(state.street) + '&city=' + encodeURIComponent(state.city) + '&zip=' + encodeURIComponent(state.zip);
+    showStep(3);
+  });
+
+  $('emailBtn').addEventListener('click', function(){
+    var em = $('vemail').value.trim();
+    if (!SCO.validEmail(em)) { $('vemail').focus(); return; }
+    SCO.submitLead({
+      type:'home_value', email: em, street: state.street, city: state.city, zip: state.zip,
+      property_type: state.ptype, beds: state.beds, baths: state.baths, sqft: state.sqft,
+      estimate_low: state.low, estimate_high: state.high
+    }).then(function(ok){ SCO.toast(ok ? 'Sent! Check your inbox for your estimate.' : 'Thanks — we saved your estimate.', 'green'); });
+  });
+
+  $('restart').addEventListener('click', function(){ showStep(1); });
+
+  // Prefill from query (?street=&city=&zip=)
+  (function(){
+    var p = new URLSearchParams(location.search);
+    if (p.get('street')) $('street').value = p.get('street');
+    if (p.get('city')) $('city').value = p.get('city');
+    if (p.get('zip')) $('zip').value = p.get('zip');
+  })();
+})();
+</script>
+
+</body>
+</html>

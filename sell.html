@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Get a Cash Offer for Your Home | South Coast Offers</title>
+<meta name="description" content="Answer a few quick questions about your home and get an estimated cash offer. We buy homes as-is across Orange County and Los Angeles — no repairs, no showings, you pick the close date." />
+<link rel="preconnect" href="https://wkpqpoqvcycgiyhrecvp.supabase.co" />
+<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+
+<header class="site">
+  <div class="container nav">
+    <a class="logo" href="/"><span class="mark">SC</span> South Coast Offers</a>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <nav class="nav-links"></nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="pill-row" style="margin-bottom:8px">
+        <span class="pill dark">No repairs</span>
+        <span class="pill dark">No showings</span>
+        <span class="pill dark">Pick your close date</span>
+      </div>
+      <h1>Get your <span>cash offer</span>.</h1>
+      <p class="sub">Answer a few questions about your home and we&rsquo;ll prepare an estimated cash offer. We buy as-is across Orange County and Los Angeles &mdash; you choose the closing date.</p>
+      <div id="how" class="card" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:#dbe6f3">
+        <h4 style="color:#fff;margin-bottom:14px">How it works</h4>
+        <div style="display:grid;gap:12px">
+          <div><b style="color:#ff8a5c">1. Tell us about your home</b><br/>A few quick questions &mdash; takes about 3 minutes.</div>
+          <div><b style="color:#ff8a5c">2. Get your estimated offer</b><br/>See an estimated value and cash range right away.</div>
+          <div><b style="color:#ff8a5c">3. Finish your assessment</b><br/>A quick self-scan or a home visit confirms your final offer.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="offer-card" id="offer">
+      <div class="progress"><div class="bar" id="bar"></div></div>
+
+      <!-- Step 1: Address -->
+      <div class="step active" data-step="1">
+        <h3>What&rsquo;s the home address?</h3>
+        <p class="small">Start typing and select your address, or enter it manually.</p>
+        <div class="field">
+          <label for="street">Street Address</label>
+          <input type="text" id="street" placeholder="123 Main St" autocomplete="off" />
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="city">City</label><input type="text" id="city" placeholder="Santa Ana" /></div>
+          <div class="field"><label for="zip">ZIP Code</label><input type="text" id="zip" inputmode="numeric" maxlength="5" placeholder="92703" /></div>
+        </div>
+        <div class="err" id="err1">Please enter your street address and a 5-digit ZIP code.</div>
+        <button class="btn btn-accent btn-block" id="btnCheck">Continue &rarr;</button>
+        <p class="note">We currently buy homes in Orange County &amp; Los Angeles County only.</p>
+      </div>
+
+      <!-- Outside area -->
+      <div class="step" data-step="out">
+        <div class="outside" id="outsideBox">
+          <div class="big">&#128205;</div>
+          <h3>We&rsquo;re not in your area yet</h3>
+          <p class="small">Right now we only buy homes in <strong>Orange County</strong> and <strong>Los Angeles County, CA</strong>. Leave your email and we&rsquo;ll reach out when we launch near you.</p>
+          <div class="field" style="margin-top:14px"><label for="waitEmail">Email Address</label><input type="email" id="waitEmail" placeholder="you@email.com" /></div>
+          <button class="btn btn-ink btn-block" id="btnWait">Notify Me</button>
+          <button class="btn btn-ghost btn-block" style="margin-top:8px" data-go="1">&larr; Try another address</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Owner -->
+      <div class="step" data-step="2">
+        <h3>Is this the correct home address?</h3>
+        <div class="card" style="background:var(--soft);border:none;padding:16px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:10px">
+          <div id="addrEcho" style="color:var(--ink);font-weight:600"></div>
+          <a href="#" id="editAddr" style="color:var(--blue);font-weight:700">Edit</a>
+        </div>
+        <div class="field">
+          <label for="owner">Are you the owner of this home? *</label>
+          <select id="owner">
+            <option value="">Select</option>
+            <option>Yes, I own this home</option>
+            <option>No, I&rsquo;m an agent</option>
+            <option>I&rsquo;m an agent, and own this home</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="err" id="err2">Please let us know your relationship to the home.</div>
+        <div class="nav-btns">
+          <button class="btn btn-ghost" data-go="1">&larr; Back</button>
+          <button class="btn btn-accent btn-block" id="btnStep2">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Confirm home details -->
+      <div class="step" data-step="3">
+        <h3 id="detailsHead">Confirm your home details</h3>
+        <p class="small">Adjust anything that&rsquo;s changed. You&rsquo;ll review the rest next.</p>
+        <div class="grid2">
+          <div class="field"><label for="beds">Bedrooms</label>
+            <select id="beds"><option value="">Select</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6+</option></select>
+          </div>
+          <div class="field"><label for="fbaths">Full bathrooms</label>
+            <select id="fbaths"><option value="">Select</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="pbaths">Partial bathrooms</label>
+            <select id="pbaths"><option>0</option><option>1</option><option>2</option><option>3+</option></select>
+          </div>
+          <div class="field"><label for="floors">Floors (above ground)</label>
+            <select id="floors"><option value="">Select</option><option>1</option><option>2</option><option>3</option><option>4+</option></select>
+          </div>
+        </div>
+        <div class="field"><label for="sqft">Square footage (above ground)</label><input type="text" id="sqft" inputmode="numeric" placeholder="1,061" /></div>
+        <div class="grid2">
+          <div class="field"><label for="yearbuilt">Year built</label><input type="text" id="yearbuilt" inputmode="numeric" maxlength="4" placeholder="1939" /></div>
+          <div class="field"><label for="basement">Basement</label>
+            <select id="basement"><option>No</option><option>Yes</option></select>
+          </div>
+        </div>
+        <div class="field"><label for="pool">Pool</label>
+          <select id="pool"><option>No pool</option><option>Pool</option></select>
+        </div>
+        <div class="err" id="err3">Please enter bedrooms, full bathrooms, floors, and square footage.</div>
+        <div class="nav-btns">
+          <button class="btn btn-ghost" data-go="2">&larr; Back</button>
+          <button class="btn btn-accent btn-block" id="btnStep3">Confirm &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Timeline -->
+      <div class="step" data-step="4">
+        <h3>When do you need to sell?</h3>
+        <p class="small">This won&rsquo;t affect your offer &mdash; we can work with any timeline.</p>
+        <div id="timeOpts" style="display:grid;gap:8px"></div>
+        <div class="err" id="err4">Please choose a timeline.</div>
+        <div class="nav-btns">
+          <button class="btn btn-ghost" data-go="3">&larr; Back</button>
+          <button class="btn btn-accent btn-block" id="btnStep4">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 5: Overall condition -->
+      <div class="step" data-step="5">
+        <h3>How would you describe the overall condition?</h3>
+        <div class="tier-grid" id="tiers-overall"></div>
+        <div class="err" id="err5">Please choose a condition.</div>
+        <div class="nav-btns">
+          <button class="btn btn-ghost" data-go="4">&larr; Back</button>
+          <button class="btn btn-accent btn-block" id="btnStep5">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 6: Bathroom -->
+      <div class="step" data-step="6">
+        <h3>How would you describe your main bathroom?</h3>
+        <div class="tier-grid" id="tiers-bath"></div>
+        <div class="err" id="err6">Please choose a condition.</div>
+        <div class="nav-btns">
+          <button class="btn btn-ghost" data-go="5">&larr; Back</button>
+          <button class="btn btn-accent btn-block" id="btnStep6">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 7: Living room -->
+      <div class="step" data-step="7">
+        <h3>How would you describe your living room?</h3>
+        <div class="tier-grid" id="tiers-living"></div>
+        <div class="err" id="err7">Please choose a condition.</div>
+        <div class="nav-btns">
+          <button class="btn btn-ghost" data-go="6">&larr; Back</button>
+          <button class="btn btn-accent btn-block" id="btnStep7">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 8: Exterior -->
+      <div class="step" data-step="8">
+        <h3>How would you describe your home&rsquo;s exterior?</h3>
+        <div class="tier-grid" id="tiers-exterior"></div>
+        <div class="err" id="err8">Please choose a condition.</div>
+        <div class="nav-btns">
+          <button class="btn btn-ghost" data-go="7">&larr; Back</button>
+          <button class="btn btn-accent btn-block" id="btnStep8">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 9: HOA -->
+      <div class="step" data-step="9">
+        <h3>Is your home part of a homeowners association?</h3>
+        <p class="small">Often called an HOA &mdash; a group that helps maintain your community for a fee.</p>
+        <div style="display:grid;gap:8px">
+          <div class="choice" data-group="hoa" data-val="Yes">Yes</div>
+          <div class="choice" data-group="hoa" data-val="No">No</div>
+          <div class="choice" data-group="hoa" data-val="Not sure">I&rsquo;m not sure</div>
+        </div>
+        <div class="err" id="err9">Please choose an option.</div>
+        <div class="nav-btns">
+          <button class="btn btn-ghost" data-go="8">&larr; Back</button>
+          <button class="btn btn-accent btn-block" id="btnStep9">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 10: Issues -->
+      <div class="step" data-step="10">
+        <h3>Do any of these apply to your home?</h3>
+        <p class="small">Select all that apply. We keep an eye out for these when making an offer.</p>
+        <div class="opt-list" id="issueList"></div>
+        <div class="nav-btns">
+          <button class="btn btn-ghost" data-go="9">&larr; Back</button>
+          <button class="btn btn-accent btn-block" id="btnStep10">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 11: Renovations -->
+      <div class="step" data-step="11">
+        <h3>Have you made any renovations?</h3>
+        <p class="small">Let us know about major upgrades. You can add detail after your initial estimate.</p>
+        <div style="display:grid;gap:8px">
+          <div class="choice" data-group="reno" data-val="Yes">Yes</div>
+          <div class="choice" data-group="reno" data-val="No">No</div>
+        </div>
+        <div class="err" id="err11">Please choose an option.</div>
+        <div class="nav-btns">
+          <button class="btn btn-ghost" data-go="10">&larr; Back</button>
+          <button class="btn btn-accent btn-block" id="btnStep11">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 12: Contact -->
+      <div class="step" data-step="12">
+        <h3>Where should we send your estimate?</h3>
+        <p class="small">We&rsquo;ll prepare your estimated offer and a team member will follow up.</p>
+        <div class="field"><label for="name">Full Name</label><input type="text" id="name" placeholder="Jane Smith" /></div>
+        <div class="field"><label for="phone">Phone Number</label><input type="tel" id="phone" placeholder="(555) 123-4567" /></div>
+        <div class="field"><label for="email">Email Address</label><input type="email" id="email" placeholder="jane@email.com" /></div>
+        <div class="err" id="err12">Please enter your name, phone, and a valid email.</div>
+        <div class="nav-btns">
+          <button class="btn btn-ghost" data-go="11">&larr; Back</button>
+          <button class="btn btn-accent btn-block" id="btnFinish">See My Estimate &rarr;</button>
+        </div>
+        <p class="note">By submitting, you agree to be contacted about your property. We respect your privacy.</p>
+      </div>
+
+      <!-- Step 13: Result -->
+      <div class="step" data-step="13">
+        <p style="color:var(--accent2);font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">You&rsquo;re one step from your final offer</p>
+        <div class="estimate-hero">
+          <div class="addr" id="heroAddr"></div>
+          <div class="facts" id="heroFacts"></div>
+          <div class="val-lab">Estimated home value</div>
+          <div class="val">Up to <span id="heroVal">$&mdash;</span></div>
+          <div class="conf">Confirmed after your assessment</div>
+        </div>
+
+        <div style="font-weight:800;color:var(--ink);margin:6px 0 4px">Finish your assessment to finalize your offer</div>
+        <p class="small" style="margin-bottom:12px">Do it yourself with a quick guided scan, or have a team member visit your home.</p>
+        <div class="assess-grid">
+          <div class="assess-card popular">
+            <span class="flag">Most popular</span>
+            <h4>Scan your home now</h4>
+            <p>Use a quick guided walkthrough on your phone &mdash; about 30 minutes. No need to clean or prep.</p>
+            <ol><li>We text you a secure link</li><li>Follow the guided walkthrough</li><li>Get your finalized offer</li></ol>
+            <div class="field"><label for="scanPhone">Phone number</label><input type="tel" id="scanPhone" placeholder="(555) 123-4567" /></div>
+            <button class="btn btn-ink btn-block" id="btnScan">Text me the link</button>
+            <div style="display:flex;align-items:center;gap:10px;margin-top:12px">
+              <div class="qr" id="qr" aria-hidden="true"></div>
+              <span class="small" style="color:var(--muted)">Or scan with your phone camera to start.</span>
+            </div>
+          </div>
+          <div class="assess-card">
+            <h4>Schedule a home visit</h4>
+            <p>A team member handles everything. Often available within a few days &mdash; about 30 minutes on site.</p>
+            <ol><li>Pick a time that works for you</li><li>We visit your home</li><li>Get your finalized offer</li></ol>
+            <button class="btn btn-accent btn-block" id="btnVisit" style="margin-top:6px">Schedule a visit</button>
+          </div>
+        </div>
+
+        <div style="font-weight:800;color:var(--ink);margin:24px 0 4px">Two ways to sell your home</div>
+        <p class="small" style="margin-bottom:12px">Pick what fits your goals &mdash; we&rsquo;ll walk you through both.</p>
+        <div class="way-grid">
+          <div class="way-card" style="border-color:var(--green)">
+            <div class="tagline">Maximize your return</div>
+            <h4>Cash now, more later</h4>
+            <div class="amt" id="wayMore">$&mdash; <small>now + more later</small></div>
+            <ul>
+              <li>Immediate cash plus potential future profit</li>
+              <li>We cover repairs &mdash; no upfront cost</li>
+              <li>We manage prep, listing, and showings</li>
+              <li>Expert negotiation on your behalf</li>
+            </ul>
+          </div>
+          <div class="way-card">
+            <div class="tagline" style="color:var(--blue)">Simple &amp; fast</div>
+            <h4>All cash offer</h4>
+            <div class="amt" id="wayCash">$&mdash; <small>net at closing</small></div>
+            <ul>
+              <li>Certainty &mdash; no financing fall-throughs</li>
+              <li>Zero repairs, sell as-is</li>
+              <li>No showings or prep</li>
+              <li>Close in as little as 2 weeks, you pick the date</li>
+            </ul>
+          </div>
+        </div>
+
+        <details class="card" style="margin-top:20px;padding:0 18px">
+          <summary style="cursor:pointer;font-weight:700;color:var(--ink);padding:16px 0;list-style:none">What&rsquo;s behind your estimated cash offer</summary>
+          <div style="padding:0 0 16px;color:var(--muted);font-size:.92rem">
+            We rely on comparable sales, current market conditions, and your home&rsquo;s details. The assessment then confirms condition by checking for things like:
+            <ul style="margin:10px 0 0 18px"><li>Permitted additions or modifications</li><li>Typical neighborhood noise levels</li><li>No damage from floods or natural disaster</li><li>No mold, smoke, or fire damage</li></ul>
+          </div>
+        </details>
+
+        <div class="disc" style="margin-top:16px">
+          <strong>This is a preliminary estimate, not a binding offer.</strong> Your final cash offer is confirmed after your home assessment. A team member will reach out within one business day. You can cancel for free any time before closing.
+        </div>
+      </div>
+
+      <!-- Done -->
+      <div class="step" data-step="done">
+        <div class="outside">
+          <div class="big">&#9989;</div>
+          <h3 id="doneHead">You&rsquo;re all set!</h3>
+          <p class="small" id="doneMsg"></p>
+          <a href="tel:5551234567" class="btn btn-ink btn-block" style="margin-top:14px">Talk to Us: (555) 123-4567</a>
+          <a href="/" class="btn btn-ghost btn-block" style="margin-top:8px">Back to home</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="container">
+    <div class="foot-grid"></div>
+    <div class="foot-bottom">
+      &copy; <span data-year>2026</span> South Coast Offers. All rights reserved.<br/>
+      South Coast Offers is an independent home-buying service and is not affiliated with, endorsed by, or sponsored by Opendoor or any other company. Online estimates are informational only and do not constitute an offer to purchase. All purchases are subject to property evaluation and a signed agreement.
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+<script>
+(function () {
+  var SCO = window.SCO;
+  var state = {
+    street:'', city:'', zip:'', owner:'',
+    beds:'', fbaths:'', pbaths:'0', floors:'', sqft:0, year:'', basement:'No', pool:'No pool',
+    timeline:'', overall:0, bath:0, living:0, exterior:0,
+    hoa:'', issues:[], reno:'',
+    name:'', phone:'', email:'',
+    marketMid:0, marketHigh:0, cashNet:0, moreUpfront:0, moreLow:0, moreHigh:0
+  };
+  function $(id){ return document.getElementById(id); }
+  var bar = $('bar');
+
+  function goStep(n){
+    document.querySelectorAll('.offer-card .step').forEach(function(s){ s.classList.remove('active'); });
+    var el = document.querySelector('.step[data-step="'+n+'"]');
+    if (el) el.classList.add('active');
+    var num = parseInt(n, 10);
+    if (!isNaN(num)) bar.style.width = Math.max(8, Math.round(num / 13 * 100)) + '%';
+    else if (n === 'done') bar.style.width = '100%';
+    try { document.querySelector('.offer-card').scrollIntoView({ behavior:'smooth', block:'start' }); } catch(e){}
+  }
+
+  /* ---- Render dynamic option lists ---- */
+  var TIERS = [
+    { v:0.80, ic:'&#128736;', label:'Fixer Upper', desc:'Needs significant repairs' },
+    { v:0.90, ic:'&#128368;', label:'Dated', desc:'Hasn&rsquo;t been updated recently' },
+    { v:1.00, ic:'&#127968;', label:'Standard', desc:'Updated with common finishes' },
+    { v:1.08, ic:'&#10024;', label:'High end', desc:'High-quality upgrades' },
+    { v:1.15, ic:'&#128142;', label:'Luxury', desc:'Elegant, top-tier finishes' }
+  ];
+  function fillTiers(containerId, group){
+    $(containerId).innerHTML = TIERS.map(function(t){
+      return '<div class="tier-card" data-group="'+group+'" data-val="'+t.v+'" data-label="'+t.label+'">' +
+        '<span class="tier-ic">'+t.ic+'</span><b>'+t.label+'</b><span>'+t.desc+'</span></div>';
+    }).join('');
+  }
+  fillTiers('tiers-overall','overall'); fillTiers('tiers-bath','bath');
+  fillTiers('tiers-living','living'); fillTiers('tiers-exterior','exterior');
+
+  var TIMES = ['ASAP','2&ndash;4 weeks','4&ndash;6 weeks','6+ weeks','Just browsing'];
+  $('timeOpts').innerHTML = TIMES.map(function(t){
+    return '<div class="choice" data-group="time" data-val="'+t.replace('&ndash;','-')+'">'+t+'</div>';
+  }).join('');
+
+  var ISSUES = [
+    { v:'Leased or financed solar panels', d:'You may need to buy out the lease or remove the panels to sell.', x:0.03 },
+    { v:'Known foundation issues', d:'Excessive cracking, uneven floors.', x:0.08 },
+    { v:'Fire damage', d:'', x:0.10 },
+    { v:'Well water', d:'You maintain a well to supply water.', x:0.02 },
+    { v:'Septic system', d:'Separate from municipal sewage.', x:0.02 },
+    { v:'Mobile or manufactured home', d:'', x:0.15 }
+  ];
+  var ISSUE_X = {};
+  ISSUES.forEach(function(i){ ISSUE_X[i.v] = i.x; });
+  $('issueList').innerHTML = ISSUES.map(function(i){
+    return '<div class="opt-row" data-issue="'+i.v+'"><div class="box">&#10003;</div><div><b>'+i.v+'</b>'+(i.d?'<em>'+i.d+'</em>':'')+'</div></div>';
+  }).join('') +
+  '<div class="opt-row" data-issue="none"><div class="box">&#10003;</div><div><b>None of the above</b></div></div>';
+
+  /* ---- Selection handling (single-select groups, tiers, issues) ---- */
+  document.addEventListener('click', function(e){
+    var tier = e.target.closest('.tier-card');
+    if (tier){
+      var g = tier.getAttribute('data-group');
+      document.querySelectorAll('.tier-card[data-group="'+g+'"]').forEach(function(x){ x.classList.remove('selected'); });
+      tier.classList.add('selected');
+      state[g] = parseFloat(tier.getAttribute('data-val'));
+      return;
+    }
+    var ch = e.target.closest('.choice[data-group]');
+    if (ch){
+      var grp = ch.getAttribute('data-group');
+      document.querySelectorAll('.choice[data-group="'+grp+'"]').forEach(function(x){ x.classList.remove('selected'); });
+      ch.classList.add('selected');
+      var val = ch.getAttribute('data-val');
+      if (grp === 'time') state.timeline = val;
+      if (grp === 'hoa') state.hoa = val;
+      if (grp === 'reno') state.reno = val;
+      return;
+    }
+    var row = e.target.closest('.opt-row');
+    if (row){
+      var iss = row.getAttribute('data-issue');
+      if (iss === 'none'){
+        document.querySelectorAll('.opt-row').forEach(function(x){ x.classList.remove('selected'); });
+        row.classList.add('selected'); state.issues = [];
+      } else {
+        var noneRow = document.querySelector('.opt-row[data-issue="none"]');
+        if (noneRow) noneRow.classList.remove('selected');
+        row.classList.toggle('selected');
+        var i = state.issues.indexOf(iss);
+        if (i > -1) state.issues.splice(i,1); else state.issues.push(iss);
+      }
+    }
+  });
+
+  document.querySelectorAll('[data-go]').forEach(function(b){
+    b.addEventListener('click', function(){ goStep(b.getAttribute('data-go')); });
+  });
+
+  /* ---- Step 1: address + geo-gate (+ autocomplete & data seams) ---- */
+  function fullAddress(){ return state.street + ', ' + state.city + ' ' + state.zip; }
+  function tryPrefillFacts(){
+    SCO.fetchPropertyData(fullAddress()).then(function(f){
+      if (!f) return;
+      $('detailsHead').textContent = 'We found it! Confirm these details';
+      if (f.beds != null) $('beds').value = String(f.beds);
+      if (f.fullBaths != null) $('fbaths').value = String(f.fullBaths);
+      if (f.partialBaths != null) $('pbaths').value = String(f.partialBaths);
+      if (f.floors != null) $('floors').value = String(f.floors);
+      if (f.sqft != null) $('sqft').value = Number(f.sqft).toLocaleString();
+      if (f.yearBuilt != null) $('yearbuilt').value = String(f.yearBuilt);
+      if (f.basement != null) $('basement').value = f.basement ? 'Yes' : 'No';
+      if (f.pool != null) $('pool').value = f.pool ? 'Pool' : 'No pool';
+    });
+  }
+  function checkArea(){
+    var street = $('street').value.trim(), city = $('city').value.trim(), zip = $('zip').value.trim();
+    var e = $('err1');
+    if (!street || !/^\d{5}$/.test(zip)){ e.classList.add('show'); return; }
+    e.classList.remove('show');
+    state.street = street; state.city = city; state.zip = zip;
+    $('addrEcho').innerHTML = street + '<br/>' + (city ? city + ', ' : '') + 'CA ' + zip;
+    if (SCO.inServiceArea(zip)){ tryPrefillFacts(); goStep('2'); }
+    else goStep('out');
+  }
+  $('btnCheck').addEventListener('click', checkArea);
+  $('editAddr').addEventListener('click', function(e){ e.preventDefault(); goStep('1'); });
+  // Address autocomplete (only if a Google Maps key is configured)
+  SCO.initAddressAutocomplete($('street'), function(addr){
+    if (addr.street) $('street').value = addr.street;
+    if (addr.city) $('city').value = addr.city;
+    if (addr.zip) $('zip').value = addr.zip;
+  });
+
+  /* ---- Step validations ---- */
+  $('btnStep2').addEventListener('click', function(){
+    var v = $('owner').value;
+    if (!v){ $('err2').classList.add('show'); return; }
+    $('err2').classList.remove('show'); state.owner = v; goStep('3');
+  });
+  $('btnStep3').addEventListener('click', function(){
+    var sqft = SCO.digits($('sqft').value);
+    if (!$('beds').value || !$('fbaths').value || !$('floors').value || !sqft || parseInt(sqft,10) < 200){ $('err3').classList.add('show'); return; }
+    $('err3').classList.remove('show');
+    state.beds = $('beds').value; state.fbaths = $('fbaths').value; state.pbaths = $('pbaths').value;
+    state.floors = $('floors').value; state.sqft = parseInt(sqft,10);
+    state.year = SCO.digits($('yearbuilt').value); state.basement = $('basement').value; state.pool = $('pool').value;
+    goStep('4');
+  });
+  $('btnStep4').addEventListener('click', function(){ if(!state.timeline){$('err4').classList.add('show');return;} $('err4').classList.remove('show'); goStep('5'); });
+  $('btnStep5').addEventListener('click', function(){ if(!state.overall){$('err5').classList.add('show');return;} $('err5').classList.remove('show'); goStep('6'); });
+  $('btnStep6').addEventListener('click', function(){ if(!state.bath){$('err6').classList.add('show');return;} $('err6').classList.remove('show'); goStep('7'); });
+  $('btnStep7').addEventListener('click', function(){ if(!state.living){$('err7').classList.add('show');return;} $('err7').classList.remove('show'); goStep('8'); });
+  $('btnStep8').addEventListener('click', function(){ if(!state.exterior){$('err8').classList.add('show');return;} $('err8').classList.remove('show'); goStep('9'); });
+  $('btnStep9').addEventListener('click', function(){ if(!state.hoa){$('err9').classList.add('show');return;} $('err9').classList.remove('show'); goStep('10'); });
+  $('btnStep10').addEventListener('click', function(){ goStep('11'); });
+  $('btnStep11').addEventListener('click', function(){ if(!state.reno){$('err11').classList.add('show');return;} $('err11').classList.remove('show'); goStep('12'); });
+
+  /* ---- Estimate ---- */
+  function repairRate(cf){ if(cf<0.86)return 0.04; if(cf<0.96)return 0.025; if(cf<1.06)return 0.01; return 0.005; }
+  function computeEstimate(){
+    var base = state.sqft * SCO.pricePerSqft(state.zip);
+    var cf = (state.overall + state.bath + state.living + state.exterior) / 4;
+    var poolAdj = state.pool === 'Pool' ? 1.03 : 1.0;
+    var renoAdj = state.reno === 'Yes' ? 1.04 : 1.0;
+    var yr = parseInt(state.year, 10);
+    var yearAdj = yr ? (yr < 1955 ? 0.97 : (yr > 2010 ? 1.03 : 1.0)) : 1.0;
+    var deduct = 0; state.issues.forEach(function(i){ deduct += (ISSUE_X[i] || 0); });
+    var issueFactor = Math.max(0.5, 1 - deduct);
+    var mid = base * cf * poolAdj * renoAdj * yearAdj * issueFactor;
+    state.marketMid = Math.round(mid / 5000) * 5000;
+    state.marketHigh = Math.round(mid * 1.05 / 5000) * 5000;
+    var service = mid * 0.05, closing = mid * 0.01, repairs = mid * repairRate(cf);
+    state.cashNet = Math.round((mid - service - closing - repairs) / 5000) * 5000;
+    state.moreUpfront = Math.round(state.cashNet * 0.80 / 1000) * 1000;
+    state.moreLow = Math.round(mid * 0.03 / 1000) * 1000;
+    state.moreHigh = Math.round(mid * 0.07 / 1000) * 1000;
+  }
+
+  function renderResult(){
+    $('heroAddr').textContent = state.street + ', ' + (state.city ? state.city + ', ' : '') + 'CA ' + state.zip;
+    var facts = ['&#128719; ' + state.beds + ' bd', '&#128703; ' + state.fbaths + ' ba', state.sqft.toLocaleString() + ' ft&sup2;'];
+    if (state.year) facts.push('Built ' + state.year);
+    $('heroFacts').innerHTML = facts.join('<span style="opacity:.5">&middot;</span>');
+    $('heroVal').textContent = SCO.money(state.marketHigh);
+    $('wayCash').innerHTML = SCO.money(state.cashNet) + ' <small>net at closing</small>';
+    $('wayMore').innerHTML = SCO.money(state.moreUpfront) + ' <small>now + est. ' + SCO.money(state.moreLow) + '&ndash;' + SCO.money(state.moreHigh) + ' later</small>';
+    $('scanPhone').value = state.phone;
+    // simple decorative QR
+    var pat = [1,0,1,1,0,1,1, 0,1,0,0,1,0,0, 1,1,1,0,1,1,1, 0,0,1,1,0,0,1, 1,0,1,0,1,1,0, 0,1,0,1,0,0,1, 1,1,0,1,1,0,1];
+    $('qr').innerHTML = pat.map(function(b){ return '<i class="' + (b ? '' : 'o') + '"></i>'; }).join('');
+  }
+
+  function leadBase(type){
+    return {
+      type: type, name: state.name, email: state.email, phone: state.phone,
+      street: state.street, city: state.city, zip: state.zip,
+      beds: state.beds, baths: state.fbaths, sqft: state.sqft,
+      condition: 'avg ' + (((state.overall+state.bath+state.living+state.exterior)/4).toFixed(2)),
+      timeline: state.timeline,
+      estimate_low: state.cashNet, estimate_high: state.marketHigh,
+      payload: {
+        owner: state.owner, partial_baths: state.pbaths, floors: state.floors,
+        year_built: state.year, basement: state.basement, pool: state.pool,
+        condition: { overall: state.overall, bath: state.bath, living: state.living, exterior: state.exterior },
+        hoa: state.hoa, issues: state.issues, renovations: state.reno,
+        market_high: state.marketHigh, cash_net: state.cashNet,
+        more_upfront: state.moreUpfront, more_later: [state.moreLow, state.moreHigh]
+      }
+    };
+  }
+
+  $('btnFinish').addEventListener('click', function(){
+    var name = $('name').value.trim(), phone = $('phone').value.trim(), email = $('email').value.trim();
+    if (!name || !phone || !SCO.validEmail(email)){ $('err12').classList.add('show'); return; }
+    $('err12').classList.remove('show');
+    state.name = name; state.phone = phone; state.email = email;
+    computeEstimate(); renderResult(); goStep('13');
+    var msg = 'Owner: ' + state.owner + ' | ' + state.beds + 'bd/' + state.fbaths + 'ba ' + state.sqft + 'sqft' +
+      (state.year ? ' built ' + state.year : '') + ' | HOA: ' + state.hoa + ' | reno: ' + state.reno +
+      (state.issues.length ? ' | issues: ' + state.issues.join(', ') : '');
+    var lead = leadBase('offer_request'); lead.message = msg;
+    SCO.submitLead(lead).then(function(ok){ SCO.toast(ok ? 'Estimate ready — your details are saved.' : 'Estimate ready.', ok ? 'green' : ''); });
+  });
+
+  /* ---- Assessment CTAs ---- */
+  $('btnScan').addEventListener('click', function(){
+    var ph = $('scanPhone').value.trim();
+    if (!ph){ $('scanPhone').focus(); return; }
+    state.phone = ph;
+    var lead = leadBase('assessment_self'); lead.message = 'Requested self-scan link to ' + ph;
+    SCO.submitLead(lead);
+    $('doneHead').textContent = 'Check your texts!';
+    $('doneMsg').textContent = 'We just sent a link to ' + ph + ' to start your guided home scan. Finish it whenever you’re ready and we’ll confirm your final offer.';
+    goStep('done');
+  });
+  $('btnVisit').addEventListener('click', function(){
+    var lead = leadBase('assessment_agent'); lead.message = 'Requested an in-person home assessment visit.';
+    SCO.submitLead(lead);
+    $('doneHead').textContent = 'Visit requested!';
+    $('doneMsg').textContent = 'Thanks ' + (state.name.split(' ')[0] || '') + '! A team member will reach out within one business day to schedule your home visit and confirm your final offer.';
+    goStep('done');
+  });
+
+  $('btnWait').addEventListener('click', function(){
+    var em = $('waitEmail').value.trim();
+    if (!SCO.validEmail(em)){ $('waitEmail').focus(); return; }
+    SCO.submitLead({ type:'waitlist', email: em, street: state.street, city: state.city, zip: state.zip });
+    $('outsideBox').innerHTML = '<div class="big">&#9989;</div><h3>You&rsquo;re on the list!</h3>' +
+      '<p class="small">Thanks &mdash; we&rsquo;ll email you the moment we start buying homes in your area.</p>';
+  });
+
+  /* ---- Prefill from home hero (?street=&city=&zip=) ---- */
+  (function(){
+    var p = new URLSearchParams(location.search);
+    if (p.get('street')) $('street').value = p.get('street');
+    if (p.get('city')) $('city').value = p.get('city');
+    if (p.get('zip')) $('zip').value = p.get('zip');
+    if (p.get('street') && /^\d{5}$/.test(p.get('zip') || '')) checkArea();
+  })();
+})();
+</script>
+
+</body>
+</html>

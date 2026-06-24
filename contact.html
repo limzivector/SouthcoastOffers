@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact Us | South Coast Offers</title>
+<meta name="description" content="Get in touch with South Coast Offers. Questions about selling, buying, or your cash offer in Orange County and Los Angeles? We typically reply within one business day." />
+<link rel="preconnect" href="https://wkpqpoqvcycgiyhrecvp.supabase.co" />
+<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+
+<header class="site">
+  <div class="container nav">
+    <a class="logo" href="/"><span class="mark">SC</span> South Coast Offers</a>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <nav class="nav-links">
+      <a href="/buy">Buy</a>
+      <a href="/sell">Sell</a>
+      <a href="/home-value">Home Value</a>
+      <a href="/calculators">Calculators</a>
+      <a href="/guides">Guides</a>
+      <a href="/about">About</a>
+      <a class="nav-cta" href="/sell">Get My Offer</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="container">
+    <h1>Contact us</h1>
+    <p>Questions about selling, buying, or your offer? We&rsquo;re here to help &mdash; no pressure, no obligation.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="card">
+        <h3 style="color:var(--ink);margin-bottom:4px">Send us a message</h3>
+        <p class="small" style="color:var(--muted);margin-bottom:16px">We typically reply within one business day.</p>
+        <div id="cForm">
+          <div class="grid2">
+            <div class="field"><label for="cName">Full name</label><input type="text" id="cName" placeholder="Jane Smith" /></div>
+            <div class="field"><label for="cPhone">Phone</label><input type="tel" id="cPhone" placeholder="(555) 123-4567" /></div>
+          </div>
+          <div class="field"><label for="cEmail">Email</label><input type="email" id="cEmail" placeholder="jane@email.com" /></div>
+          <div class="field"><label for="cTopic">I&rsquo;m interested in</label>
+            <select id="cTopic"><option>Selling my home</option><option>Buying a home</option><option>Sell and buy (trade-in)</option><option>General question</option></select>
+          </div>
+          <div class="field"><label for="cMsg">Message</label><textarea id="cMsg" placeholder="Tell us a little about what you&rsquo;re looking for..."></textarea></div>
+          <div class="err" id="cErr">Please enter your name, a valid email, and a message.</div>
+          <button class="btn btn-accent btn-block" id="cSend">Send Message</button>
+          <p class="note">By submitting, you agree to be contacted about your inquiry. We respect your privacy.</p>
+        </div>
+        <div id="cDone" class="outside hidden">
+          <div class="big">&#9989;</div>
+          <h3>Message sent!</h3>
+          <p class="small" id="cDoneMsg" style="color:var(--muted)"></p>
+        </div>
+      </div>
+
+      <div class="contact-info">
+        <div class="row"><div class="ic">&#128222;</div><div><b>Call or text</b><span><a href="tel:5551234567" style="color:var(--blue)">(555) 123-4567</a></span></div></div>
+        <div class="row"><div class="ic">&#9993;</div><div><b>Email</b><span><a href="mailto:offers@southcoastoffers.com" style="color:var(--blue)">offers@southcoastoffers.com</a></span></div></div>
+        <div class="row"><div class="ic">&#128336;</div><div><b>Hours</b><span>Mon&ndash;Fri 8am&ndash;7pm &middot; Sat&ndash;Sun 9am&ndash;5pm (PT)</span></div></div>
+        <div class="row"><div class="ic">&#128205;</div><div><b>Service area</b><span>Orange County &amp; Los Angeles County, California</span></div></div>
+        <div class="card" style="background:var(--soft);border:none">
+          <b style="color:var(--ink)">Ready for a cash offer?</b>
+          <p class="small" style="color:var(--muted);margin:4px 0 10px">Skip the form and get a preliminary range in minutes.</p>
+          <a href="/sell" class="btn btn-accent btn-block btn-sm">Get My Offer &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">SC</span> South Coast Offers</div>
+        <p style="max-width:330px;color:#9fb2c8">A simpler way to sell &mdash; or buy &mdash; your home in Orange County and Los Angeles. Fair cash offers, flexible closings, no hassle.</p>
+      </div>
+      <div><h5>Sell</h5><a href="/sell">Get a cash offer</a><a href="/home-value">Home value estimator</a><a href="/calculators">Net proceeds calculator</a><a href="/sell#how">How selling works</a></div>
+      <div><h5>Buy</h5><a href="/buy">Browse homes</a><a href="/how-buy">How buying works</a><a href="/financing">Get pre-qualified</a><a href="/saved">Saved homes</a></div>
+      <div><h5>Company</h5><a href="/about">About us</a><a href="/reviews">Reviews</a><a href="/guides">Guides</a><a href="/contact">Contact</a></div>
+      <div><h5>Contact</h5><a href="tel:5551234567">(555) 123-4567</a><a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a><a href="/sell">Get my offer</a></div>
+    </div>
+    <div class="foot-bottom">
+      &copy; <span data-year>2026</span> South Coast Offers. All rights reserved.<br/>
+      South Coast Offers is an independent home-buying service and is not affiliated with Opendoor. Messages are used only to respond to your inquiry.
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+<script>
+(function () {
+  var SCO = window.SCO;
+  function $(id){ return document.getElementById(id); }
+  $('cSend').addEventListener('click', function(){
+    var name = $('cName').value.trim();
+    var email = $('cEmail').value.trim();
+    var phone = $('cPhone').value.trim();
+    var topic = $('cTopic').value;
+    var msg = $('cMsg').value.trim();
+    var err = $('cErr');
+    if (!name || !SCO.validEmail(email) || !msg){ err.classList.add('show'); return; }
+    err.classList.remove('show');
+    SCO.submitLead({
+      type:'contact', name:name, email:email, phone:phone,
+      message: '[' + topic + '] ' + msg, payload: { topic: topic }
+    }).then(function(ok){
+      $('cDoneMsg').textContent = 'Thanks ' + (name.split(' ')[0] || '') + '! We received your message and will get back to you within one business day.';
+      $('cForm').classList.add('hidden');
+      $('cDone').classList.remove('hidden');
+      SCO.toast(ok ? 'Message sent — we&rsquo;ll be in touch.' : 'Thanks — your message was received.', 'green');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
