@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Homes for Sale in Orange County &amp; LA | South Coast Offers</title>
-<meta name="description" content="Browse homes for sale across Orange County and Los Angeles. Filter by price, beds, and type, save your favorites, and book a self-guided tour on your schedule." />
+<meta name="description" content="Browse homes for sale across Orange County and Los Angeles in list or map view. Filter by price, beds, and type, save your favorites, and book a self-guided tour." />
 <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
@@ -68,10 +68,15 @@
 
     <div class="results-bar">
       <div class="count" id="count">&nbsp;</div>
-      <button class="btn btn-ghost btn-sm" id="savedToggle">&#9825; Saved homes</button>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <div class="view-toggle"><button id="viewList" class="active">&#9776; List</button><button id="viewMap">&#128506; Map</button></div>
+        <button class="btn btn-ghost btn-sm" id="savedToggle">&#9825; Saved homes</button>
+      </div>
     </div>
 
     <div class="listing-grid" id="grid"></div>
+    <div class="map-box hidden" id="mapBox"></div>
+
     <div class="empty hidden" id="empty">
       <div class="big">&#127968;</div>
       <h3>No homes match your filters</h3>
@@ -102,7 +107,7 @@
     </div>
     <div class="foot-bottom">
       &copy; <span data-year>2026</span> South Coast Offers. All rights reserved.<br/>
-      South Coast Offers is an independent home-buying service and is not affiliated with, endorsed by, or sponsored by Opendoor or any other company. Listings shown are sample data for demonstration only.
+      South Coast Offers is an independent home-buying service and is not affiliated with, endorsed by, or sponsored by Opendoor or any other company. Listings and map locations shown are sample data for demonstration only.
     </div>
   </div>
 </footer>
@@ -114,12 +119,32 @@
   var SCO = window.SCO;
   var ALL = window.SCO_LISTINGS || [];
   var savedOnly = false;
+  var view = 'list';
+  function $(id){ return document.getElementById(id); }
+  var grid = $('grid'), mapBox = $('mapBox'), empty = $('empty');
+
+  // Approximate city centers across OC + LA County for the map projection.
+  var BOUNDS = { latMin: 33.50, latMax: 34.22, lngMin: -118.42, lngMax: -117.65 };
+  var CITY_COORDS = {
+    'Irvine':[33.68,-117.82], 'Newport Beach':[33.62,-117.93], 'Huntington Beach':[33.69,-118.00],
+    'Costa Mesa':[33.64,-117.92], 'Anaheim':[33.84,-117.91], 'Santa Ana':[33.75,-117.87],
+    'Long Beach':[33.77,-118.19], 'Pasadena':[34.15,-118.14], 'Torrance':[33.84,-118.34],
+    'Glendale':[34.14,-118.25], 'Los Angeles':[34.11,-118.19], 'Fullerton':[33.87,-117.92],
+    'Mission Viejo':[33.60,-117.67], 'Tustin':[33.74,-117.81], 'Laguna Niguel':[33.52,-117.70],
+    'Brea':[33.92,-117.90], 'Redondo Beach':[33.85,-118.38], 'Burbank':[34.18,-118.31],
+    'Culver City':[34.02,-118.39], 'Whittier':[33.98,-118.03]
+  };
+  function project(city){
+    var c = CITY_COORDS[city]; if (!c) return null;
+    var x = (c[1] - BOUNDS.lngMin) / (BOUNDS.lngMax - BOUNDS.lngMin) * 100;
+    var y = (BOUNDS.latMax - c[0]) / (BOUNDS.latMax - BOUNDS.latMin) * 100;
+    return { x: Math.max(5, Math.min(95, x)), y: Math.max(7, Math.min(92, y)) };
+  }
 
   function monthly(price){
     var P = price * 0.8, r = 6.5/100/12, n = 360;
     return P * r / (1 - Math.pow(1+r, -n));
   }
-  function $(id){ return document.getElementById(id); }
 
   function card(l){
     var fav = SCO.isFav(l.id);
@@ -139,7 +164,7 @@
     '</div>';
   }
 
-  function render(){
+  function filtered(){
     var q = $('fSearch').value.trim().toLowerCase();
     var maxP = parseInt($('fPrice').value || '0', 10);
     var minBeds = parseInt($('fBeds').value || '0', 10);
@@ -156,32 +181,51 @@
       if (type && l.type !== type) return false;
       return true;
     });
-
     list.sort(function(a,b){
       if (sort === 'ple') return a.price - b.price;
       if (sort === 'phe') return b.price - a.price;
       if (sort === 'sqft') return b.sqft - a.sqft;
-      return a.daysOnMarket - b.daysOnMarket; // newest
+      return a.daysOnMarket - b.daysOnMarket;
     });
-
-    $('grid').innerHTML = list.map(card).join('');
-    $('count').textContent = list.length + (list.length === 1 ? ' home' : ' homes') + (savedOnly ? ' saved' : ' for sale');
-    $('empty').classList.toggle('hidden', list.length > 0);
+    return list;
   }
 
-  // events
+  function renderMap(list){
+    var html = '<div class="grid-lines"></div>';
+    list.forEach(function(l){
+      var p = project(l.city); if (!p) return;
+      html += '<button class="pin" style="left:'+p.x+'%;top:'+p.y+'%" data-id="'+l.id+'" ' +
+              'title="'+l.street+', '+l.city+' — '+SCO.money(l.price)+'">'+SCO.moneyK(l.price)+'</button>';
+    });
+    html += '<div class="map-note">Approximate locations &middot; '+list.length+(list.length===1?' home':' homes')+'</div>';
+    mapBox.innerHTML = html;
+  }
+
+  function applyView(n){
+    var hasResults = n > 0;
+    empty.classList.toggle('hidden', hasResults);
+    grid.classList.toggle('hidden', !(hasResults && view === 'list'));
+    mapBox.classList.toggle('hidden', !(hasResults && view === 'map'));
+  }
+
+  function render(){
+    var list = filtered();
+    grid.innerHTML = list.map(card).join('');
+    renderMap(list);
+    $('count').textContent = list.length + (list.length === 1 ? ' home' : ' homes') + (savedOnly ? ' saved' : ' for sale');
+    applyView(list.length);
+  }
+
   ['fSearch','fPrice','fBeds','fBaths','fType','fSort'].forEach(function(id){
-    var el = $(id);
-    el.addEventListener('input', render);
-    el.addEventListener('change', render);
+    $(id).addEventListener('input', render);
+    $(id).addEventListener('change', render);
   });
 
-  $('grid').addEventListener('click', function(e){
+  grid.addEventListener('click', function(e){
     var favBtn = e.target.closest('[data-fav]');
     if (favBtn){
       e.stopPropagation();
-      var id = favBtn.getAttribute('data-fav');
-      var now = SCO.toggleFav(id);
+      var now = SCO.toggleFav(favBtn.getAttribute('data-fav'));
       favBtn.innerHTML = now ? '&#10084;' : '&#9825;';
       SCO.toast(now ? 'Saved to your favorites' : 'Removed from favorites');
       if (savedOnly) render();
@@ -190,6 +234,20 @@
     var cardEl = e.target.closest('.listing');
     if (cardEl) window.location.href = '/property?id=' + encodeURIComponent(cardEl.getAttribute('data-id'));
   });
+
+  mapBox.addEventListener('click', function(e){
+    var pin = e.target.closest('.pin');
+    if (pin) window.location.href = '/property?id=' + encodeURIComponent(pin.getAttribute('data-id'));
+  });
+
+  function setView(v){
+    view = v;
+    $('viewList').classList.toggle('active', v === 'list');
+    $('viewMap').classList.toggle('active', v === 'map');
+    render();
+  }
+  $('viewList').addEventListener('click', function(){ setView('list'); });
+  $('viewMap').addEventListener('click', function(){ setView('map'); });
 
   $('savedToggle').addEventListener('click', function(){
     savedOnly = !savedOnly;
@@ -204,7 +262,10 @@
     var p = new URLSearchParams(location.search);
     if (p.get('city')) $('fSearch').value = p.get('city');
     if (p.get('type')) $('fType').value = p.get('type');
+    if (p.get('view') === 'map') view = 'map';
   })();
+  $('viewList').classList.toggle('active', view === 'list');
+  $('viewMap').classList.toggle('active', view === 'map');
 
   render();
 })();
