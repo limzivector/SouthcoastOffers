@@ -3,6 +3,15 @@
    - Supabase lead capture via REST (publishable key is safe to expose)
    - mobile nav, active-link, footer year, toast, favorites (localStorage)
    ========================================================================= */
+/* =========================================================================
+   CONFIG — paste your keys here to switch on the automatic funnel steps.
+   googleMapsApiKey:     Google Maps Places API key -> address autocomplete (step 1)
+   propertyDataEndpoint: your serverless endpoint (e.g. /api/property) that calls a
+                         property-data provider (ATTOM/Estated/Rentcast) -> auto-fills
+                         the home facts in step 3. Leave blank for manual entry.
+   ========================================================================= */
+window.SCO_CONFIG = window.SCO_CONFIG || { googleMapsApiKey: '', propertyDataEndpoint: '' };
+
 (function () {
   'use strict';
 
@@ -105,21 +114,31 @@
   function initChrome() {
     var toggle = document.querySelector('.nav-toggle');
     var links = document.querySelector('.nav-links');
+    // Canonical top nav — seller-focused, centralized here.
+    if (links) {
+      links.innerHTML =
+        '<a href="/ways-to-sell">Ways to Sell</a>' +
+        '<a href="/home-value">Home Value</a>' +
+        '<a href="/reviews">Reviews</a>' +
+        '<a href="/guides">Guides</a>' +
+        '<a href="/about">About</a>' +
+        '<a class="nav-cta" href="/sell">Get My Offer</a>';
+    }
     if (toggle && links) {
       toggle.addEventListener('click', function () { links.classList.toggle('open'); });
     }
-    // Canonical footer nav — centralized here so links update site-wide at once.
+    // Canonical footer — seller-focused, centralized here.
     var fg = document.querySelector('footer.site .foot-grid');
     if (fg) {
       fg.innerHTML =
         '<div>' +
           '<div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">SC</span> South Coast Offers</div>' +
-          '<p style="max-width:330px;color:#9fb2c8">A simpler way to sell &mdash; or buy &mdash; your home in Orange County and Los Angeles. Fair cash offers, flexible closings, no hassle.</p>' +
+          '<p style="max-width:330px;color:#9fb2c8">A simpler way to sell your home for cash in Orange County and Los Angeles. Fair offers, flexible closings, no hassle.</p>' +
         '</div>' +
-        '<div><h5>Sell</h5><a href="/sell">Get a cash offer</a><a href="/ways-to-sell">Ways to sell</a><a href="/home-value">Home value</a><a href="/calculators">Net proceeds calculator</a></div>' +
-        '<div><h5>Buy</h5><a href="/buy">Browse homes</a><a href="/how-buy">How buying works</a><a href="/financing">Get pre-qualified</a><a href="/saved">Saved homes</a></div>' +
-        '<div><h5>Company</h5><a href="/about">About us</a><a href="/reviews">Reviews</a><a href="/agents">For agents</a><a href="/contact">Contact</a></div>' +
-        '<div><h5>Resources</h5><a href="/guides">Guides</a><a href="tel:5551234567">(555) 123-4567</a><a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a></div>';
+        '<div><h5>Sell</h5><a href="/sell">Get a cash offer</a><a href="/ways-to-sell">Ways to sell</a><a href="/sell#how">How it works</a></div>' +
+        '<div><h5>Pricing</h5><a href="/home-value">Home value estimate</a><a href="/calculators">Net proceeds calculator</a></div>' +
+        '<div><h5>Company</h5><a href="/about">About us</a><a href="/agents">For agents</a><a href="/reviews">Reviews</a><a href="/guides">Guides</a></div>' +
+        '<div><h5>Contact</h5><a href="tel:5551234567">(555) 123-4567</a><a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a><a href="/contact">Contact us</a></div>';
     }
 
     // active nav link by pathname
@@ -138,6 +157,65 @@
 
   document.addEventListener('DOMContentLoaded', initChrome);
 
+  /* ---- Google Places address autocomplete (optional) ----------------- */
+  // Activates only when SCO_CONFIG.googleMapsApiKey is set; otherwise the
+  // address fields stay manual. Loads the Maps JS SDK on demand.
+  function loadGoogleMaps(key, cb) {
+    if (window.google && window.google.maps && window.google.maps.places) { cb(); return; }
+    if (document.getElementById('gmaps-sdk')) {
+      var iv = setInterval(function () {
+        if (window.google && window.google.maps && window.google.maps.places) { clearInterval(iv); cb(); }
+      }, 150);
+      return;
+    }
+    var s = document.createElement('script');
+    s.id = 'gmaps-sdk';
+    s.async = true; s.defer = true;
+    s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(key) + '&libraries=places';
+    s.onload = cb;
+    s.onerror = function () { console.warn('Google Maps failed to load'); };
+    document.head.appendChild(s);
+  }
+  // initAddressAutocomplete(inputEl, onSelect) -> true if wired, false if manual.
+  function initAddressAutocomplete(input, onSelect) {
+    var key = (window.SCO_CONFIG && SCO_CONFIG.googleMapsApiKey) || '';
+    if (!key || !input) return false;
+    loadGoogleMaps(key, function () {
+      try {
+        var ac = new google.maps.places.Autocomplete(input, {
+          types: ['address'], componentRestrictions: { country: 'us' },
+          fields: ['address_components', 'formatted_address']
+        });
+        ac.addListener('place_changed', function () {
+          var p = ac.getPlace() || {}, c = {};
+          (p.address_components || []).forEach(function (comp) {
+            var t = comp.types;
+            if (t.indexOf('street_number') > -1) c.num = comp.long_name;
+            if (t.indexOf('route') > -1) c.route = comp.long_name;
+            if (t.indexOf('locality') > -1) c.city = comp.long_name;
+            if (t.indexOf('postal_code') > -1) c.zip = comp.long_name;
+            if (t.indexOf('administrative_area_level_1') > -1) c.state = comp.short_name;
+          });
+          onSelect({
+            street: [c.num, c.route].filter(Boolean).join(' '),
+            city: c.city || '', zip: c.zip || '', state: c.state || '',
+            formatted: p.formatted_address || ''
+          });
+        });
+      } catch (e) { console.warn('autocomplete init failed', e); }
+    });
+    return true;
+  }
+  // fetchPropertyData(address) -> Promise<facts|null>. Wire a property-data
+  // provider via SCO_CONFIG.propertyDataEndpoint (defaults to none -> manual entry).
+  function fetchPropertyData(address) {
+    var ep = (window.SCO_CONFIG && SCO_CONFIG.propertyDataEndpoint) || '';
+    if (!ep) return Promise.resolve(null);
+    return fetch(ep + (ep.indexOf('?') > -1 ? '&' : '?') + 'address=' + encodeURIComponent(address))
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; });
+  }
+
   /* ---- Public API ---------------------------------------------------- */
   window.SCO = {
     submitLead: submitLead,
@@ -150,6 +228,8 @@
     digits: digits,
     validEmail: validEmail,
     inServiceArea: inServiceArea,
-    pricePerSqft: pricePerSqft
+    pricePerSqft: pricePerSqft,
+    initAddressAutocomplete: initAddressAutocomplete,
+    fetchPropertyData: fetchPropertyData
   };
 })();

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>South Coast Offers | Sell or Buy Your Home in Orange County &amp; LA</title>
-<meta name="description" content="South Coast Offers makes moving simple. Get a competitive cash offer, skip the showings, browse homes for sale, and close on your timeline. Serving Orange County and Los Angeles." />
+<title>South Coast Offers | Sell Your Home for Cash in Orange County &amp; LA</title>
+<meta name="description" content="South Coast Offers buys homes for cash in Orange County and Los Angeles. Get a competitive cash offer, skip the showings and repairs, and close on your timeline." />
 <link rel="preconnect" href="https://wkpqpoqvcycgiyhrecvp.supabase.co" />
 <link rel="stylesheet" href="/assets/styles.css" />
 </head>
@@ -35,7 +35,7 @@
         <span class="pill dark">Cash Offers</span>
       </div>
       <h1>Move the <span>simple</span> way.</h1>
-      <p class="sub">Get a competitive cash offer on your home, skip the showings and repairs, and close on the day that works for you. Looking to buy instead? Browse homes and tour on your schedule.</p>
+      <p class="sub">Get a competitive cash offer on your home, skip the showings and repairs, and close on the day that works for you. We buy homes as-is across Orange County and Los Angeles.</p>
       <div class="pill-row">
         <span class="pill dark">&#10003; No repairs</span>
         <span class="pill dark">&#10003; No agent fees</span>
@@ -84,22 +84,9 @@
     </div>
     <div class="grid-3">
       <div class="pcard"><div class="tag">Sell</div><h4>Sell directly to us</h4><p>Get a competitive cash offer and skip the prep, showings, and uncertainty of the open market.</p><div class="pcard-foot"><a class="btn btn-ghost btn-sm" href="/sell">Get my offer</a></div></div>
-      <div class="pcard"><div class="tag">Buy</div><h4>Find your next home</h4><p>Browse homes for sale across OC and LA, save favorites, and book a self-guided tour on your schedule.</p><div class="pcard-foot"><a class="btn btn-ghost btn-sm" href="/buy">Browse homes</a></div></div>
+      <div class="pcard"><div class="tag">Estimate</div><h4>Know your home&rsquo;s value</h4><p>See a free, instant estimate of what your home is worth &mdash; no obligation, no account needed.</p><div class="pcard-foot"><a class="btn btn-ghost btn-sm" href="/home-value">Check home value</a></div></div>
       <div class="pcard"><div class="tag">Sell + Buy</div><h4>Line up your next move</h4><p>Coordinate the sale of your current home with your next purchase so you&rsquo;re never caught in between.</p><div class="pcard-foot"><a class="btn btn-ghost btn-sm" href="/ways-to-sell">Compare ways to sell</a></div></div>
     </div>
-  </div>
-</section>
-
-<!-- Featured homes -->
-<section class="section">
-  <div class="container">
-    <div class="section-head">
-      <div class="eyebrow">For Sale Now</div>
-      <h2>Featured homes</h2>
-      <p>A few of the homes available right now across Orange County and Los Angeles.</p>
-    </div>
-    <div class="listing-grid" id="featuredGrid"></div>
-    <div class="center" style="margin-top:34px"><a href="/buy" class="btn btn-accent">Browse all homes &rarr;</a></div>
   </div>
 </section>
 
@@ -114,10 +101,10 @@
       </div>
       <div>
         <div class="cities">
-          <a class="city" href="/city?name=Irvine">Irvine</a><a class="city" href="/city?name=Anaheim">Anaheim</a><a class="city" href="/city?name=Santa Ana">Santa Ana</a>
-          <a class="city" href="/city?name=Huntington Beach">Huntington Beach</a><a class="city" href="/city?name=Newport Beach">Newport Beach</a><a class="city" href="/city?name=Costa Mesa">Costa Mesa</a>
-          <a class="city" href="/city?name=Los Angeles">Los Angeles</a><a class="city" href="/city?name=Long Beach">Long Beach</a><a class="city" href="/city?name=Pasadena">Pasadena</a>
-          <a class="city" href="/city?name=Glendale">Glendale</a><a class="city" href="/city?name=Torrance">Torrance</a><a class="city" href="/city?name=Fullerton">Fullerton</a>
+          <span class="city">Irvine</span><span class="city">Anaheim</span><span class="city">Santa Ana</span>
+          <span class="city">Huntington Beach</span><span class="city">Newport Beach</span><span class="city">Costa Mesa</span>
+          <span class="city">Los Angeles</span><span class="city">Long Beach</span><span class="city">Pasadena</span>
+          <span class="city">Glendale</span><span class="city">Torrance</span><span class="city">Fullerton</span>
         </div>
       </div>
     </div>
@@ -146,7 +133,7 @@
     <div class="section-head">
       <div class="eyebrow">Reviews</div>
       <h2>Homeowners love an easier move</h2>
-      <p>Real stories from sellers and buyers across Orange County and Los Angeles.</p>
+      <p>Real stories from homeowners across Orange County and Los Angeles.</p>
     </div>
     <div class="reviews">
       <div class="review">
@@ -161,8 +148,8 @@
       </div>
       <div class="review">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p>&ldquo;I booked a self-guided tour for a Sunday morning and bought the place two weeks later. Being able to see homes on my own schedule was a game changer.&rdquo;</p>
-        <div class="who"><div class="av">JK</div><div><b>Jordan K.</b><span>Bought in Pasadena</span></div></div>
+        <p>&ldquo;We inherited the house and just wanted it handled. They gave us a fair cash offer, we picked the closing date, and it was done in three weeks.&rdquo;</p>
+        <div class="who"><div class="av">JK</div><div><b>Jordan K.</b><span>Sold in Pasadena</span></div></div>
       </div>
     </div>
     <div class="trust-row">
@@ -223,21 +210,8 @@
 </footer>
 
 <script src="/assets/app.js"></script>
-<script src="/assets/data.js"></script>
 <script>
   (function () {
-    var SCO = window.SCO;
-    // Featured homes strip (first 3 listings)
-    var fg = document.getElementById('featuredGrid');
-    if (fg && window.SCO_LISTINGS) {
-      fg.innerHTML = window.SCO_LISTINGS.slice(0, 3).map(function (l) {
-        return '<div class="listing" onclick="location.href=\'/property?id=' + l.id + '\'">' +
-          '<div class="photo" style="background-image:' + l.photo + '"><span class="badge badge-green badge-od">For sale</span><span class="price">' + SCO.money(l.price) + '</span></div>' +
-          '<div class="body"><div class="facts"><span>' + l.beds + ' bd</span><span>' + l.baths + ' ba</span><span>' + l.sqft.toLocaleString() + ' sqft</span></div>' +
-          '<div class="addr">' + l.street + '</div><div class="city">' + l.city + ', CA ' + l.zip + '</div></div>' +
-        '</div>';
-      }).join('');
-    }
     function go() {
       var street = document.getElementById('hstreet').value.trim();
       var city = document.getElementById('hcity').value.trim();

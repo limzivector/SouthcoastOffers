@@ -451,3 +451,62 @@ footer.site a:hover{color:#fff}
 .compare tr:last-child td,.compare tr:last-child th{border-bottom:none}
 .compare-wrap{overflow-x:auto;border-radius:var(--radius)}
 .compare-wrap .compare{min-width:680px}
+
+/* =========================================================================
+   Seller acquisition funnel + estimate/assessment result
+   ========================================================================= */
+.progress{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:18px}
+.progress .bar{height:100%;background:var(--accent);border-radius:3px;transition:width .3s ease;width:8%}
+
+/* Condition tiers (Fixer Upper -> Luxury) */
+.tier-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tier-card{border:1.5px solid var(--line2);border-radius:12px;padding:14px;cursor:pointer;transition:.15s;background:#fff}
+.tier-card:hover{border-color:var(--accent)}
+.tier-card.selected{border-color:var(--accent);background:var(--accent-soft)}
+.tier-card .tier-ic{font-size:1.5rem;line-height:1}
+.tier-card b{display:block;color:var(--ink);margin:7px 0 2px;font-size:.98rem}
+.tier-card span{font-size:.82rem;color:var(--muted)}
+
+/* Selectable option rows (property issues, owner) */
+.opt-list{display:flex;flex-direction:column;gap:8px}
+.opt-row{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--line2);border-radius:11px;padding:13px 14px;cursor:pointer;transition:.15s;background:#fff}
+.opt-row:hover{border-color:var(--accent)}
+.opt-row.selected{border-color:var(--accent);background:var(--accent-soft)}
+.opt-row .box{flex:0 0 20px;width:20px;height:20px;border:2px solid var(--line2);border-radius:6px;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:#fff;line-height:1}
+.opt-row.selected .box{background:var(--accent);border-color:var(--accent)}
+.opt-row b{color:var(--ink);font-size:.95rem;font-weight:700}
+.opt-row em{display:block;color:var(--muted);font-size:.82rem;font-style:normal;margin-top:2px}
+
+/* Estimate result hero */
+.estimate-hero{background:linear-gradient(135deg,var(--ink),var(--ink3));color:#fff;border-radius:16px;padding:22px;margin-bottom:18px}
+.estimate-hero .addr{font-weight:800;font-size:1.05rem}
+.estimate-hero .facts{display:flex;gap:14px;color:#c8d6e6;font-size:.85rem;margin:6px 0 14px;flex-wrap:wrap}
+.estimate-hero .val-lab{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#aebfd4}
+.estimate-hero .val{font-size:2rem;font-weight:800;color:#fff;line-height:1.1}
+.estimate-hero .val small{font-size:.95rem;font-weight:700;color:#ff8a5c}
+.estimate-hero .conf{font-size:.76rem;color:#aebfd4;margin-top:4px}
+
+/* Assessment paths */
+.assess-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px}
+.assess-card{border:1px solid var(--line);border-radius:14px;padding:18px;background:#fff;position:relative}
+.assess-card.popular{border-color:var(--accent)}
+.assess-card .flag{position:absolute;top:-10px;left:14px;background:var(--ink);color:#fff;font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:3px 9px;border-radius:6px}
+.assess-card h4{color:var(--ink);font-size:1.02rem;margin-bottom:6px}
+.assess-card>p{font-size:.85rem;color:var(--muted)}
+.assess-card ol{margin:10px 0 12px 18px;color:var(--muted);font-size:.84rem}
+.assess-card ol li{margin-bottom:4px}
+.qr{width:84px;height:84px;border-radius:8px;background:#fff;border:1px solid var(--line);display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(7,1fr);overflow:hidden;margin-top:10px;padding:5px;gap:1px}
+.qr i{background:var(--ink);border-radius:1px}
+.qr i.o{background:transparent}
+
+/* Two ways to sell */
+.way-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.way-card{border:1.5px solid var(--line2);border-radius:14px;padding:18px;background:#fff}
+.way-card .tagline{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--green2);margin-bottom:6px}
+.way-card h4{color:var(--ink);font-size:1.1rem}
+.way-card .amt{font-size:1.3rem;font-weight:800;color:var(--green);margin:6px 0}
+.way-card .amt small{font-size:.78rem;font-weight:700;color:var(--muted)}
+.way-card ul{list-style:none;margin:10px 0 0}
+.way-card li{display:flex;gap:8px;color:var(--text);font-size:.85rem;margin-bottom:7px;align-items:flex-start}
+.way-card li:before{content:"\2713";color:var(--green);font-weight:800}
+@media(max-width:560px){.assess-grid,.way-grid,.tier-grid{grid-template-columns:1fr}}
