@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Get Pre-Qualified | South Coast Offers</title>
+<meta name="description" content="Estimate your home-buying power in minutes. See an estimated max price and monthly budget based on your income, debts, and down payment, then connect with a lender." />
+<link rel="preconnect" href="https://wkpqpoqvcycgiyhrecvp.supabase.co" />
+<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+
+<header class="site">
+  <div class="container nav">
+    <a class="logo" href="/"><span class="mark">SC</span> South Coast Offers</a>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <nav class="nav-links">
+      <a href="/buy">Buy</a>
+      <a href="/sell">Sell</a>
+      <a href="/home-value">Home Value</a>
+      <a href="/calculators">Calculators</a>
+      <a href="/guides">Guides</a>
+      <a href="/about">About</a>
+      <a class="nav-cta" href="/sell">Get My Offer</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="container">
+    <h1>Get pre-qualified</h1>
+    <p>See your estimated buying power in minutes &mdash; it&rsquo;s free, and it makes your offer stronger.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="calc">
+        <div id="pqForm">
+          <h3>Estimate your buying power</h3>
+          <p class="small" style="color:var(--muted);margin-bottom:16px">Enter a few details &mdash; no credit check, no obligation.</p>
+          <div class="field"><label for="pqIncome">Annual household income</label><input type="text" id="pqIncome" inputmode="numeric" placeholder="120,000" /></div>
+          <div class="field"><label for="pqDebts">Monthly debt payments (cars, cards, loans)</label><input type="text" id="pqDebts" inputmode="numeric" placeholder="600" /></div>
+          <div class="field"><label for="pqDown">Down payment you have saved</label><input type="text" id="pqDown" inputmode="numeric" placeholder="100,000" /></div>
+          <div class="field"><label for="pqCredit">Estimated credit</label>
+            <select id="pqCredit">
+              <option value="6.25">Excellent (740+)</option>
+              <option value="6.75" selected>Good (680&ndash;739)</option>
+              <option value="7.5">Fair (620&ndash;679)</option>
+              <option value="8.5">Building (below 620)</option>
+            </select>
+          </div>
+          <div class="err" id="pqErr">Please enter your annual income to estimate your buying power.</div>
+          <button class="btn btn-accent btn-block" id="pqCalc">See My Buying Power &rarr;</button>
+        </div>
+
+        <div id="pqResult" class="hidden">
+          <div class="out">
+            <div class="lab">Estimated home price you can afford</div>
+            <div class="big" id="pqPrice">$&mdash;</div>
+          </div>
+          <table class="breakdown" id="pqBreak" style="margin-top:14px"></table>
+          <div class="disc" style="font-size:.78rem;color:var(--muted);background:var(--soft);border-radius:10px;padding:12px;margin:14px 0">
+            This is an informational estimate based on common affordability guidelines &mdash; not a loan approval or a commitment to lend. A lender will confirm your actual pre-qualification.
+          </div>
+
+          <div id="pqLeadForm">
+            <div style="font-weight:800;color:var(--ink);margin-bottom:8px">Want a real pre-qualification?</div>
+            <div class="field"><label for="pqName">Full name</label><input type="text" id="pqName" placeholder="Jane Smith" /></div>
+            <div class="grid2">
+              <div class="field"><label for="pqPhone">Phone</label><input type="tel" id="pqPhone" placeholder="(555) 123-4567" /></div>
+              <div class="field"><label for="pqEmail">Email</label><input type="email" id="pqEmail" placeholder="jane@email.com" /></div>
+            </div>
+            <div class="err" id="pqLeadErr">Please enter your name, phone, and a valid email.</div>
+            <button class="btn btn-green btn-block" id="pqConnect">Connect Me With a Lender</button>
+            <a href="/buy" class="btn btn-ghost btn-block" style="margin-top:8px">Browse homes in my range</a>
+            <button class="btn btn-ghost btn-block" id="pqRestart" style="margin-top:8px">Start over</button>
+          </div>
+
+          <div id="pqDone" class="outside hidden">
+            <div class="big">&#9989;</div>
+            <h3>You&rsquo;re all set!</h3>
+            <p class="small" id="pqDoneMsg" style="color:var(--muted)"></p>
+            <a href="/buy" class="btn btn-ink btn-block" style="margin-top:12px">Browse homes for sale</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-info">
+        <div class="card" style="border:none;background:var(--soft)">
+          <b style="color:var(--ink)">What is pre-qualification?</b>
+          <p class="small" style="color:var(--muted);margin-top:6px">It&rsquo;s an early estimate of how much home you can afford, based on your income, debts, and down payment. It helps you shop with confidence and shows sellers you&rsquo;re serious.</p>
+        </div>
+        <div class="row"><div class="ic">&#9889;</div><div><b>Takes 2 minutes</b><span>No credit check to get an estimate.</span></div></div>
+        <div class="row"><div class="ic">&#128202;</div><div><b>Shop in your range</b><span>Know your budget before you tour.</span></div></div>
+        <div class="row"><div class="ic">&#128170;</div><div><b>Stronger offers</b><span>Sellers take pre-qualified buyers seriously.</span></div></div>
+        <div class="card" style="background:var(--soft);border:none">
+          <b style="color:var(--ink)">Want to fine-tune the numbers?</b>
+          <p class="small" style="color:var(--muted);margin:4px 0 10px">Try different prices, down payments, and rates.</p>
+          <a href="/calculators" class="btn btn-ghost btn-block btn-sm">Open the mortgage calculator</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">SC</span> South Coast Offers</div>
+        <p style="max-width:330px;color:#9fb2c8">A simpler way to sell &mdash; or buy &mdash; your home in Orange County and Los Angeles. Fair cash offers, flexible closings, no hassle.</p>
+      </div>
+      <div><h5>Sell</h5><a href="/sell">Get a cash offer</a><a href="/home-value">Home value estimator</a><a href="/calculators">Net proceeds calculator</a><a href="/sell#how">How selling works</a></div>
+      <div><h5>Buy</h5><a href="/buy">Browse homes</a><a href="/how-buy">How buying works</a><a href="/financing">Get pre-qualified</a><a href="/saved">Saved homes</a></div>
+      <div><h5>Company</h5><a href="/about">About us</a><a href="/reviews">Reviews</a><a href="/guides">Guides</a><a href="/contact">Contact</a></div>
+      <div><h5>Contact</h5><a href="tel:5551234567">(555) 123-4567</a><a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a><a href="/sell">Get my offer</a></div>
+    </div>
+    <div class="foot-bottom">
+      &copy; <span data-year>2026</span> South Coast Offers. All rights reserved.<br/>
+      Buying-power estimates are informational only and are not a loan approval, commitment to lend, or financial advice. South Coast Offers is not affiliated with Opendoor.
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+<script>
+(function () {
+  var SCO = window.SCO;
+  function $(id){ return document.getElementById(id); }
+  function num(id){ return parseInt(SCO.digits($(id).value) || '0', 10); }
+  var last = {};
+
+  function calc(){
+    var income = num('pqIncome');
+    var debts = num('pqDebts');
+    var down = num('pqDown');
+    var rate = parseFloat($('pqCredit').value) || 6.75;
+    if (income < 1000){ $('pqErr').classList.add('show'); return; }
+    $('pqErr').classList.remove('show');
+
+    var grossMo = income / 12;
+    var frontEnd = grossMo * 0.28;             // housing share of income
+    var backEnd = grossMo * 0.36 - debts;      // total-debt share, minus existing debts
+    var maxPITI = Math.max(0, Math.min(frontEnd, backEnd));
+    var piBudget = maxPITI * 0.78;             // reserve ~22% for taxes + insurance
+    var r = rate / 100 / 12, n = 360;
+    var loan = r > 0 ? piBudget * (1 - Math.pow(1 + r, -n)) / r : piBudget * n;
+    var maxPrice = Math.round((loan + down) / 5000) * 5000;
+
+    last = { income: income, debts: debts, down: down, rate: rate, maxPrice: maxPrice, maxPITI: Math.round(maxPITI) };
+
+    $('pqPrice').textContent = SCO.money(maxPrice);
+    $('pqBreak').innerHTML =
+      '<tr><td>Estimated monthly housing budget</td><td>'+SCO.money(maxPITI)+'</td></tr>' +
+      '<tr><td>Assumed interest rate</td><td>'+rate.toFixed(2)+'%</td></tr>' +
+      '<tr><td>Estimated loan amount</td><td>'+SCO.money(loan)+'</td></tr>' +
+      '<tr><td>Your down payment</td><td>'+SCO.money(down)+'</td></tr>' +
+      '<tr class="total"><td>Estimated home price</td><td>'+SCO.money(maxPrice)+'</td></tr>';
+
+    $('pqForm').classList.add('hidden');
+    $('pqResult').classList.remove('hidden');
+  }
+  $('pqCalc').addEventListener('click', calc);
+
+  $('pqConnect').addEventListener('click', function(){
+    var name = $('pqName').value.trim();
+    var phone = $('pqPhone').value.trim();
+    var email = $('pqEmail').value.trim();
+    if (!name || !phone || !SCO.validEmail(email)){ $('pqLeadErr').classList.add('show'); return; }
+    $('pqLeadErr').classList.remove('show');
+    SCO.submitLead({
+      type:'prequal', name:name, phone:phone, email:email,
+      estimate_low: last.maxPrice, estimate_high: last.maxPrice,
+      message: 'Pre-qual estimate: ' + SCO.money(last.maxPrice) + ' max price; ~' + SCO.money(last.maxPITI) + '/mo budget',
+      payload: last
+    }).then(function(ok){
+      $('pqDoneMsg').textContent = 'Thanks ' + (name.split(' ')[0] || '') + '! A lending partner will reach out to confirm your pre-qualification and answer any questions.';
+      $('pqLeadForm').classList.add('hidden');
+      $('pqDone').classList.remove('hidden');
+      SCO.toast(ok ? 'Request sent — a lender will be in touch.' : 'Thanks — your request was received.', 'green');
+    });
+  });
+
+  $('pqRestart').addEventListener('click', function(){
+    $('pqResult').classList.add('hidden');
+    $('pqForm').classList.remove('hidden');
+    $('pqLeadForm').classList.remove('hidden');
+    $('pqDone').classList.add('hidden');
+  });
+})();
+</script>
+
+</body>
+</html>
