@@ -108,6 +108,20 @@
     if (toggle && links) {
       toggle.addEventListener('click', function () { links.classList.toggle('open'); });
     }
+    // Canonical footer nav — centralized here so links update site-wide at once.
+    var fg = document.querySelector('footer.site .foot-grid');
+    if (fg) {
+      fg.innerHTML =
+        '<div>' +
+          '<div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">SC</span> South Coast Offers</div>' +
+          '<p style="max-width:330px;color:#9fb2c8">A simpler way to sell &mdash; or buy &mdash; your home in Orange County and Los Angeles. Fair cash offers, flexible closings, no hassle.</p>' +
+        '</div>' +
+        '<div><h5>Sell</h5><a href="/sell">Get a cash offer</a><a href="/ways-to-sell">Ways to sell</a><a href="/home-value">Home value</a><a href="/calculators">Net proceeds calculator</a></div>' +
+        '<div><h5>Buy</h5><a href="/buy">Browse homes</a><a href="/how-buy">How buying works</a><a href="/financing">Get pre-qualified</a><a href="/saved">Saved homes</a></div>' +
+        '<div><h5>Company</h5><a href="/about">About us</a><a href="/reviews">Reviews</a><a href="/agents">For agents</a><a href="/contact">Contact</a></div>' +
+        '<div><h5>Resources</h5><a href="/guides">Guides</a><a href="tel:5551234567">(555) 123-4567</a><a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a></div>';
+    }
+
     // active nav link by pathname
     var path = location.pathname.replace(/\/index(\.html)?$/, '/').replace(/\.html$/, '');
     if (path === '') path = '/';

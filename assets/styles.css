@@ -427,3 +427,27 @@ footer.site a:hover{color:#fff}
 .admin-bar .grow{flex:1;min-width:180px}
 .admin-note{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:18px;color:var(--muted);font-size:.92rem}
 .admin-note code{background:#fff;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.85em;color:var(--ink)}
+
+/* Selectable offer-option cards (Cash Offer vs Cash Now, More Later) */
+.opt-card{border:1.5px solid var(--line2);border-radius:12px;padding:16px;cursor:pointer;transition:.15s;text-align:left;background:#fff}
+.opt-card:hover{border-color:var(--accent)}
+.opt-card.selected{border-color:var(--accent);background:var(--accent-soft)}
+.opt-card .opt-name{font-weight:800;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.opt-card .opt-amt{font-size:1.5rem;font-weight:800;color:var(--green);margin:4px 0;line-height:1.1}
+.opt-card .opt-amt small{font-size:.8rem;font-weight:700;color:var(--muted)}
+.opt-card .opt-desc{font-size:.85rem;color:var(--muted)}
+.opt-card .opt-pick{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--accent2);opacity:0;transition:.15s}
+.opt-card.selected .opt-pick{opacity:1}
+
+/* Comparison table (ways to sell) */
+.compare{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.compare th,.compare td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:.95rem}
+.compare thead th{background:var(--ink);color:#fff;font-size:.92rem;white-space:nowrap}
+.compare thead th.col-hl{background:var(--accent2)}
+.compare tbody th{font-weight:700;color:var(--ink)}
+.compare td.yes{color:var(--green);font-weight:700}
+.compare td.no{color:var(--muted)}
+.compare td.col-hl{background:var(--accent-soft)}
+.compare tr:last-child td,.compare tr:last-child th{border-bottom:none}
+.compare-wrap{overflow-x:auto;border-radius:var(--radius)}
+.compare-wrap .compare{min-width:680px}

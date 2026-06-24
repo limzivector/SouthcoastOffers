@@ -184,7 +184,11 @@
           <div class="range" id="rangeOut">$&mdash;</div>
           <p class="small" id="rangeAddr"></p>
 
-          <div style="text-align:left;margin:18px 0 6px"><b style="color:var(--ink)">Estimated offer breakdown</b><span class="small" style="color:var(--muted)"> (at midpoint)</span></div>
+          <div style="text-align:left;margin:18px 0 6px"><b style="color:var(--ink)">Choose how you want to sell</b></div>
+          <div id="offerOptions" style="display:grid;gap:10px"></div>
+          <p class="note" style="text-align:left;margin-top:8px">&#10003; Free cancellation any time before closing.</p>
+
+          <div style="text-align:left;margin:18px 0 6px"><b style="color:var(--ink)">Estimated offer breakdown</b><span class="small" style="color:var(--muted)"> (Cash Offer, at midpoint)</span></div>
           <table class="breakdown" id="breakdown"></table>
 
           <div style="text-align:left;margin:18px 0 6px"><b style="color:var(--ink)">Pick your closing date</b></div>
@@ -342,6 +346,27 @@
     $('breakdown').innerHTML = html;
   }
 
+  function renderOptions(){
+    var gross = state.mid;
+    var service = Math.round(gross * 0.05), closing = Math.round(gross * 0.01), repairs = Math.round(gross * state.repairRate);
+    var cashNet = gross - service - closing - repairs;
+    var moreUpfront = Math.round(cashNet * 0.80 / 1000) * 1000;
+    var extraLow = Math.round(gross * 0.03 / 1000) * 1000, extraHigh = Math.round(gross * 0.07 / 1000) * 1000;
+    state.cashNet = cashNet; state.moreUpfront = moreUpfront; state.extraLow = extraLow; state.extraHigh = extraHigh;
+    state.sellOption = 'Cash Offer';
+    $('offerOptions').innerHTML =
+      '<div class="opt-card selected" data-opt="cash">' +
+        '<div class="opt-name">Cash Offer <span class="opt-pick">&#10003; Selected</span></div>' +
+        '<div class="opt-amt">' + SCO.money(cashNet) + ' <small>net, at closing</small></div>' +
+        '<div class="opt-desc">The simple option &mdash; your full amount in cash, close in as few as 14 days.</div>' +
+      '</div>' +
+      '<div class="opt-card" data-opt="more">' +
+        '<div class="opt-name">Cash Now, More Later <span class="opt-pick">&#10003; Selected</span></div>' +
+        '<div class="opt-amt">' + SCO.money(moreUpfront) + ' <small>now + est. ' + SCO.money(extraLow) + '&ndash;' + SCO.money(extraHigh) + ' later</small></div>' +
+        '<div class="opt-desc">Cash upfront, then a share of the upside after we prep and resell your home.</div>' +
+      '</div>';
+  }
+
   function renderDates(){
     var grid = $('dateGrid');
     var labels = ['Fastest', 'Most popular', 'Flexible'];
@@ -379,6 +404,7 @@
     $('rangeOut').innerHTML = SCO.money(state.low) + ' &ndash; ' + SCO.money(state.high);
     $('rangeAddr').textContent = 'Estimate for ' + state.street + (state.city ? ', ' + state.city : '') + ' ' + state.zip;
     renderBreakdown();
+    renderOptions();
     renderDates();
     showStep('6');
 
@@ -391,27 +417,34 @@
       condition: state.condLabel, timeline: state.timeline,
       estimate_low: state.low, estimate_high: state.high,
       message: state.upgrades.length ? 'Upgrades: ' + state.upgrades.join(', ') : null,
-      payload: { mid: state.mid, upgrades: state.upgrades }
+      payload: { mid: state.mid, upgrades: state.upgrades, sell_option: state.sellOption }
     }).then(function(ok){
       SCO.toast(ok ? 'Estimate ready — your details are saved.' : 'Estimate ready.', ok ? 'green' : '');
     });
   }
   $('btnFinish').addEventListener('click', finishFlow);
 
+  $('offerOptions').addEventListener('click', function(e){
+    var c = e.target.closest('.opt-card'); if (!c) return;
+    this.querySelectorAll('.opt-card').forEach(function(x){ x.classList.remove('selected'); });
+    c.classList.add('selected');
+    state.sellOption = c.getAttribute('data-opt') === 'more' ? 'Cash Now, More Later' : 'Cash Offer';
+  });
+
   $('btnConfirm').addEventListener('click', function(){
     $('doneMsg').textContent = 'Thanks ' + (state.name.split(' ')[0] || '') +
-      '! A South Coast Offers team member will reach out within one business day to schedule your home assessment and finalize your offer' +
+      '! A South Coast Offers team member will reach out within one business day to schedule your home assessment and finalize your ' + state.sellOption + ' offer' +
       (state.closeDate ? ' for an estimated closing around ' + state.closeDate + '.' : '.');
     showStep('done');
-    // Record the chosen closing date with the confirmed request.
+    // Record the chosen option + closing date with the confirmed request.
     SCO.submitLead({
       type: 'offer_confirmed',
       name: state.name, email: state.email, phone: state.phone,
       street: state.street, city: state.city, zip: state.zip,
       property_type: state.ptype, sqft: state.sqft, condition: state.condLabel,
       timeline: state.timeline, estimate_low: state.low, estimate_high: state.high,
-      tour_date: null, message: 'Preferred closing: ' + state.closeDate,
-      payload: { close_date: state.closeDate }
+      tour_date: null, message: 'Option: ' + state.sellOption + '; Preferred closing: ' + state.closeDate,
+      payload: { close_date: state.closeDate, sell_option: state.sellOption, cash_net: state.cashNet, more_upfront: state.moreUpfront }
     });
   });
 
