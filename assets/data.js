@@ -122,5 +122,85 @@ window.SCO_LISTINGS = [
     desc: 'Generous Raymond Hills two-story on a quiet cul-de-sac. Formal dining, a large bonus room, and a terraced backyard.',
     features: ['Cul-de-sac location', 'Bonus room', 'Formal dining', 'Terraced yard', '3-car garage'],
     disclosures: ['Seller Property Questionnaire', 'Inspection Report', 'Preliminary Title Report']
+  },
+  {
+    id: 'missionviejo-lake-3br',
+    price: 1095000, beds: 3, baths: 3, sqft: 1940, type: 'Single-Family',
+    street: '14 Lakeshore Bend', city: 'Mission Viejo', zip: '92691',
+    year: 1989, lotSqft: 5300, hoa: 95, daysOnMarket: 6,
+    photo: 'linear-gradient(135deg,#3b82f6,#1e40af)',
+    desc: 'Bright Mission Viejo home with lake-association access, a vaulted living room, and a private backyard with a built-in fire pit.',
+    features: ['Lake association access', 'Vaulted ceilings', 'Built-in fire pit', 'Remodeled kitchen', '2-car garage'],
+    disclosures: ['Seller Property Questionnaire', 'Inspection Report', 'HOA Documents', 'Preliminary Title Report']
+  },
+  {
+    id: 'tustin-legacy-3br',
+    price: 945000, beds: 3, baths: 3, sqft: 1680, type: 'Townhome',
+    street: '120 Legacy Park Loop', city: 'Tustin', zip: '92782',
+    year: 2018, lotSqft: 0, hoa: 285, daysOnMarket: 4,
+    photo: 'linear-gradient(135deg,#06b6d4,#0e7490)',
+    desc: 'Contemporary Tustin Legacy townhome with an open main level, a covered deck, and a two-car garage wired for EV charging.',
+    features: ['Open main level', 'Covered deck', 'EV charger ready', 'Smart home wiring', 'Community pool'],
+    disclosures: ['Seller Property Questionnaire', 'Inspection Report', 'HOA Documents', 'Preliminary Title Report']
+  },
+  {
+    id: 'lagunaniguel-ridge-4br',
+    price: 1685000, beds: 4, baths: 3, sqft: 2580, type: 'Single-Family',
+    street: '8 Seabreeze Ridge', city: 'Laguna Niguel', zip: '92677',
+    year: 2001, lotSqft: 6800, hoa: 130, daysOnMarket: 13,
+    photo: 'linear-gradient(135deg,#14b8a6,#0f766e)',
+    desc: 'Hillside Laguna Niguel home with peek ocean views, a soaring entry, and a terraced yard built for sunset dinners.',
+    features: ['Peek ocean views', 'Soaring two-story entry', 'Terraced backyard', 'Primary retreat', '3-car garage'],
+    disclosures: ['Seller Property Questionnaire', 'Inspection Report', 'Natural Hazard Disclosure', 'HOA Documents']
+  },
+  {
+    id: 'brea-hills-4br',
+    price: 1145000, beds: 4, baths: 3, sqft: 2240, type: 'Single-Family',
+    street: '301 Brea Hills Ct', city: 'Brea', zip: '92821',
+    year: 1994, lotSqft: 6100, hoa: 0, daysOnMarket: 9,
+    photo: 'linear-gradient(135deg,#a855f7,#7e22ce)',
+    desc: 'Spacious Brea two-story near the Birch Street promenade. Downstairs office, big island kitchen, and a low-maintenance yard.',
+    features: ['Downstairs office', 'Island kitchen', 'Walk to downtown', 'Solar panels', '3-car garage'],
+    disclosures: ['Seller Property Questionnaire', 'Inspection Report', 'Preliminary Title Report']
+  },
+  {
+    id: 'redondo-southbay-3br',
+    price: 1525000, beds: 3, baths: 3, sqft: 1860, type: 'Townhome',
+    street: '218 South Bay Walk', city: 'Redondo Beach', zip: '90278',
+    year: 2015, lotSqft: 0, hoa: 0, daysOnMarket: 5,
+    photo: 'linear-gradient(135deg,#f43f5e,#be123c)',
+    desc: 'Coastal South Bay townhome a short ride to the pier. Three levels of light, a rooftop deck, and a chef-ready kitchen.',
+    features: ['Rooftop deck', 'Three-level layout', 'Chef-ready kitchen', 'Attached garage', 'No HOA'],
+    disclosures: ['Seller Property Questionnaire', 'Inspection Report', 'Natural Hazard Disclosure', 'Preliminary Title Report']
+  },
+  {
+    id: 'burbank-magnolia-3br',
+    price: 1015000, beds: 3, baths: 2, sqft: 1520, type: 'Single-Family',
+    street: '529 Magnolia Glen', city: 'Burbank', zip: '91505',
+    year: 1951, lotSqft: 5400, hoa: 0, daysOnMarket: 8,
+    photo: 'linear-gradient(135deg,#fb923c,#ea580c)',
+    desc: 'Charming Magnolia Park bungalow walkable to shops and studios. Updated systems, hardwood floors, and a deep, private lot.',
+    features: ['Walk to Magnolia Park', 'Restored hardwoods', 'Updated systems', 'Deep lot', 'Detached garage'],
+    disclosures: ['Seller Property Questionnaire', 'Inspection Report', 'Preliminary Title Report']
+  },
+  {
+    id: 'culvercity-arts-2br',
+    price: 989000, beds: 2, baths: 2, sqft: 1290, type: 'Condo',
+    street: '77 Arts District Pl', city: 'Culver City', zip: '90232',
+    year: 2017, lotSqft: 0, hoa: 410, daysOnMarket: 7,
+    photo: 'linear-gradient(135deg,#22c55e,#16a34a)',
+    desc: 'Sleek Culver City condo steps from the Arts District. Floor-to-ceiling glass, a gourmet kitchen, and a resident sky lounge.',
+    features: ['Floor-to-ceiling glass', 'Gourmet kitchen', 'Sky lounge', 'Secured parking', 'Walk to dining'],
+    disclosures: ['Seller Property Questionnaire', 'Inspection Report', 'HOA Documents', 'Preliminary Title Report']
+  },
+  {
+    id: 'whittier-uptown-4br',
+    price: 879000, beds: 4, baths: 2, sqft: 1980, type: 'Single-Family',
+    street: '146 Uptown Terrace', city: 'Whittier', zip: '90601',
+    year: 1962, lotSqft: 6500, hoa: 0, daysOnMarket: 12,
+    photo: 'linear-gradient(135deg,#6366f1,#4f46e5)',
+    desc: 'Roomy Uptown Whittier home with original charm, a large family room, and an oversized lot with space for an ADU.',
+    features: ['ADU potential', 'Large family room', 'Oversized lot', 'Dual-pane windows', '2-car garage'],
+    disclosures: ['Seller Property Questionnaire', 'Inspection Report', 'Preliminary Title Report']
   }
 ];

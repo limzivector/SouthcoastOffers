@@ -20,12 +20,24 @@
       <a href="/home-value">Home Value</a>
       <a href="/calculators">Calculators</a>
       <a href="/guides">Guides</a>
+      <a href="/about">About</a>
       <a class="nav-cta" href="/sell">Get My Offer</a>
     </nav>
   </div>
 </header>
 
 <div class="container" id="app" style="padding:26px 20px 60px"></div>
+
+<!-- Image lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+  <div class="frame" id="lbFrame"><span class="cap" id="lbCap"></span></div>
+  <div class="lb-nav">
+    <button id="lbPrev" aria-label="Previous">&#8592;</button>
+    <span class="lb-count" id="lbCount"></span>
+    <button id="lbNext" aria-label="Next">&#8594;</button>
+  </div>
+</div>
 
 <!-- Tour booking modal -->
 <div class="modal-overlay" id="tourModal">
@@ -63,8 +75,9 @@
         <p style="max-width:330px;color:#9fb2c8">A simpler way to sell &mdash; or buy &mdash; your home in Orange County and Los Angeles. Fair cash offers, flexible closings, no hassle.</p>
       </div>
       <div><h5>Sell</h5><a href="/sell">Get a cash offer</a><a href="/home-value">Home value estimator</a><a href="/calculators">Net proceeds calculator</a><a href="/sell#how">How selling works</a></div>
-      <div><h5>Buy</h5><a href="/buy">Browse homes</a><a href="/calculators">Mortgage calculator</a><a href="/guides">Buying guides</a></div>
-      <div><h5>Contact</h5><a href="tel:5551234567">(555) 123-4567</a><a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a><a href="/guides">Resources</a></div>
+      <div><h5>Buy</h5><a href="/buy">Browse homes</a><a href="/saved">Saved homes</a><a href="/calculators">Mortgage calculator</a><a href="/guides">Buying guides</a></div>
+      <div><h5>Company</h5><a href="/about">About us</a><a href="/reviews">Reviews</a><a href="/guides">Guides</a><a href="/contact">Contact</a></div>
+      <div><h5>Contact</h5><a href="tel:5551234567">(555) 123-4567</a><a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a><a href="/sell">Get my offer</a></div>
     </div>
     <div class="foot-bottom">
       &copy; <span data-year>2026</span> South Coast Offers. All rights reserved.<br/>
@@ -99,14 +112,15 @@
   function disc(d){ return '<li>'+d+' <a href="#" data-doc="1">Provided on request</a></li>'; }
 
   app.innerHTML = '' +
-    '<div class="breadcrumb"><a href="/buy">&larr; All homes</a> &nbsp;/&nbsp; '+L.city+', CA</div>' +
+    '<div class="breadcrumb"><a href="/buy">&larr; All homes</a> &nbsp;/&nbsp; <a href="/city?name='+encodeURIComponent(L.city)+'">'+L.city+', CA</a></div>' +
     '<div class="gallery">' +
-      '<div class="g main" style="background-image:'+L.photo+'"></div>' +
-      galLabels.map(function(lb){
-        return '<div class="g" style="background-image:'+L.photo+';position:relative">' +
+      '<div class="g main" data-idx="0" style="background-image:'+L.photo+'"></div>' +
+      galLabels.map(function(lb, i){
+        return '<div class="g" data-idx="'+(i+1)+'" style="background-image:'+L.photo+';position:relative">' +
           '<span style="position:absolute;left:8px;bottom:8px;background:rgba(11,31,58,.7);color:#fff;font-size:.74rem;font-weight:700;padding:3px 8px;border-radius:6px">'+lb+'</span></div>';
       }).join('') +
     '</div>' +
+    '<div class="small" style="color:var(--muted);margin:6px 2px 0">&#128247; Tap any photo to view the gallery</div>' +
 
     '<div class="detail-grid">' +
       '<div>' +
@@ -115,7 +129,7 @@
           '<span>'+L.beds+'<small>Beds</small></span>' +
           '<span>'+L.baths+'<small>Baths</small></span>' +
           '<span>'+L.sqft.toLocaleString()+'<small>Sq Ft</small></span>' +
-          '<span>'+SCO.money(psf).replace('$','$')+'<small>Per Sq Ft</small></span>' +
+          '<span>'+SCO.money(psf)+'<small>Per Sq Ft</small></span>' +
         '</div>' +
         '<div class="pill-row" style="margin-bottom:18px"><span class="badge badge-green">For sale</span><span class="badge badge-blue">'+L.type+'</span><span class="badge badge-accent">'+L.daysOnMarket+' days on market</span></div>' +
         '<p style="color:var(--text);margin-bottom:18px">'+L.desc+'</p>' +
@@ -154,7 +168,8 @@
           '<button class="btn btn-ghost btn-block" id="favBtn" style="margin-top:8px"></button>' +
         '</div>' +
       '</div>' +
-    '</div>';
+    '</div>' +
+    '<div id="similarWrap" style="margin-top:46px"></div>';
 
   /* ---- Mortgage estimator ---- */
   function monthly(P, ratePct, years){
@@ -170,8 +185,8 @@
     document.getElementById('dpLabel').textContent = dpPct + '%';
     var loan = price * (1 - dpPct/100);
     var pi = monthly(loan, rate, term);
-    var tax = price * 0.011 / 12;       // ~1.1%/yr property tax
-    var ins = price * 0.0035 / 12;      // est. homeowners insurance
+    var tax = price * 0.011 / 12;
+    var ins = price * 0.0035 / 12;
     var hoa = L.hoa || 0;
     var total = pi + tax + ins + hoa;
     document.getElementById('moTotal').textContent = SCO.money(total) + '/mo';
@@ -204,6 +219,50 @@
     if (d){ e.preventDefault(); SCO.toast('Full reports are shared once you schedule a tour.'); }
   });
 
+  /* ---- Image lightbox / carousel ---- */
+  var lbImgs = [{ p: L.photo, c: 'Featured view' }].concat(galLabels.map(function(lb){ return { p: L.photo, c: lb }; }));
+  var lbIdx = 0;
+  var lightbox = document.getElementById('lightbox');
+  function showLb(i){
+    lbIdx = (i + lbImgs.length) % lbImgs.length;
+    document.getElementById('lbFrame').style.backgroundImage = lbImgs[lbIdx].p;
+    document.getElementById('lbCap').textContent = lbImgs[lbIdx].c;
+    document.getElementById('lbCount').textContent = (lbIdx + 1) + ' / ' + lbImgs.length;
+  }
+  function openLb(i){ showLb(i); lightbox.classList.add('open'); }
+  function closeLb(){ lightbox.classList.remove('open'); }
+  app.querySelectorAll('.gallery .g').forEach(function(g){
+    g.addEventListener('click', function(){ openLb(parseInt(g.getAttribute('data-idx'), 10) || 0); });
+  });
+  document.getElementById('lbClose').addEventListener('click', closeLb);
+  document.getElementById('lbPrev').addEventListener('click', function(){ showLb(lbIdx - 1); });
+  document.getElementById('lbNext').addEventListener('click', function(){ showLb(lbIdx + 1); });
+  lightbox.addEventListener('click', function(e){ if (e.target === lightbox) closeLb(); });
+  document.addEventListener('keydown', function(e){
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLb();
+    else if (e.key === 'ArrowLeft') showLb(lbIdx - 1);
+    else if (e.key === 'ArrowRight') showLb(lbIdx + 1);
+  });
+
+  /* ---- Similar homes ---- */
+  var similar = ALL.filter(function(x){ return x.id !== L.id && (x.city === L.city || x.type === L.type); }).slice(0, 3);
+  if (similar.length) {
+    document.getElementById('similarWrap').innerHTML =
+      '<h3 style="color:var(--ink);margin-bottom:16px;font-size:1.4rem">Similar homes</h3>' +
+      '<div class="listing-grid">' + similar.map(function(l){
+        return '<div class="listing" data-go="'+l.id+'">' +
+          '<div class="photo" style="background-image:'+l.photo+'"><span class="badge badge-green badge-od">For sale</span><span class="price">'+SCO.money(l.price)+'</span></div>' +
+          '<div class="body"><div class="facts"><span>'+l.beds+' bd</span><span>'+l.baths+' ba</span><span>'+l.sqft.toLocaleString()+' sqft</span></div>' +
+          '<div class="addr">'+l.street+'</div><div class="city">'+l.city+', CA '+l.zip+'</div></div>' +
+        '</div>';
+      }).join('') + '</div>';
+    document.getElementById('similarWrap').addEventListener('click', function(e){
+      var c = e.target.closest('[data-go]');
+      if (c) location.href = '/property?id=' + encodeURIComponent(c.getAttribute('data-go'));
+    });
+  }
+
   /* ---- Tour modal ---- */
   var modal = document.getElementById('tourModal');
   var tour = { day:'', time:'' };
@@ -215,7 +274,6 @@
   document.getElementById('tourDoneClose').addEventListener('click', closeModal);
   modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
 
-  // build day options (next 5 days)
   var dayGrid = document.getElementById('dayGrid');
   var now = new Date();
   var dayHtml = '';
@@ -257,7 +315,7 @@
     }).then(function(ok){
       document.getElementById('tourDoneMsg').textContent = 'Thanks ' + (name.split(' ')[0]||'') +
         '! Your tour of ' + L.street + ' is requested for ' + tour.day + ' at ' + tour.time +
-        '. We&rsquo;ll text you check-in details and the door code before your visit.';
+        '. We will text you check-in details and the door code before your visit.';
       document.getElementById('tourForm').classList.add('hidden');
       document.getElementById('tourDone').classList.remove('hidden');
     });

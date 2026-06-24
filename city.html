@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Homes for Sale | South Coast Offers</title>
+<meta name="description" content="Browse homes for sale and get a cash offer in your city across Orange County and Los Angeles." />
+<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+
+<header class="site">
+  <div class="container nav">
+    <a class="logo" href="/"><span class="mark">SC</span> South Coast Offers</a>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <nav class="nav-links">
+      <a href="/buy">Buy</a>
+      <a href="/sell">Sell</a>
+      <a href="/home-value">Home Value</a>
+      <a href="/calculators">Calculators</a>
+      <a href="/guides">Guides</a>
+      <a href="/about">About</a>
+      <a class="nav-cta" href="/sell">Get My Offer</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="container">
+    <div class="breadcrumb"><a href="/buy">All homes</a> &nbsp;/&nbsp; <span id="crumbCity">City</span></div>
+    <h1>Homes for sale in <span id="cityName">your city</span></h1>
+    <p>Browse current listings and tour on your schedule &mdash; or get a cash offer on your own home.</p>
+  </div>
+</div>
+
+<section class="section tight">
+  <div class="container">
+    <div class="results-bar">
+      <div class="count" id="count">&nbsp;</div>
+      <a class="btn btn-ghost btn-sm" href="/buy">View all cities</a>
+    </div>
+    <div class="listing-grid" id="grid"></div>
+    <div class="empty hidden" id="empty">
+      <div class="big">&#127968;</div>
+      <h3 id="emptyMsg">No homes currently listed here</h3>
+      <p>We&rsquo;re always adding new listings &mdash; check back soon or browse nearby cities.</p>
+      <a class="btn btn-accent" style="margin-top:14px" href="/buy">Browse all homes</a>
+    </div>
+
+    <div style="margin-top:40px">
+      <div style="font-weight:800;color:var(--ink);margin-bottom:12px">Other cities we serve</div>
+      <div class="cities" id="otherCities" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container">
+    <h2>Selling in <span id="cityName2">your city</span>?</h2>
+    <p>Get a competitive, no-obligation cash offer on your home in minutes.</p>
+    <a href="/sell" class="btn btn-ink" style="margin-right:10px">Get My Offer</a>
+    <a href="/home-value" class="btn btn-ghost">Check My Home Value</a>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">SC</span> South Coast Offers</div>
+        <p style="max-width:330px;color:#9fb2c8">A simpler way to sell &mdash; or buy &mdash; your home in Orange County and Los Angeles. Fair cash offers, flexible closings, no hassle.</p>
+      </div>
+      <div><h5>Sell</h5><a href="/sell">Get a cash offer</a><a href="/home-value">Home value estimator</a><a href="/calculators">Net proceeds calculator</a><a href="/sell#how">How selling works</a></div>
+      <div><h5>Buy</h5><a href="/buy">Browse homes</a><a href="/saved">Saved homes</a><a href="/calculators">Mortgage calculator</a><a href="/guides">Buying guides</a></div>
+      <div><h5>Company</h5><a href="/about">About us</a><a href="/reviews">Reviews</a><a href="/guides">Guides</a><a href="/contact">Contact</a></div>
+      <div><h5>Contact</h5><a href="tel:5551234567">(555) 123-4567</a><a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a><a href="/sell">Get my offer</a></div>
+    </div>
+    <div class="foot-bottom">
+      &copy; <span data-year>2026</span> South Coast Offers. All rights reserved.<br/>
+      Listings shown are sample data for demonstration only. South Coast Offers is not affiliated with Opendoor.
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+<script src="/assets/data.js"></script>
+<script>
+(function () {
+  var SCO = window.SCO, ALL = window.SCO_LISTINGS || [];
+  var raw = new URLSearchParams(location.search).get('name') || '';
+  var name = raw.trim();
+  var pretty = name || 'Orange County & LA';
+
+  document.getElementById('cityName').textContent = pretty;
+  document.getElementById('cityName2').textContent = name || 'your area';
+  document.getElementById('crumbCity').textContent = pretty;
+  document.getElementById('emptyMsg').textContent = name ? ('No homes currently listed in ' + name) : 'No homes currently listed here';
+  document.title = 'Homes for sale in ' + pretty + ' | South Coast Offers';
+
+  var grid = document.getElementById('grid'), empty = document.getElementById('empty'), count = document.getElementById('count');
+
+  function card(l){
+    var fav = SCO.isFav(l.id);
+    return '<div class="listing" data-id="'+l.id+'">' +
+      '<div class="photo" style="background-image:'+l.photo+'">' +
+        '<span class="badge badge-green badge-od">For sale</span>' +
+        '<button class="fav" data-fav="'+l.id+'" aria-label="Save">'+(fav?'&#10084;':'&#9825;')+'</button>' +
+        '<span class="price">'+SCO.money(l.price)+'</span>' +
+      '</div>' +
+      '<div class="body"><div class="facts"><span>'+l.beds+' bd</span><span>'+l.baths+' ba</span><span>'+l.sqft.toLocaleString()+' sqft</span></div>' +
+        '<div class="addr">'+l.street+'</div><div class="city">'+l.city+', CA '+l.zip+' &middot; '+l.type+'</div></div>' +
+    '</div>';
+  }
+
+  var list = name ? ALL.filter(function(l){ return l.city.toLowerCase() === name.toLowerCase(); }) : ALL.slice();
+  grid.innerHTML = list.map(card).join('');
+  count.textContent = list.length + (list.length === 1 ? ' home' : ' homes') + ' for sale' + (name ? ' in ' + name : '');
+  empty.classList.toggle('hidden', list.length > 0);
+  grid.classList.toggle('hidden', list.length === 0);
+
+  grid.addEventListener('click', function(e){
+    var fav = e.target.closest('[data-fav]');
+    if (fav){
+      e.stopPropagation();
+      var now = SCO.toggleFav(fav.getAttribute('data-fav'));
+      fav.innerHTML = now ? '&#10084;' : '&#9825;';
+      SCO.toast(now ? 'Saved to your favorites' : 'Removed from favorites');
+      return;
+    }
+    var c = e.target.closest('.listing');
+    if (c) location.href = '/property?id=' + encodeURIComponent(c.getAttribute('data-id'));
+  });
+
+  // Other cities chips (unique cities from listings, excluding current)
+  var seen = {}, others = [];
+  ALL.forEach(function(l){
+    if (l.city.toLowerCase() !== name.toLowerCase() && !seen[l.city]) { seen[l.city] = true; others.push(l.city); }
+  });
+  document.getElementById('otherCities').innerHTML = others.map(function(c){
+    return '<a class="city" href="/city?name=' + encodeURIComponent(c) + '">' + c + '</a>';
+  }).join('');
+})();
+</script>
+
+</body>
+</html>

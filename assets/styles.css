@@ -229,7 +229,7 @@ input[type=range]{width:100%;accent-color:var(--accent);height:6px}
 
 /* ---------- Footer ---------- */
 footer.site{background:#0a1a30;color:#9fb2c8;padding:52px 0 28px;font-size:.92rem}
-.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:34px}
+.foot-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr 1fr;gap:28px;margin-bottom:34px}
 footer.site h5{color:#fff;margin-bottom:12px;font-size:1rem}
 footer.site a{display:block;color:#9fb2c8;padding:4px 0}
 footer.site a:hover{color:#fff}
@@ -252,7 +252,7 @@ footer.site a:hover{color:#fff}
 .listing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 @media(max-width:920px){.listing-grid{grid-template-columns:1fr}}
 @media(min-width:921px) and (max-width:1100px){.listing-grid{grid-template-columns:repeat(2,1fr)}}
-.listing{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .15s,box-shadow .15s;display:flex;flex-direction:column}
+.listing{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .15s,box-shadow .15s;display:flex;flex-direction:column;cursor:pointer}
 .listing:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
 .listing .photo{position:relative;aspect-ratio:3/2;background-size:cover;background-position:center}
 .listing .photo .price{position:absolute;left:12px;bottom:12px;background:rgba(11,31,58,.92);color:#fff;font-weight:800;padding:7px 12px;border-radius:8px;font-size:1.05rem}
@@ -332,3 +332,81 @@ footer.site a:hover{color:#fff}
 .prose li{margin-bottom:6px}
 .breadcrumb{color:var(--muted);font-size:.9rem;margin-bottom:14px}
 .breadcrumb a{color:var(--blue)}
+.link-arrow{color:var(--blue);font-weight:700}
+.link-arrow:hover{text-decoration:underline}
+
+/* =========================================================================
+   Expansion components — lightbox, ratings, about, contact, map
+   ========================================================================= */
+
+/* Image lightbox / carousel */
+.gallery .g{cursor:pointer;transition:filter .15s}
+.gallery .g:hover{filter:brightness(1.06)}
+.lightbox{position:fixed;inset:0;background:rgba(8,16,30,.93);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:250;padding:20px}
+.lightbox.open{display:flex;animation:fade .2s ease}
+.lightbox .frame{width:min(900px,92vw);height:min(560px,66vh);border-radius:14px;background-size:cover;background-position:center;position:relative;box-shadow:var(--shadow-lg);display:flex;align-items:flex-end}
+.lightbox .frame .cap{background:rgba(11,31,58,.72);color:#fff;font-weight:700;padding:8px 14px;border-radius:8px;margin:14px}
+.lightbox .lb-close{position:absolute;top:18px;right:24px;background:none;border:none;color:#fff;font-size:2.2rem;cursor:pointer;line-height:1}
+.lightbox .lb-nav{display:flex;gap:14px;align-items:center;margin-top:16px}
+.lightbox .lb-nav button{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;width:48px;height:48px;border-radius:50%;font-size:1.2rem;cursor:pointer}
+.lightbox .lb-nav button:hover{background:rgba(255,255,255,.26)}
+.lightbox .lb-count{color:#c8d6e6;font-size:.85rem;min-width:54px;text-align:center}
+
+/* Similar homes / featured strip use the existing .listing-grid */
+
+/* Reviews — rating breakdown */
+.rating-summary{display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow-sm)}
+.rating-summary .score{text-align:center}
+.rating-summary .score .n{font-size:3.2rem;font-weight:800;color:var(--ink);line-height:1}
+.rating-summary .score .stars{color:var(--gold);letter-spacing:2px;font-size:1.1rem;margin:6px 0}
+.rating-summary .score small{color:var(--muted)}
+.rbars{display:flex;flex-direction:column;gap:8px}
+.rbar{display:flex;align-items:center;gap:12px;font-size:.85rem;color:var(--muted)}
+.rbar .lab{width:52px;text-align:right}
+.rbar .track{flex:1;height:8px;background:var(--soft2);border-radius:5px;overflow:hidden}
+.rbar .fill{height:100%;background:var(--gold);border-radius:5px}
+@media(max-width:620px){.rating-summary{grid-template-columns:1fr;text-align:center}}
+.review-filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:32px 0 24px}
+.review-filters .chip{border:1.5px solid var(--line2);background:#fff;border-radius:999px;padding:8px 18px;font-weight:600;font-size:.9rem;cursor:pointer;color:var(--muted)}
+.review-filters .chip.active{border-color:var(--accent);background:var(--accent-soft);color:var(--accent2)}
+
+/* About — values, team, split feature */
+.values{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:920px){.values{grid-template-columns:1fr}}
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+@media(max-width:920px){.team{grid-template-columns:1fr 1fr}}
+.member{text-align:center}
+.member .ph{width:96px;height:96px;border-radius:50%;margin:0 auto 12px;background:linear-gradient(135deg,var(--ink2),var(--ink3));color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:800}
+.member b{color:var(--ink);display:block}
+.member span{color:var(--muted);font-size:.88rem}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+@media(max-width:920px){.split{grid-template-columns:1fr}}
+.split .visual{border-radius:var(--radius-lg);min-height:300px;background:linear-gradient(135deg,var(--ink),var(--ink3));display:flex;align-items:center;justify-content:center;font-size:3.4rem;box-shadow:var(--shadow);color:#fff}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:30px;align-items:start}
+@media(max-width:920px){.contact-grid{grid-template-columns:1fr}}
+.contact-info{display:flex;flex-direction:column;gap:14px}
+.contact-info .row{display:flex;gap:14px;align-items:flex-start;background:var(--soft);border-radius:12px;padding:18px}
+.contact-info .row .ic{width:44px;height:44px;flex:0 0 44px;border-radius:11px;background:var(--accent-soft);color:var(--accent2);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.contact-info .row b{color:var(--ink);display:block}
+.contact-info .row span{color:var(--muted);font-size:.93rem}
+
+/* Map placeholder + view toggle (buy page) */
+.map-box{position:relative;border-radius:var(--radius);overflow:hidden;min-height:420px;background:linear-gradient(135deg,#dce8f5,#c5d8ec);border:1px solid var(--line)}
+.map-box .grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.55) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.55) 1px,transparent 1px);background-size:42px 42px}
+.map-box .pin{position:absolute;transform:translate(-50%,-100%);background:var(--accent);color:#fff;font-weight:800;font-size:.78rem;padding:5px 9px;border-radius:8px;box-shadow:var(--shadow);white-space:nowrap;cursor:pointer;z-index:2}
+.map-box .pin:hover{background:var(--accent2);z-index:3}
+.map-box .pin:after{content:"";position:absolute;left:50%;bottom:-5px;transform:translateX(-50%);border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid var(--accent)}
+.map-note{position:absolute;left:12px;bottom:12px;background:rgba(255,255,255,.92);border-radius:8px;padding:6px 10px;font-size:.78rem;color:var(--muted);font-weight:600;z-index:2}
+.view-toggle{display:inline-flex;border:1px solid var(--line2);border-radius:9px;overflow:hidden}
+.view-toggle button{background:#fff;border:none;padding:9px 16px;font-weight:700;font-size:.9rem;cursor:pointer;color:var(--muted)}
+.view-toggle button.active{background:var(--ink);color:#fff}
+
+/* City chips on light backgrounds (e.g. /city "other cities"). Dark-context
+   chips inside .area keep their translucent style via higher specificity. */
+.cities{display:flex;flex-wrap:wrap;gap:8px}
+.cities .city{background:var(--soft2);border:1px solid var(--line);color:var(--ink);padding:7px 13px;border-radius:8px;font-size:.88rem;font-weight:600;transition:border-color .15s,color .15s}
+.cities .city:hover{border-color:var(--accent);color:var(--accent2)}
+.area .cities .city{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.16);color:#fff}
+.area .cities .city:hover{border-color:rgba(255,255,255,.4);color:#fff}

@@ -20,6 +20,7 @@
       <a href="/home-value">Home Value</a>
       <a href="/calculators">Calculators</a>
       <a href="/guides">Guides</a>
+      <a href="/about">About</a>
       <a class="nav-cta" href="/sell">Get My Offer</a>
     </nav>
   </div>
@@ -89,8 +90,21 @@
   </div>
 </section>
 
-<!-- Service area -->
+<!-- Featured homes -->
 <section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">For Sale Now</div>
+      <h2>Featured homes</h2>
+      <p>A few of the homes available right now across Orange County and Los Angeles.</p>
+    </div>
+    <div class="listing-grid" id="featuredGrid"></div>
+    <div class="center" style="margin-top:34px"><a href="/buy" class="btn btn-accent">Browse all homes &rarr;</a></div>
+  </div>
+</section>
+
+<!-- Service area -->
+<section class="section bg-soft">
   <div class="container">
     <div class="area">
       <div>
@@ -100,10 +114,10 @@
       </div>
       <div>
         <div class="cities">
-          <span class="city">Irvine</span><span class="city">Anaheim</span><span class="city">Santa Ana</span>
-          <span class="city">Huntington Beach</span><span class="city">Newport Beach</span><span class="city">Costa Mesa</span>
-          <span class="city">Los Angeles</span><span class="city">Long Beach</span><span class="city">Pasadena</span>
-          <span class="city">Glendale</span><span class="city">Torrance</span><span class="city">Fullerton</span>
+          <a class="city" href="/city?name=Irvine">Irvine</a><a class="city" href="/city?name=Anaheim">Anaheim</a><a class="city" href="/city?name=Santa Ana">Santa Ana</a>
+          <a class="city" href="/city?name=Huntington Beach">Huntington Beach</a><a class="city" href="/city?name=Newport Beach">Newport Beach</a><a class="city" href="/city?name=Costa Mesa">Costa Mesa</a>
+          <a class="city" href="/city?name=Los Angeles">Los Angeles</a><a class="city" href="/city?name=Long Beach">Long Beach</a><a class="city" href="/city?name=Pasadena">Pasadena</a>
+          <a class="city" href="/city?name=Glendale">Glendale</a><a class="city" href="/city?name=Torrance">Torrance</a><a class="city" href="/city?name=Fullerton">Fullerton</a>
         </div>
       </div>
     </div>
@@ -157,6 +171,7 @@
       <div class="stat"><b>$0</b><span>Listing agent commissions</span></div>
       <div class="stat"><b>12+</b><span>Cities served</span></div>
     </div>
+    <div class="center" style="margin-top:34px"><a href="/reviews" class="btn btn-ghost">Read all reviews &rarr;</a></div>
   </div>
 </section>
 
@@ -196,8 +211,9 @@
         <p style="max-width:330px;color:#9fb2c8">A simpler way to sell &mdash; or buy &mdash; your home in Orange County and Los Angeles. Fair cash offers, flexible closings, no hassle.</p>
       </div>
       <div><h5>Sell</h5><a href="/sell">Get a cash offer</a><a href="/home-value">Home value estimator</a><a href="/calculators">Net proceeds calculator</a><a href="/sell#how">How selling works</a></div>
-      <div><h5>Buy</h5><a href="/buy">Browse homes</a><a href="/calculators">Mortgage calculator</a><a href="/guides">Buying guides</a></div>
-      <div><h5>Contact</h5><a href="tel:5551234567">(555) 123-4567</a><a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a><a href="/guides">Resources</a></div>
+      <div><h5>Buy</h5><a href="/buy">Browse homes</a><a href="/saved">Saved homes</a><a href="/calculators">Mortgage calculator</a><a href="/guides">Buying guides</a></div>
+      <div><h5>Company</h5><a href="/about">About us</a><a href="/reviews">Reviews</a><a href="/guides">Guides</a><a href="/contact">Contact</a></div>
+      <div><h5>Contact</h5><a href="tel:5551234567">(555) 123-4567</a><a href="mailto:offers@southcoastoffers.com">offers@southcoastoffers.com</a><a href="/sell">Get my offer</a></div>
     </div>
     <div class="foot-bottom">
       &copy; <span data-year>2026</span> South Coast Offers. All rights reserved.<br/>
@@ -207,8 +223,21 @@
 </footer>
 
 <script src="/assets/app.js"></script>
+<script src="/assets/data.js"></script>
 <script>
   (function () {
+    var SCO = window.SCO;
+    // Featured homes strip (first 3 listings)
+    var fg = document.getElementById('featuredGrid');
+    if (fg && window.SCO_LISTINGS) {
+      fg.innerHTML = window.SCO_LISTINGS.slice(0, 3).map(function (l) {
+        return '<div class="listing" onclick="location.href=\'/property?id=' + l.id + '\'">' +
+          '<div class="photo" style="background-image:' + l.photo + '"><span class="badge badge-green badge-od">For sale</span><span class="price">' + SCO.money(l.price) + '</span></div>' +
+          '<div class="body"><div class="facts"><span>' + l.beds + ' bd</span><span>' + l.baths + ' ba</span><span>' + l.sqft.toLocaleString() + ' sqft</span></div>' +
+          '<div class="addr">' + l.street + '</div><div class="city">' + l.city + ', CA ' + l.zip + '</div></div>' +
+        '</div>';
+      }).join('');
+    }
     function go() {
       var street = document.getElementById('hstreet').value.trim();
       var city = document.getElementById('hcity').value.trim();
