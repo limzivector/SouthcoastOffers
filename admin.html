@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Admin · Leads | South Coast Offers</title>
+<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+
+<header class="site">
+  <div class="container nav">
+    <a class="logo" href="/"><span class="mark">SC</span> South Coast Offers</a>
+    <span style="color:var(--muted);font-weight:700;font-size:.95rem">Admin · Leads</span>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="container">
+    <h1>Leads dashboard</h1>
+    <p>Submissions from offer requests, home-value estimates, tours, contact, and pre-qualification.</p>
+  </div>
+</div>
+
+<section class="section tight">
+  <div class="container">
+
+    <!-- Sign-in gate -->
+    <div id="gate" class="offer-card standalone" style="max-width:440px">
+      <h3>Admin sign-in</h3>
+      <p class="small" style="color:var(--muted);margin-bottom:14px">Enter the admin password to view leads.</p>
+      <div class="field"><label for="pw">Password</label><input type="password" id="pw" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" /></div>
+      <div class="err" id="gateErr">Incorrect password.</div>
+      <button class="btn btn-accent btn-block" id="signin">Sign In</button>
+      <div class="admin-note" id="setupNote" style="margin-top:16px;display:none"></div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dash" class="hidden">
+      <div class="stat-cards" id="stats"></div>
+      <div class="admin-bar">
+        <input class="grow" id="search" placeholder="Search name, email, address, notes&hellip;" style="padding:11px 14px;border:1px solid var(--line2);border-radius:9px;font-size:.95rem;font-family:inherit" />
+        <select id="typeFilter" style="padding:11px 14px;border:1px solid var(--line2);border-radius:9px;font-family:inherit;font-size:.95rem"><option value="">All types</option></select>
+        <button class="btn btn-ghost btn-sm" id="refresh">&#8635; Refresh</button>
+        <button class="btn btn-ghost btn-sm" id="logout">Sign out</button>
+      </div>
+      <div class="admin-wrap">
+        <table class="data-table">
+          <thead><tr><th>When</th><th>Type</th><th>Name</th><th>Contact</th><th>Property</th><th>Estimate</th><th>Notes</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p class="note" id="resultNote" style="text-align:left;margin-top:12px"></p>
+    </div>
+
+  </div>
+</section>
+
+<script src="/assets/app.js"></script>
+<script>
+(function () {
+  var KEY = 'sco_admin_token';
+  var all = [];
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function money(n){ return (n || n === 0) ? '$' + Number(n).toLocaleString('en-US') : ''; }
+  function when(s){ if(!s) return ''; var d = new Date(s); return isNaN(d.getTime()) ? esc(s) : d.toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}); }
+
+  function fmtEstimate(l){
+    if (l.estimate_low && l.estimate_high && l.estimate_low !== l.estimate_high) return money(l.estimate_low) + '–' + money(l.estimate_high);
+    if (l.estimate_low) return money(l.estimate_low);
+    return '';
+  }
+  function contact(l){
+    var p = []; if (l.email) p.push(esc(l.email)); if (l.phone) p.push(esc(l.phone)); return p.join('<br/>');
+  }
+  function property(l){
+    var p = []; if (l.street) p.push(esc(l.street));
+    var cz = [l.city, l.zip].filter(Boolean).join(' '); if (cz) p.push(esc(cz));
+    if (l.property_type) p.push(esc(l.property_type) + (l.sqft ? ' &middot; ' + esc(l.sqft) + ' sqft' : ''));
+    return p.join('<br/>');
+  }
+
+  function render(){
+    var q = ($('search').value || '').toLowerCase();
+    var tf = $('typeFilter').value;
+    var list = all.filter(function(l){
+      if (tf && l.type !== tf) return false;
+      if (q){ var hay = [l.name,l.email,l.phone,l.street,l.city,l.zip,l.message].join(' ').toLowerCase(); if (hay.indexOf(q) < 0) return false; }
+      return true;
+    });
+    $('rows').innerHTML = list.map(function(l){
+      return '<tr>' +
+        '<td>' + when(l.created_at) + '</td>' +
+        '<td><span class="tag-type">' + esc(l.type || '') + '</span></td>' +
+        '<td>' + esc(l.name || '') + '</td>' +
+        '<td>' + contact(l) + '</td>' +
+        '<td>' + property(l) + '</td>' +
+        '<td>' + esc(fmtEstimate(l)) + '</td>' +
+        '<td style="max-width:280px">' + esc(l.message || '') + (l.timeline ? '<br/><span style="color:var(--muted)">' + esc(l.timeline) + '</span>' : '') + '</td>' +
+      '</tr>';
+    }).join('') || '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:30px">No matching leads.</td></tr>';
+    $('resultNote').textContent = 'Showing ' + list.length + ' of ' + all.length + ' leads.';
+  }
+
+  function buildStats(){
+    var counts = {};
+    all.forEach(function(l){ counts[l.type] = (counts[l.type] || 0) + 1; });
+    var cards = '<div class="stat-card"><b>' + all.length + '</b><span>total</span></div>';
+    Object.keys(counts).sort().forEach(function(t){ cards += '<div class="stat-card"><b>' + counts[t] + '</b><span>' + esc(t) + '</span></div>'; });
+    $('stats').innerHTML = cards;
+    var tf = $('typeFilter'), cur = tf.value;
+    tf.innerHTML = '<option value="">All types</option>' + Object.keys(counts).sort().map(function(t){ return '<option value="' + esc(t) + '">' + esc(t) + '</option>'; }).join('');
+    tf.value = cur;
+  }
+
+  function show(which){
+    $('gate').classList.toggle('hidden', which !== 'gate');
+    $('dash').classList.toggle('hidden', which !== 'dash');
+  }
+
+  function load(){
+    var token = sessionStorage.getItem(KEY) || '';
+    fetch('/api/leads', { headers: { 'x-admin-token': token } }).then(function(r){
+      if (r.status === 401){ sessionStorage.removeItem(KEY); $('gateErr').classList.add('show'); show('gate'); return null; }
+      if (r.status === 500){
+        $('setupNote').style.display = 'block';
+        $('setupNote').innerHTML = '<b>Backend not configured.</b> Set <code>ADMIN_TOKEN</code> and <code>SUPABASE_SERVICE_ROLE_KEY</code> in your Vercel project&rsquo;s environment variables, then redeploy.';
+        show('gate'); return null;
+      }
+      if (!r.ok){ if (window.SCO) SCO.toast('Error loading leads (' + r.status + ')', 'red'); return null; }
+      return r.json();
+    }).then(function(j){
+      if (!j) return;
+      all = j.leads || [];
+      buildStats(); render(); show('dash');
+    }).catch(function(){ if (window.SCO) SCO.toast('Network error', 'red'); });
+  }
+
+  $('signin').addEventListener('click', function(){
+    var pw = $('pw').value.trim(); if (!pw) return;
+    sessionStorage.setItem(KEY, pw); $('gateErr').classList.remove('show'); load();
+  });
+  $('pw').addEventListener('keydown', function(e){ if (e.key === 'Enter') $('signin').click(); });
+  $('search').addEventListener('input', render);
+  $('typeFilter').addEventListener('change', render);
+  $('refresh').addEventListener('click', load);
+  $('logout').addEventListener('click', function(){ sessionStorage.removeItem(KEY); all = []; $('pw').value = ''; show('gate'); });
+
+  if (sessionStorage.getItem(KEY)) load(); else show('gate');
+})();
+</script>
+
+</body>
+</html>

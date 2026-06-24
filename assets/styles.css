@@ -410,3 +410,20 @@ footer.site a:hover{color:#fff}
 .cities .city:hover{border-color:var(--accent);color:var(--accent2)}
 .area .cities .city{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.16);color:#fff}
 .area .cities .city:hover{border-color:rgba(255,255,255,.4);color:#fff}
+
+/* Admin leads dashboard */
+.stat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:12px;margin-bottom:20px}
+.stat-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center;box-shadow:var(--shadow-sm)}
+.stat-card b{display:block;font-size:1.7rem;color:var(--ink);line-height:1}
+.stat-card span{font-size:.76rem;color:var(--muted);text-transform:capitalize}
+.admin-wrap{overflow-x:auto;border-radius:var(--radius)}
+.data-table{width:100%;border-collapse:collapse;font-size:.86rem;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;min-width:760px}
+.data-table th{background:var(--soft);text-align:left;padding:11px 12px;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:1px solid var(--line);white-space:nowrap}
+.data-table td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:var(--soft)}
+.tag-type{display:inline-block;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent2);white-space:nowrap}
+.admin-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.admin-bar .grow{flex:1;min-width:180px}
+.admin-note{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:18px;color:var(--muted);font-size:.92rem}
+.admin-note code{background:#fff;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.85em;color:var(--ink)}
